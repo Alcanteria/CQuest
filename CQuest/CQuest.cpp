@@ -2,10 +2,19 @@
 //
 
 #include "stdafx.h"
+#include <iostream>
+#include "Menus\Menu.h"
 
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	Menu * pMenu = new Menu();
+
+	pMenu->ShowWelcomeMessage();
+
+	delete pMenu;
+	pMenu = 0;
+
 	return 0;
 }
 
