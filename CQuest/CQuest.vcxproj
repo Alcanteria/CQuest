@@ -79,6 +79,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core\Game.h" />
     <ClInclude Include="Menus\Menu.h" />
     <ClInclude Include="Menus\MainMenu.h" />
     <ClInclude Include="stdafx.h" />
@@ -86,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CQuest.cpp" />
+    <ClCompile Include="Core\Game.cpp" />
     <ClCompile Include="Menus\Menu.cpp" />
     <ClCompile Include="Menus\MainMenu.cpp" />
     <ClCompile Include="stdafx.cpp">

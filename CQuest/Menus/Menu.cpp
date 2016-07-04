@@ -42,6 +42,17 @@ void Menu::ShowAllOptions() const
 {
 	for (auto const &item : optionKeys)
 	{
-		std::cout << item.first << "     " << item.second << std::endl;
+		std::cout << item.first << ".     " << item.second << std::endl;
 	}
+
+	std::cout << "-----Please enter a number from the available options.-----" << std::endl;
+}
+
+// See if the key pressed is one of the available options.
+void Menu::CheckKeyPressed(char key) const
+{
+	if (IsOptionKeyPresent(key))
+		std::cout << "Valid Option." << std::endl;
+	else
+		std::cout << "-----Not a valid choice. Please try again.-----" << std::endl;
 }

@@ -3,20 +3,28 @@
 
 #include "stdafx.h"
 #include <iostream>
-#include "Menus\Menu.h"
+#include "Core\Game.h"
 
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	Menu * pMenu = new Menu();
+	Game* game = new Game();
 
-	pMenu->ShowWelcomeMessage();
-	pMenu->AddOptionKey('1', "First Item.");
+	char input;
 
-	pMenu->ShowAllOptions();
+	game->GetActiveMenu().ShowWelcomeMessage();
 
-	delete pMenu;
-	pMenu = 0;
+	while (!game->IsGameOver())
+	{
+		game->GetActiveMenu().ShowAllOptions();
+
+		std::cin >> input;
+
+		game->GetActiveMenu().CheckKeyPressed(input);
+	}
+
+	delete game;
+	game = 0;
 
 	return 0;
 }

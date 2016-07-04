@@ -4,20 +4,13 @@
 
 MainMenu::MainMenu()
 {
-	welcomeMessage = "Welcome To CQuest.";
+	welcomeMessage = "**********Welcome To CQuest.**********";
+
+	AddOptionKey('1', "Start New Game.");
+	AddOptionKey('2', "Exit.");
 }
 
 
 MainMenu::~MainMenu()
 {
-}
-
-void MainMenu::SetActiveStatus(bool status)
-{
-	isActive = status;
-}
-
-bool MainMenu::IsActive() const
-{
-	return isActive;
 }

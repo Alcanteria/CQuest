@@ -1,18 +1,12 @@
 #pragma once
 
 #include <string>
+#include "Menu.h"
 
-class MainMenu
+class MainMenu : public Menu
 {
 public:
 	MainMenu();
 	~MainMenu();
-
-	std::string GetWelcomeMessage() const { return welcomeMessage; }
-	void SetActiveStatus(bool status);
-	bool IsActive() const;
-private:
-	std::string welcomeMessage;
-	bool isActive;
 };
 
