@@ -19,7 +19,7 @@ void Menu::ShowWelcomeMessage() const
 	std::cout << GetWelcomeMessage() << std::endl;
 }
 
-// Search for the passed key value in the map store.
+// Search for the passed key press value in the map store.
 const bool Menu::IsOptionKeyPresent(char key) const
 {
 	std::map<char, std::string>::const_iterator iterator;
@@ -55,4 +55,20 @@ void Menu::CheckKeyPressed(char key) const
 		std::cout << "Valid Option." << std::endl;
 	else
 		std::cout << "-----Not a valid choice. Please try again.-----" << std::endl;
+}
+
+// Takes a key input that has been verified to be a legal option in the menu and performs the corresponding task.
+void Menu::ProcessOptionKeyPress(char key) const
+{
+	switch (key)
+	{
+	case '1':
+		std::cout << "Default Menu Function." << std::endl;
+		break;
+	case '2':
+		std::cout << "DEFAULT Game Over DEFAULT." << std::endl;
+
+	default:
+		break;
+	}
 }

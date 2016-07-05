@@ -6,6 +6,7 @@
 
 class Menu
 {
+
 public:
 	Menu();
 	~Menu();
@@ -18,7 +19,8 @@ public:
 			void							AddOptionKey(char key, std::string description);
 	const	std::map<char, std::string>		GetOptionKeys()										const		{ return optionKeys; }
 			void							ShowAllOptions()									const;
-			void							CheckKeyPressed(char key)							const;
+	virtual	void							CheckKeyPressed(char key)							const;
+	virtual	void							ProcessOptionKeyPress(char key)						const;
 protected:
 	void									SetWelcomeMessage(std::string message)							{ welcomeMessage = message; }
 	std::string	welcomeMessage;
