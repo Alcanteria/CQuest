@@ -8,7 +8,6 @@ Menu::Menu(Game* game) : game(game)
 	SetWelcomeMessage("Base Menu Class.");
 }
 
-
 Menu::~Menu()
 {
 }

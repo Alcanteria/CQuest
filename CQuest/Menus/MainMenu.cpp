@@ -12,7 +12,6 @@ MainMenu::MainMenu(Game* game) : Menu(game)
 	AddOptionKey('2', "Exit.");
 }
 
-
 MainMenu::~MainMenu()
 {
 }
