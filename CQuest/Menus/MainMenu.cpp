@@ -1,9 +1,10 @@
 #include "stdafx.h"
 #include "MainMenu.h"
 #include <iostream>
+#include "..\Core\Game.h"
 
 
-MainMenu::MainMenu()
+MainMenu::MainMenu(Game* game) : Menu(game)
 {
 	welcomeMessage = "**********Welcome To CQuest.**********";
 
@@ -23,6 +24,10 @@ void MainMenu::CheckKeyPressed(char key) const
 	{
 		ProcessOptionKeyPress(key);
 	}
+	else
+	{
+		std::cout << "Not a valid option. Please try again." << std::endl;
+	}
 }
 
 // Takes a key input that has been verified to be a legal option in the menu and performs the corresponding task.
@@ -34,8 +39,10 @@ void MainMenu::ProcessOptionKeyPress(char key) const
 		std::cout << "Game Started." << std::endl;
 		break;
 	case '2':
-		std::cout << "Game Over." << std::endl;
-		
+	{
+		game->SetGameOver(true);
+		break;
+	}		
 	default:
 		break;
 	}

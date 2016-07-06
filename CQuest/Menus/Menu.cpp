@@ -3,7 +3,7 @@
 #include <iostream>
 #include <algorithm>
 
-Menu::Menu()
+Menu::Menu(Game* game) : game(game)
 {
 	SetWelcomeMessage("Base Menu Class.");
 }

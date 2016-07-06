@@ -4,11 +4,14 @@
 #include <map>
 #include <vector>
 
+class Game;
+
 class Menu
 {
 
 public:
-	Menu();
+
+	Menu(Game* game);
 	~Menu();
 
 	const	std::string						GetWelcomeMessage()									const		{ return welcomeMessage; }
@@ -25,6 +28,7 @@ protected:
 	void									SetWelcomeMessage(std::string message)							{ welcomeMessage = message; }
 	std::string	welcomeMessage;
 	std::map<char, std::string> optionKeys;
+	Game* game;
 private:
 	bool isActive;
 };
