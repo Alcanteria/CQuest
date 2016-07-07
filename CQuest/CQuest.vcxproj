@@ -79,6 +79,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Menus\CharacterSelectMenu.h" />
     <ClInclude Include="Core\Game.h" />
     <ClInclude Include="Menus\GameOverMenu.h" />
     <ClInclude Include="Menus\Menu.h" />
@@ -87,6 +88,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Menus\CharacterSelectMenu.cpp" />
     <ClCompile Include="CQuest.cpp" />
     <ClCompile Include="Core\Game.cpp" />
     <ClCompile Include="Menus\GameOverMenu.cpp" />

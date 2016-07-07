@@ -14,6 +14,7 @@ MainMenu::MainMenu(Game* game) : Menu(game)
 
 MainMenu::~MainMenu()
 {
+
 }
 
 // Use this method to take the input key pressed by the user. It will figure out what to do with the key input.
@@ -39,7 +40,7 @@ void MainMenu::ProcessOptionKeyPress(char key) const
 		break;
 	case '2':
 	{
-		game->SetGameOver(true);
+		game->EndGame();
 		break;
 	}		
 	default:
