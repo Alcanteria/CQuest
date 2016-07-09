@@ -39,6 +39,9 @@
     <ClInclude Include="Menus\CharacterSelectMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Characters\CharacterClass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -60,6 +63,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Menus\CharacterSelectMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\CharacterClass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -71,3 +71,10 @@ void Menu::ProcessOptionKeyPress(std::string key) const
 		break;
 	}
 }
+
+// Prints a sequence of empty spaces to create a margin between print outs. This attempts to make the text more readable.
+const void Menu::PrintGap(int spaces) const
+{
+	for (int i = 0; i < spaces; i++)
+		std::cout << "" << std::endl;
+}

@@ -26,6 +26,7 @@ public:
 			void									ShowAllOptions()											const;
 	virtual	void									CheckKeyPressed(std::string key)							const;
 	virtual	void									ProcessOptionKeyPress(std::string key)						const;
+	const	void									PrintGap(int spaces = 3)									const;
 protected:
 	void											SetWelcomeMessage(std::string message)									{ welcomeMessage = message; }
 	std::string	welcomeMessage;
