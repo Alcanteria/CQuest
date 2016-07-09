@@ -61,6 +61,7 @@ bool Game::CheckActiveMenu() const
 // Ends the current game and makes sure everything is correctly shut down.
 const void Game::EndGame()
 {
+	Menu::PrintGap(2);
 	std::cout << "##### GAME OVER #####" << std::endl;
 	SetGameOver(true);
 }

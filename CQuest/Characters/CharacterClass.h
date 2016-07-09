@@ -10,7 +10,8 @@ public:
 		FIGHTER = 3,
 		RANGER = 4,
 		ROGUE = 5,
-		WIZARD = 6
+		WIZARD = 6,
+		NUMBER_OF_CLASSES = 6
 	};
 	
 	CharacterClass();

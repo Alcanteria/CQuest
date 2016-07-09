@@ -9,7 +9,7 @@ MainMenu::MainMenu(Game* game) : Menu(game)
 	welcomeMessage = "**********Welcome To CQuest.**********";
 
 	AddOptionKey("1", "Start New Game.");
-	AddOptionKey("2", "Exit.");
+	AddOptionKey("2", Menu::EXIT);
 }
 
 MainMenu::~MainMenu()
@@ -33,17 +33,9 @@ void MainMenu::CheckKeyPressed(std::string key) const
 // Takes a key input that has been verified to be a legal option in the menu and performs the corresponding task.
 void MainMenu::ProcessOptionKeyPress(std::string key) const
 {
-	switch (key[0])
-	{
-	case '1':
+	if (key == "1")
 		game->ChangeMenu(Menu::MENUS::CHARACTER_SELECT);
-		break;
-	case '2':
-	{
+
+	if (key == "2")
 		game->EndGame();
-		break;
-	}		
-	default:
-		break;
-	}
 }

@@ -16,6 +16,9 @@ public:
 	// List of possible menus.
 	enum MENUS { MAIN, CHARACTER_SELECT, GAME_OVER, NONE };
 
+	// Default exit menu value.
+	const std::string EXIT = "*****EXIT*****";
+
 	const	std::string								GetWelcomeMessage()											const		{ return welcomeMessage; }
 	const	bool									IsActive()													const		{ return isActive; }
 	const	void									SetActiveStatus(bool active)											{ isActive = active; }
@@ -26,7 +29,8 @@ public:
 			void									ShowAllOptions()											const;
 	virtual	void									CheckKeyPressed(std::string key)							const;
 	virtual	void									ProcessOptionKeyPress(std::string key)						const;
-	const	void									PrintGap(int spaces = 3)									const;
+	const	static	void							PrintGap(int spaces = 3);
+	const	void									PrintInvalidOption()										const;
 protected:
 	void											SetWelcomeMessage(std::string message)									{ welcomeMessage = message; }
 	std::string	welcomeMessage;

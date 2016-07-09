@@ -2,6 +2,7 @@
 #include "CharacterSelectMenu.h"
 #include <iostream>
 #include "..\Characters\CharacterClass.h"
+#include "..\Core\Game.h"
 
 CharacterSelectMenu::CharacterSelectMenu(Game* game) : Menu(game)
 {
@@ -26,8 +27,8 @@ CharacterSelectMenu::CharacterSelectMenu(Game* game) : Menu(game)
 	}
 	
 	// Add the exit option as the last option.
-	std::string number = std::to_string(i + 1);
-	AddOptionKey(number, "*****EXIT*****");
+	std::string number = std::to_string(i);
+	AddOptionKey(number, Menu::EXIT);
 }
 
 
@@ -43,17 +44,41 @@ void CharacterSelectMenu::CheckKeyPressed(std::string key) const
 	}
 	else
 	{
-		std::cout << "*****Not a valid option. Please try again.*****" << std::endl;
-		PrintGap();
+		PrintInvalidOption();
 	}
 }
 
 void CharacterSelectMenu::ProcessOptionKeyPress(std::string key) const
 {
 	int input = std::stoi(key);
-	if (input == CharacterClass::CLASSES::BARBARIAN)
-		std::cout << "You picked Barbarian." << std::endl;
 
+	switch (input)
+	{
+	case CharacterClass::CLASSES::BARBARIAN:
+		std::cout << "You picked Barbarian." << std::endl;
+		break;
+	case CharacterClass::CLASSES::CLERIC:
+		std::cout << "You picked Cleric." << std::endl;
+		break;
+	case CharacterClass::CLASSES::FIGHTER:
+		std::cout << "You picked Fighter." << std::endl;
+		break;
+	case CharacterClass::CLASSES::RANGER:
+		std::cout << "You picked Ranger." << std::endl;
+		break;
+	case CharacterClass::CLASSES::ROGUE:
+		std::cout << "You picked Rogue." << std::endl;
+		break;
+	case CharacterClass::CLASSES::WIZARD:
+		std::cout << "You picked Wizard." << std::endl;
+		break;
+	case CharacterClass::CLASSES::NUMBER_OF_CLASSES + 1:
+		game->EndGame();
+		break;
+	default:
+		PrintInvalidOption();
+		break;
+	}	
 	PrintGap();
 }
 
