@@ -19,7 +19,7 @@ public:
 	const		std::map<Menu::MENUS, Menu*>			GetMenus()								const			{ return menus; }
 	const		Menu*									GetMenu(Menu::MENUS menuName)			const;
 	const		void									SetActiveMenu(Menu::MENUS menu)							{ activeMenu = menu; }
-	const		Menu*									GetActiveMenu();
+	const		Menu*									GetActiveMenu()							const;
 				bool									CheckActiveMenu()						const;
 	const		void									ChangeMenu(Menu::MENUS menu);
 private:

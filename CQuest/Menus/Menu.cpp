@@ -19,9 +19,9 @@ void Menu::ShowWelcomeMessage() const
 }
 
 // Search for the passed key press value in the map store.
-const bool Menu::IsOptionKeyPresent(char key) const
+const bool Menu::IsOptionKeyPresent(std::string key) const
 {
-	std::map<char, std::string>::const_iterator iterator;
+	std::map<std::string, std::string>::const_iterator iterator;
 	iterator = optionKeys.find(key);
 
 	if (iterator != optionKeys.end())
@@ -31,7 +31,7 @@ const bool Menu::IsOptionKeyPresent(char key) const
 }
 
 // Add the passed string description at the passed character key location.
-void Menu::AddOptionKey(char key, std::string description)
+void Menu::AddOptionKey(std::string key, std::string description)
 {
 	optionKeys.insert(std::make_pair(key, description));
 }
@@ -48,7 +48,7 @@ void Menu::ShowAllOptions() const
 }
 
 // See if the key pressed is one of the available options.
-void Menu::CheckKeyPressed(char key) const
+void Menu::CheckKeyPressed(std::string key) const
 {
 	if (IsOptionKeyPresent(key))
 		std::cout << "Valid Option." << std::endl;
@@ -57,9 +57,9 @@ void Menu::CheckKeyPressed(char key) const
 }
 
 // Takes a key input that has been verified to be a legal option in the menu and performs the corresponding task.
-void Menu::ProcessOptionKeyPress(char key) const
+void Menu::ProcessOptionKeyPress(std::string key) const
 {
-	switch (key)
+	switch (key[0])
 	{
 	case '1':
 		std::cout << "Default Menu Function." << std::endl;

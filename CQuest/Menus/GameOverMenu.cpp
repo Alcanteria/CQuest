@@ -12,12 +12,12 @@ GameOverMenu::~GameOverMenu()
 {
 }
 
-void GameOverMenu::CheckKeyPressed(char key) const
+void GameOverMenu::CheckKeyPressed(std::string key) const
 {
 
 }
 
-void GameOverMenu::ProcessOptionKeyPress(char key) const
+void GameOverMenu::ProcessOptionKeyPress(std::string key) const
 {
 
 }

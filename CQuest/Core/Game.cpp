@@ -65,11 +65,15 @@ const void Game::EndGame()
 	SetGameOver(true);
 }
 
+// Change the active menu to the passes menu enum.
 const void Game::ChangeMenu(Menu::MENUS menu)
 {
+	// Make sure the current menu isn't empty, which should indicate that the game has just loaded.
 	if (activeMenu != Menu::MENUS::NONE)
-		GetActiveMenu()->SetActiveStatus(false);
+		menus.at(menu)->SetActiveStatus(false);
 
+	// Change the current menu to the passed value, toggle the active boolean in the menu, and show its welcome message.
 	SetActiveMenu(menu);
-	GetActiveMenu()->SetActiveStatus(true);
+	menus.at(menu)->SetActiveStatus(true);
+	menus.at(menu)->ShowWelcomeMessage();
 }

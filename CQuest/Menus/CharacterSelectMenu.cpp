@@ -4,18 +4,21 @@
 CharacterSelectMenu::CharacterSelectMenu(Game* game) : Menu(game)
 {
 	welcomeMessage = "**********Choose a Character Class.**********";
+
+	SetUpCharacterClasses();
 	
 	int i = 0;
 
 	for (auto& item : characterClasses)
 	{
-		//char number = i + 1;
-		AddOptionKey(i + 1, characterClasses.at(i));
+		std::string number = std::to_string(i + 1);
+		AddOptionKey(number, characterClasses.at(i));
 		i++;
 	}
-	//char number = i + 1;
+	//char number = char(i + 1);
 	//AddOptionKey('1', ".");
-	AddOptionKey(i + 1, "Exit.");
+	std::string number = std::to_string(i + 1);
+	AddOptionKey(number, "Exit.");
 }
 
 
@@ -23,12 +26,12 @@ CharacterSelectMenu::~CharacterSelectMenu()
 {
 }
 
-void CharacterSelectMenu::CheckKeyPressed(char key) const
+void CharacterSelectMenu::CheckKeyPressed(std::string key) const
 {
 
 }
 
-void CharacterSelectMenu::ProcessOptionKeyPress(char key) const
+void CharacterSelectMenu::ProcessOptionKeyPress(std::string key) const
 {
 
 }

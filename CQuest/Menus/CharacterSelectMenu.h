@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Menus\Menu.h"
+#include "Menu.h"
 #include <vector>
 
 class Game;
@@ -11,8 +11,8 @@ public:
 	CharacterSelectMenu(Game* game);
 	~CharacterSelectMenu();
 
-	virtual void CheckKeyPressed(char key) const override;
-	virtual void ProcessOptionKeyPress(char key) const override;
+	virtual void CheckKeyPressed(std::string key) const override;
+	virtual void ProcessOptionKeyPress(std::string key) const override;
 private:
 	const void SetUpCharacterClasses();
 
