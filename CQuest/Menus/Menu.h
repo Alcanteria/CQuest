@@ -19,6 +19,9 @@ public:
 	// Default exit menu value.
 	const std::string EXIT = "*****EXIT*****";
 
+	// Default "back to previous menu" value.
+	const std::string GO_BACK = "<----GO BACK";
+
 	const	std::string								GetWelcomeMessage()											const		{ return welcomeMessage; }
 	const	bool									IsActive()													const		{ return isActive; }
 	const	void									SetActiveStatus(bool active)											{ isActive = active; }

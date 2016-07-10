@@ -19,17 +19,22 @@ public:
 	const		std::map<Menu::MENUS, Menu*>			GetMenus()								const			{ return menus; }
 	const		Menu*									GetMenu(Menu::MENUS menuName)			const;
 	const		void									SetActiveMenu(Menu::MENUS menu)							{ activeMenu = menu; }
+	const		void									SetPreviousMenu(Menu::MENUS menu)						{ previousMenu = menu; }
 	const		Menu*									GetActiveMenu()							const;
+	const		Menu*									GetPreviousMenu()						const;
 				bool									CheckActiveMenu()						const;
 	const		void									ChangeMenu(Menu::MENUS menu);
+
+	// Currently active menu.
+	Menu::MENUS activeMenu = Menu::MENUS::NONE;
+
+	// The menu that was open previous to the current menu.
+	Menu::MENUS previousMenu = Menu::MENUS::NONE;
 private:
 	// Game over status.
 	bool gameOver;
 
 	// Store of all menus.
 	std::map<Menu::MENUS, Menu*> menus;
-
-	// Currently active menu.
-	Menu::MENUS activeMenu = Menu::MENUS::NONE;
 };
 

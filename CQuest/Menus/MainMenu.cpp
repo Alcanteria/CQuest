@@ -6,7 +6,7 @@
 
 MainMenu::MainMenu(Game* game) : Menu(game)
 {
-	welcomeMessage = "**********Welcome To CQuest.**********";
+	welcomeMessage = "**********Welcome To C Quest**********";
 
 	AddOptionKey("1", "Start New Game.");
 	AddOptionKey("2", Menu::EXIT);

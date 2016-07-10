@@ -25,10 +25,14 @@ CharacterSelectMenu::CharacterSelectMenu(Game* game) : Menu(game)
 		
 		i++;
 	}
+
+	// Add the option to go back to the previous menu.
+	std::string backNumber = std::to_string(i);
+	AddOptionKey(backNumber, Menu::GO_BACK);
 	
 	// Add the exit option as the last option.
-	std::string number = std::to_string(i);
-	AddOptionKey(number, Menu::EXIT);
+	std::string exitNumber = std::to_string(i + 1);
+	AddOptionKey(exitNumber, Menu::EXIT);
 }
 
 
@@ -73,6 +77,9 @@ void CharacterSelectMenu::ProcessOptionKeyPress(std::string key) const
 		std::cout << "You picked Wizard." << std::endl;
 		break;
 	case CharacterClass::CLASSES::NUMBER_OF_CLASSES + 1:
+		game->ChangeMenu(game->previousMenu);
+		break;
+	case CharacterClass::CLASSES::NUMBER_OF_CLASSES + 2:
 		game->EndGame();
 		break;
 	default:

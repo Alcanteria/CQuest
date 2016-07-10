@@ -17,6 +17,7 @@ Game::Game()
 	AddMenu(Menu::MENUS::CHARACTER_SELECT, characterSelectMenu);
 
 	SetActiveMenu(Menu::MENUS::MAIN);
+	SetPreviousMenu(Menu::MENUS::MAIN);
 }
 
 
@@ -49,6 +50,12 @@ const Menu* Game::GetActiveMenu() const
 	return menus.at(activeMenu);
 }
 
+// Retrieve the menu viewed previous to the current one.
+const Menu* Game::GetPreviousMenu() const
+{
+	return menus.at(previousMenu);
+}
+
 // Check to see if the active menu is a real menu, or the indicator that the game is at an end.
 bool Game::CheckActiveMenu() const
 {
@@ -58,7 +65,7 @@ bool Game::CheckActiveMenu() const
 		return false;
 }
 
-// Ends the current game and makes sure everything is correctly shut down.
+// Ends the current game. This ends the game loop so the main() can properly clean up before exiting the program.
 const void Game::EndGame()
 {
 	Menu::PrintGap(2);
@@ -71,7 +78,13 @@ const void Game::ChangeMenu(Menu::MENUS menu)
 {
 	// Make sure the current menu isn't empty, which should indicate that the game has just loaded.
 	if (activeMenu != Menu::MENUS::NONE)
+	{
+		// Toggle the active status boolean.
 		menus.at(menu)->SetActiveStatus(false);
+
+		// Make the current menu the previous menu (so we can go "back" from the next menu, if need be.)
+		SetPreviousMenu(activeMenu);
+	}
 
 	// Change the current menu to the passed value, toggle the active boolean in the menu, and show its welcome message.
 	SetActiveMenu(menu);

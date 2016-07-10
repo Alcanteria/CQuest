@@ -15,7 +15,9 @@ Menu::~Menu()
 // Print the default welcome message to the console.
 void Menu::ShowWelcomeMessage() const
 {
+	PrintGap(1);
 	std::cout << GetWelcomeMessage() << std::endl;
+	PrintGap(1);
 }
 
 // Search for the passed key press value in the map store.
@@ -44,6 +46,7 @@ void Menu::ShowAllOptions() const
 		std::cout << item.first << ".     " << item.second << std::endl;
 	}
 
+	PrintGap(1);
 	std::cout << "-----Please enter a number from the available options.-----" << std::endl;
 }
 
@@ -68,6 +71,7 @@ void Menu::ProcessOptionKeyPress(std::string key) const
 		std::cout << "DEFAULT Game Over DEFAULT." << std::endl;
 
 	default:
+		std::cout << "Menu() DEFAULT - Invalid Key Entered." << std::endl;
 		break;
 	}
 }
