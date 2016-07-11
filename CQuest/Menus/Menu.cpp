@@ -3,6 +3,8 @@
 #include <iostream>
 #include <algorithm>
 
+#define DEBUG_MODE = 1
+
 Menu::Menu(Game* game) : game(game)
 {
 	SetWelcomeMessage("Base Menu Class.");
@@ -10,6 +12,9 @@ Menu::Menu(Game* game) : game(game)
 
 Menu::~Menu()
 {
+#if defined(DEBUG_MODE)
+	std::cout << "Menu() Destructor." << std::endl;
+#endif
 }
 
 // Print the default welcome message to the console.

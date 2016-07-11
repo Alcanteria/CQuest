@@ -5,6 +5,7 @@
 #include "..\Menus\CharacterSelectMenu.h"
 #include <iostream>
 
+#define DEBUG_MODE = 1
 Game::Game()
 {
 	MainMenu* mainMenu = new MainMenu(this);
@@ -28,7 +29,7 @@ Game::~Game()
 	delete menus.at(Menu::MENUS::GAME_OVER);
 
 #if defined(DEBUG_MODE)
-	std::cout << "Game Destructor." <, std::endl;
+	std::cout << "Game Destructor." << std::endl;
 #endif
 }
 
