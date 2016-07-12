@@ -28,7 +28,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		std::string stringInput;
 		stringInput = input;
 
-		game->GetActiveMenu()->CheckKeyPressed(stringInput);
+		game->GetActiveMenu()->ValidateKeyPressed(stringInput);
 	}
 
 	delete game;

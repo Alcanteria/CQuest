@@ -18,7 +18,7 @@ MainMenu::~MainMenu()
 }
 
 // Use this method to take the input key pressed by the user. It will figure out what to do with the key input.
-void MainMenu::CheckKeyPressed(std::string key) const
+void MainMenu::ValidateKeyPressed(std::string key) const
 {
 	if (IsOptionKeyPresent(key))
 	{

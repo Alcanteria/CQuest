@@ -7,20 +7,19 @@
 CharacterSelectMenu::CharacterSelectMenu(Game* game) : Menu(game)
 {
 	welcomeMessage = "**********Choose a Character Class.**********";
-
-	SetUpCharacterClasses();
 	
 	// Create an iterator to help automatically grab class name indices in the loop.
 	int i = 0;
 
-	for (auto& item : characterClasses)
+	for (auto& item : CharacterClass::CLASS_NAMES)
 	{
 		// Skip the first item in the vector, since it is zero and we aren't using zero in our option lists.
 		if (i != 0)
 		{
 			// Get the string of the number of the iterator, and add the option key for that number and the character class name in the character class vector.
 			std::string number = std::to_string(i);
-			AddOptionKey(number, characterClasses.at(i));
+			AddOptionKey(number, CharacterClass::CLASS_NAMES.at(i));
+			//AddOptionKey(number, characterClasses.at(i));
 		}
 		
 		i++;
@@ -40,7 +39,7 @@ CharacterSelectMenu::~CharacterSelectMenu()
 {
 }
 
-void CharacterSelectMenu::CheckKeyPressed(std::string key) const
+void CharacterSelectMenu::ValidateKeyPressed(std::string key) const
 {
 	if (IsOptionKeyPresent(key))
 	{
@@ -52,51 +51,39 @@ void CharacterSelectMenu::CheckKeyPressed(std::string key) const
 	}
 }
 
+// Determine what is to be done with the key entered by the user.
 void CharacterSelectMenu::ProcessOptionKeyPress(std::string key) const
 {
+	// Convert the key press from a string to an int so we can do numberic value checks.
 	int input = std::stoi(key);
 
-	switch (input)
+	// If the value is less than the NUMBER_OF_CLASSES + 1 enum, it means a class was selected from the list.
+	if (input < CharacterClass::CLASSES::NUMBER_OF_CLASSES + 1)
 	{
-	case CharacterClass::CLASSES::BARBARIAN:
-		std::cout << "You picked Barbarian." << std::endl;
-		break;
-	case CharacterClass::CLASSES::CLERIC:
-		std::cout << "You picked Cleric." << std::endl;
-		break;
-	case CharacterClass::CLASSES::FIGHTER:
-		std::cout << "You picked Fighter." << std::endl;
-		break;
-	case CharacterClass::CLASSES::RANGER:
-		std::cout << "You picked Ranger." << std::endl;
-		break;
-	case CharacterClass::CLASSES::ROGUE:
-		std::cout << "You picked Rogue." << std::endl;
-		break;
-	case CharacterClass::CLASSES::WIZARD:
-		std::cout << "You picked Wizard." << std::endl;
-		break;
-	case CharacterClass::CLASSES::NUMBER_OF_CLASSES + 1:
-		game->ChangeMenu(game->previousMenu);
-		break;
-	case CharacterClass::CLASSES::NUMBER_OF_CLASSES + 2:
-		game->EndGame();
-		break;
-	default:
-		PrintInvalidOption();
-		break;
-	}	
-	PrintGap();
+		std::cout << "You picked a " << CharacterClass::CLASS_NAMES.at(input) << std::endl;
+		PrintGap();
+	}
+	// If a value greater than or equal to the NUMBER_OF_CLASSES + 1 enum was selected, than one of the menu navigation options was selected.
+	else
+	{
+		switch (input)
+		{
+		case CharacterClass::CLASSES::NUMBER_OF_CLASSES + 1:
+			game->ChangeMenu(game->previousMenu);
+			break;
+		case CharacterClass::CLASSES::NUMBER_OF_CLASSES + 2:
+			game->EndGame();
+			break;
+		default:
+			PrintInvalidOption();
+			break;
+		}
+	}
 }
 
-// Populate the store of character classes.
-const void CharacterSelectMenu::SetUpCharacterClasses()
+// Prompts the user to name their character.
+const void CharacterSelectMenu::NameCharacter()
 {
-	characterClasses.push_back("None.");
-	characterClasses.push_back("Barbarian");
-	characterClasses.push_back("Cleric");
-	characterClasses.push_back("Fighter");
-	characterClasses.push_back("Ranger");
-	characterClasses.push_back("Rogue");
-	characterClasses.push_back("Wizard");
+	// TODO: Create input prompt to allow user to enter in a character name. Need to figure out how to read more than just the first character of the input.
+	//game->NameCharacter(name);
 }
