@@ -6,8 +6,6 @@ Barbarian::Barbarian()
 {
 	SetCharacterClass(CharacterClass::CLASSES::BARBARIAN);
 
-	SetName("Barbarian");
-
 	SetSTR(20);
 	SetCON(18);
 	SetDEX(16);
