@@ -4,7 +4,7 @@
 #include <iostream>
 #include "Core\Game.h"
 
-#define DEBUG_MODE = 1
+//#define DEBUG_MODE = 1
 
 int _tmain(int argc, _TCHAR* argv[])
 {
