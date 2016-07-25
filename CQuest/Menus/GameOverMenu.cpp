@@ -12,7 +12,7 @@ GameOverMenu::~GameOverMenu()
 {
 }
 
-void GameOverMenu::CheckKeyPressed(std::string key) const
+void GameOverMenu::ValidateKeyPressed(std::string key) const
 {
 
 }

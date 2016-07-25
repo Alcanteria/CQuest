@@ -93,3 +93,8 @@ const void Game::ChangeMenu(Menu::MENUS menu)
 	menus.at(menu)->SetActiveStatus(true);
 	menus.at(menu)->ShowWelcomeMessage();
 }
+
+const void Game::NameCharacter(std::string name)
+{
+	player.SetCharacterName(name);
+}

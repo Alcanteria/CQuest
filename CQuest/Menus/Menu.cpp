@@ -56,7 +56,7 @@ void Menu::ShowAllOptions() const
 }
 
 // See if the key pressed is one of the available options.
-void Menu::CheckKeyPressed(std::string key) const
+void Menu::ValidateKeyPressed(std::string key) const
 {
 	if (IsOptionKeyPresent(key))
 		std::cout << "Valid Option." << std::endl;

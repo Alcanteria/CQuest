@@ -30,7 +30,7 @@ public:
 			void									AddOptionKey(std::string key, std::string description);
 	const	std::map<std::string, std::string>		GetOptionKeys()												const		{ return optionKeys; }
 			void									ShowAllOptions()											const;
-	virtual	void									CheckKeyPressed(std::string key)							const;
+	virtual	void									ValidateKeyPressed(std::string key)							const;
 	virtual	void									ProcessOptionKeyPress(std::string key)						const;
 	const	static	void							PrintGap(int spaces = 3);
 	const	void									PrintInvalidOption()										const;

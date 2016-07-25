@@ -79,6 +79,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Characters\Barbarian.h" />
     <ClInclude Include="Characters\CharacterClass.h" />
     <ClInclude Include="Menus\CharacterSelectMenu.h" />
     <ClInclude Include="Core\Game.h" />
@@ -90,6 +91,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Characters\Barbarian.cpp" />
     <ClCompile Include="Characters\CharacterClass.cpp" />
     <ClCompile Include="Menus\CharacterSelectMenu.cpp" />
     <ClCompile Include="CQuest.cpp" />
