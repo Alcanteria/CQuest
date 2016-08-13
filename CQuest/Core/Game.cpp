@@ -96,5 +96,10 @@ const void Game::ChangeMenu(Menu::MENUS menu)
 
 const void Game::NameCharacter(std::string name)
 {
-	player.SetCharacterName(name);
+	characterName = name;
+}
+
+const void Game::CreateNewCharacter(CharacterClass* character)
+{
+	playerCharacter = character;
 }

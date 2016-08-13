@@ -42,9 +42,6 @@
     <ClInclude Include="Characters\CharacterClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Characters\Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Characters\Barbarian.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -72,9 +69,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Characters\CharacterClass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Characters\Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Characters\Barbarian.cpp">

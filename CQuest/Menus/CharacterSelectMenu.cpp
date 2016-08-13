@@ -99,5 +99,6 @@ const void CharacterSelectMenu::NameCharacter() const
 	game->NameCharacter(newName);
 
 	// Print the name the player entered after it has been set as the character name.
-	std::cout << "Hello, " << game->GetCharacter().GetCharacterName() << std::endl;
+	//std::cout << "Hello, " << game->GetCharacter().GetCharacterName() << std::endl;
+	std::cout << "Hello, " << game->GetCharacterName() << std::endl;
 }
