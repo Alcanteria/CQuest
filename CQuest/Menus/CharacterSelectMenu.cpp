@@ -59,8 +59,8 @@ void CharacterSelectMenu::ProcessOptionKeyPress(std::string key) const
 	// If the value is less than the NUMBER_OF_CLASSES + 1 enum, it means a class was selected from the list.
 	if (input < CharacterClass::CLASSES::NUMBER_OF_CLASSES + 1)
 	{
+		PrintChunk();
 		std::cout << "You picked a " << CharacterClass::CLASS_NAMES.at(input) << std::endl;
-		PrintGap();
 		NameCharacter();
 	}
 	// If a value greater than or equal to the NUMBER_OF_CLASSES + 1 enum was selected, than one of the menu navigation options was selected.
@@ -87,6 +87,7 @@ const void CharacterSelectMenu::NameCharacter() const
 	// Create a string to hold the character name input by the player.
 	std::string newName;
 
+	PrintChunk();
 	std::cout << "Please enter your character's name." << std::endl;
 
 	// This line is necesssary. If you don't use this, it will skip the user input line, not letting them enter their name.
@@ -99,6 +100,7 @@ const void CharacterSelectMenu::NameCharacter() const
 	game->NameCharacter(newName);
 
 	// Print the name the player entered after it has been set as the character name.
-	//std::cout << "Hello, " << game->GetCharacter().GetCharacterName() << std::endl;
+	PrintChunk();
 	std::cout << "Hello, " << game->GetCharacterName() << std::endl;
+	PrintChunk();
 }

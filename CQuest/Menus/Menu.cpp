@@ -88,6 +88,13 @@ const void Menu::PrintGap(int spaces)
 		std::cout << "" << std::endl;
 }
 
+// Prints a block of spaces with an arrow. Makes it easier to separate blocks of text that are printed to the command prompt.
+const void Menu::PrintChunk()
+{
+	for (int i = 0; i < 9; i++)
+		std::cout << "==========" << std::endl;
+}
+
 // Prints out the standar error message if a key entered by the user is not one of the available options.
 const void Menu::PrintInvalidOption() const
 {

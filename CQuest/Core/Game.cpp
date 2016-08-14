@@ -91,6 +91,7 @@ const void Game::ChangeMenu(Menu::MENUS menu)
 	// Change the current menu to the passed value, toggle the active boolean in the menu, and show its welcome message.
 	SetActiveMenu(menu);
 	menus.at(menu)->SetActiveStatus(true);
+	Menu::PrintChunk();
 	menus.at(menu)->ShowWelcomeMessage();
 }
 

@@ -33,6 +33,7 @@ public:
 	virtual	void									ValidateKeyPressed(std::string key)							const;
 	virtual	void									ProcessOptionKeyPress(std::string key)						const;
 	const	static	void							PrintGap(int spaces = 3);
+	const	static	void							PrintChunk();
 	const	void									PrintInvalidOption()										const;
 protected:
 	void											SetWelcomeMessage(std::string message)									{ welcomeMessage = message; }
