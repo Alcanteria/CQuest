@@ -3,6 +3,7 @@
 #include <iostream>
 #include "..\Characters\CharacterClass.h"
 #include "..\Core\Game.h"
+#include <chrono>
 
 CharacterSelectMenu::CharacterSelectMenu(Game* game) : Menu(game)
 {
@@ -69,7 +70,7 @@ void CharacterSelectMenu::ProcessOptionKeyPress(std::string key) const
 		switch (input)
 		{
 		case CharacterClass::CLASSES::NUMBER_OF_CLASSES + 1:
-			game->ChangeMenu(game->previousMenu);
+			game->ChangeGameMenu(game->previousMenu);
 			break;
 		case CharacterClass::CLASSES::NUMBER_OF_CLASSES + 2:
 			game->EndGame();
@@ -84,6 +85,7 @@ void CharacterSelectMenu::ProcessOptionKeyPress(std::string key) const
 // Prompts the user to name their character.
 const void CharacterSelectMenu::NameCharacter() const
 {
+
 	// Create a string to hold the character name input by the player.
 	std::string newName;
 

@@ -95,6 +95,13 @@ const void Menu::PrintChunk()
 		std::cout << "==========" << std::endl;
 }
 
+// Prints out a single line divider to help make text easier to read.
+const void Menu::PrintSeperator()
+{
+
+	std::cout << "==========================" << std::endl;
+}
+
 // Prints out the standar error message if a key entered by the user is not one of the available options.
 const void Menu::PrintInvalidOption() const
 {

@@ -3,6 +3,7 @@
 #include "..\Menus\Menu.h"
 #include <map>
 #include "..\Characters\CharacterClass.h"
+#include <Windows.h>
 
 class Game
 {
@@ -24,11 +25,31 @@ public:
 	const		Menu*									GetActiveMenu()									const;
 	const		Menu*									GetPreviousMenu()								const;
 				bool									CheckActiveMenu()								const;
-	const		void									ChangeMenu(Menu::MENUS menu);
+	const		void									ChangeGameMenu(Menu::MENUS menu);
 	const		void									NameCharacter(std::string name);
 	const		CharacterClass*							GetCharacter()									const			{ return playerCharacter; }
 	const		void									CreateNewCharacter(CharacterClass* character);
 	const		std::string								GetCharacterName()								const			{ return characterName; }
+
+	// TIME TESTTTTTTTTTT
+	const LARGE_INTEGER& StartTime() const;
+	const LARGE_INTEGER& CurrentTime() const;
+	const LARGE_INTEGER& LastTime() const;
+
+	double TotalGameTime() const;
+
+	void SetTotalGameTime(double totalGameTime);
+
+	double ElapsedGameTime() const;
+
+	void SetElapsedGameTime(double elapsedGameTime);
+
+	void Reset();
+	double GetFrequency() const;
+	void GetTime(LARGE_INTEGER& time) const;
+	void UpdateGameTime();
+
+	// TIME TESTTTTTTTTTT
 
 	// Currently active menu.
 	Menu::MENUS activeMenu = Menu::MENUS::NONE;
@@ -47,5 +68,16 @@ private:
 
 	// The name of the player character.
 	std::string characterName;
+
+	// TIME TESTTTTTTTTTTTT
+	LARGE_INTEGER mStartTime;
+	LARGE_INTEGER mCurrentTime;
+	LARGE_INTEGER mLastTime;
+	double mFrequency;
+
+	double mTotalGameTime;
+	double mElapsedGameTime;
+
+	// TIME TESTTTTTTTTTTTT
 };
 
