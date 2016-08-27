@@ -7,7 +7,7 @@
 
 //#define DEBUG_MODE = 1
 
-Game::Game() : mStartTime(), mCurrentTime(), mLastTime(), mFrequency(), mTotalGameTime(0.0), mElapsedGameTime(0.0)
+Game::Game()
 {
 	MainMenu* mainMenu = new MainMenu(this);
 	AddMenu(Menu::MENUS::MAIN, mainMenu);
@@ -21,9 +21,7 @@ Game::Game() : mStartTime(), mCurrentTime(), mLastTime(), mFrequency(), mTotalGa
 	SetActiveMenu(Menu::MENUS::MAIN);
 	SetPreviousMenu(Menu::MENUS::MAIN);
 
-	// TIME TESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
-	mFrequency = GetFrequency();
-	Reset();
+	timer = new Timer();
 }
 
 
@@ -32,6 +30,7 @@ Game::~Game()
 	delete menus.at(Menu::MENUS::MAIN);
 	delete menus.at(Menu::MENUS::CHARACTER_SELECT);
 	delete menus.at(Menu::MENUS::GAME_OVER);
+	delete timer;
 
 #if defined(DEBUG_MODE)
 	std::cout << "Game Destructor." << std::endl;
@@ -96,16 +95,9 @@ const void Game::ChangeGameMenu(Menu::MENUS menu)
 	SetActiveMenu(menu);
 	menus.at(menu)->SetActiveStatus(true);
 
-	// TIME TESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
-	for (int i = 0; i < 10000; i++)
-	{
-		UpdateGameTime();
-		std::cout << mTotalGameTime << std::endl;
-	}
+	// Printed out a series of lines to make output text easier to read.
+	GetTimer().PrintFastGap();
 	
-	//Menu::PrintChunk();
-
-	// TIME TESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 	menus.at(menu)->ShowWelcomeMessage();
 }
 
@@ -117,72 +109,4 @@ const void Game::NameCharacter(std::string name)
 const void Game::CreateNewCharacter(CharacterClass* character)
 {
 	playerCharacter = character;
-}
-
-// TIME TESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
-const LARGE_INTEGER& Game::StartTime() const
-{
-	return mStartTime;
-}
-
-const LARGE_INTEGER& Game::CurrentTime() const
-{
-	return mCurrentTime;
-}
-
-const LARGE_INTEGER& Game::LastTime() const
-{
-	return mLastTime;
-}
-
-void Game::Reset()
-{
-	GetTime(mStartTime);
-	mCurrentTime = mStartTime;
-	mLastTime = mCurrentTime;
-}
-
-double Game::GetFrequency() const
-{
-	LARGE_INTEGER frequency;
-
-	if (QueryPerformanceFrequency(&frequency) == false)
-	{
-		throw std::exception("QueryPerformanceFrequency() failed.");
-	}
-
-	return (double)frequency.QuadPart;
-}
-
-void Game::GetTime(LARGE_INTEGER& time) const
-{
-	QueryPerformanceCounter(&time);
-}
-
-void Game::UpdateGameTime()
-{
-	GetTime(mCurrentTime);
-	SetTotalGameTime((mCurrentTime.QuadPart - mStartTime.QuadPart) / mFrequency);
-	SetElapsedGameTime((mCurrentTime.QuadPart - mLastTime.QuadPart) / mFrequency);
-	mLastTime = mCurrentTime;
-}
-
-double Game::TotalGameTime() const
-{
-	return mTotalGameTime;
-}
-
-void Game::SetTotalGameTime(double totalGameTime)
-{
-	mTotalGameTime = totalGameTime;
-}
-
-double Game::ElapsedGameTime() const
-{
-	return mElapsedGameTime;
-}
-
-void Game::SetElapsedGameTime(double elapsedGameTime)
-{
-	mElapsedGameTime = elapsedGameTime;
 }
