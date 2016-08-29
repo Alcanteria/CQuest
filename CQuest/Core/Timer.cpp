@@ -131,3 +131,17 @@ const void Timer::PrintFastGap()
 		elapsedTime = 0;
 	}
 }
+
+// Does nothing for the amount of time passed. Time is measured in seconds.
+const void Timer::Wait(double lengthOfWait)
+{
+	Reset();
+
+	double timeElapsed = 0;
+
+	while (timeElapsed < lengthOfWait)
+	{
+		UpdateGameTime();
+		timeElapsed += GetDeltaTime();
+	}
+}

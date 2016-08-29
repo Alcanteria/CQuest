@@ -2,6 +2,7 @@
 #include "Menu.h"
 #include <iostream>
 #include <algorithm>
+#include "..\Core\Game.h"
 
 #define DEBUG_MODE = 1
 
@@ -49,6 +50,9 @@ void Menu::ShowAllOptions() const
 	for (auto const &item : optionKeys)
 	{
 		std::cout << item.first << ".     " << item.second << std::endl;
+
+		// Pause for a short time. This hopefully makes the menu easier to read instead of just puking a chunk of text onto the screen.
+		game->GetTimer().Wait(.33);
 	}
 
 	PrintGap(1);

@@ -22,6 +22,7 @@ public:
 	const		void					PrintSlowGap();
 	const		void					PrintModerateGap();
 	const		void					PrintFastGap();
+	const		void					Wait(double lengthOfWait);
 
 private:
 	LARGE_INTEGER		mStartTime;
