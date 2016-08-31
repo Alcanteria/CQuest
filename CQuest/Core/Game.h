@@ -4,6 +4,7 @@
 #include <map>
 #include "..\Characters\CharacterClass.h"
 #include "Timer.h"
+#include "..\Setting\Story.h"
 
 class Game
 {
@@ -31,6 +32,7 @@ public:
 	const		void									CreateNewCharacter(CharacterClass* character);
 	const		std::string								GetCharacterName()								const			{ return characterName; }
 				Timer&									GetTimer()														{ return *timer; }
+	const		Story&									GetStory()										const			{ return *story; }
 
 	// Currently active menu.
 	Menu::MENUS activeMenu = Menu::MENUS::NONE;
@@ -53,5 +55,8 @@ private:
 
 	// Class used to track time and function as a stopwatch.
 	Timer* timer;
+
+	// Object that stores story text.
+	Story* story;
 };
 

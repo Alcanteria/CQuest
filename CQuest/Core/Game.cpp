@@ -22,6 +22,12 @@ Game::Game()
 	SetPreviousMenu(Menu::MENUS::MAIN);
 
 	timer = new Timer();
+	story = new Story();
+
+	GetTimer().PrintFastGap();
+	std::cout << GetStory().GetIntros().at(0) << std::endl;
+	GetTimer().Wait(4);
+	GetTimer().PrintFastGap();
 }
 
 
@@ -31,6 +37,7 @@ Game::~Game()
 	delete menus.at(Menu::MENUS::CHARACTER_SELECT);
 	delete menus.at(Menu::MENUS::GAME_OVER);
 	delete timer;
+	delete story;
 
 #if defined(DEBUG_MODE)
 	std::cout << "Game Destructor." << std::endl;
