@@ -81,6 +81,7 @@
   <ItemGroup>
     <ClInclude Include="Characters\Barbarian.h" />
     <ClInclude Include="Characters\CharacterClass.h" />
+    <ClInclude Include="Core\Dice.h" />
     <ClInclude Include="Menus\CharacterSelectMenu.h" />
     <ClInclude Include="Core\Game.h" />
     <ClInclude Include="Menus\GameOverMenu.h" />
@@ -94,6 +95,7 @@
   <ItemGroup>
     <ClCompile Include="Characters\Barbarian.cpp" />
     <ClCompile Include="Characters\CharacterClass.cpp" />
+    <ClCompile Include="Core\Dice.cpp" />
     <ClCompile Include="Menus\CharacterSelectMenu.cpp" />
     <ClCompile Include="CQuest.cpp" />
     <ClCompile Include="Core\Game.cpp" />

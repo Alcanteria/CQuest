@@ -51,6 +51,9 @@
     <ClInclude Include="Setting\Story.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Core\Dice.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -84,6 +87,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Setting\Story.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Dice.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

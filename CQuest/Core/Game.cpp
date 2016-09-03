@@ -23,9 +23,10 @@ Game::Game()
 
 	timer = new Timer();
 	story = new Story();
+	dice = new Dice();
 
 	GetTimer().PrintFastGap();
-	std::cout << GetStory().GetIntros().at(0) << std::endl;
+	std::cout << GetRandomGameIntro() << std::endl;
 	GetTimer().Wait(4);
 	GetTimer().PrintFastGap();
 }
@@ -38,6 +39,7 @@ Game::~Game()
 	delete menus.at(Menu::MENUS::GAME_OVER);
 	delete timer;
 	delete story;
+	delete dice;
 
 #if defined(DEBUG_MODE)
 	std::cout << "Game Destructor." << std::endl;
@@ -116,4 +118,11 @@ const void Game::NameCharacter(std::string name)
 const void Game::CreateNewCharacter(CharacterClass* character)
 {
 	playerCharacter = character;
+}
+
+const std::string Game::GetRandomGameIntro()
+{
+	int poop = GetStory().GetIntros().size() - 1;
+
+	return GetStory().GetIntros().at(GetDice().Roll(0, poop));
 }

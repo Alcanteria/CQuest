@@ -5,6 +5,7 @@
 #include "..\Characters\CharacterClass.h"
 #include "Timer.h"
 #include "..\Setting\Story.h"
+#include "Dice.h"
 
 class Game
 {
@@ -33,6 +34,8 @@ public:
 	const		std::string								GetCharacterName()								const			{ return characterName; }
 				Timer&									GetTimer()														{ return *timer; }
 	const		Story&									GetStory()										const			{ return *story; }
+				Dice&									GetDice()														{ return *dice; }
+	const		std::string								GetRandomGameIntro();
 
 	// Currently active menu.
 	Menu::MENUS activeMenu = Menu::MENUS::NONE;
@@ -58,5 +61,8 @@ private:
 
 	// Object that stores story text.
 	Story* story;
+
+	// Object for random number generation.
+	Dice* dice;
 };
 
