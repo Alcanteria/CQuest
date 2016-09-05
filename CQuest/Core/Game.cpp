@@ -4,6 +4,7 @@
 #include "..\Menus\GameOverMenu.h"
 #include "..\Menus\CharacterSelectMenu.h"
 #include <iostream>
+#include <fstream>
 
 #define DEBUG_MODE = 1
 
@@ -24,6 +25,32 @@ Game::Game()
 	timer = new Timer();
 	story = new Story();
 	dice = new Dice();
+	saveData = new SaveData();
+
+	// File read testtttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt
+
+	if (saveData->CheckForIntroSaveData())
+	{
+		std::cout << "Save data found." << std::endl;
+	}
+	else
+	{
+		std::cout << "No save data found." << std::endl;
+	}
+
+	/*std::ifstream in("C:\\Users\\Nick\\Desktop\\fileReadTest.txt");
+	std::string text;
+	
+	if (in.is_open())
+	{
+		while (std::getline(in, text))
+		{
+			std::cout << text << std::endl;
+		}
+		in.close();
+	}*/
+
+	// File read testtttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt
 
 	GetTimer().PrintFastGap();
 	std::cout << GetRandomGameIntro() << std::endl;
@@ -40,6 +67,7 @@ Game::~Game()
 	delete timer;
 	delete story;
 	delete dice;
+	delete saveData;
 
 #if defined(DEBUG_MODE)
 	std::cout << "Game Destructor." << std::endl;

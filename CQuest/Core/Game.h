@@ -6,6 +6,7 @@
 #include "Timer.h"
 #include "..\Setting\Story.h"
 #include "Dice.h"
+#include "SaveData.h"
 
 class Game
 {
@@ -64,5 +65,8 @@ private:
 
 	// Object for random number generation.
 	Dice* dice;
+
+	// Object for reading/writing save data.
+	SaveData* saveData;
 };
 
