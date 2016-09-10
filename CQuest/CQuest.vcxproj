@@ -52,6 +52,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -76,6 +77,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="Data\Text.txt">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </Text>
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -88,6 +92,7 @@
     <ClInclude Include="Menus\Menu.h" />
     <ClInclude Include="Menus\MainMenu.h" />
     <ClInclude Include="Core\SaveData.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Setting\Story.h" />
     <ClInclude Include="targetver.h" />
@@ -110,6 +115,9 @@
     </ClCompile>
     <ClCompile Include="Core\Timer.cpp" />
     <ClCompile Include="Setting\Story.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="CQuest.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

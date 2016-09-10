@@ -13,6 +13,8 @@ public:
 
 	const bool CheckIntroRoll(int roll);
 	const bool CheckForIntroSaveData();
+
+	const void ReadIntroSaveData();
 private:
 	std::vector<int>* introRolls;
 };

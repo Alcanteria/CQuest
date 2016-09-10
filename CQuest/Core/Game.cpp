@@ -31,24 +31,14 @@ Game::Game()
 
 	if (saveData->CheckForIntroSaveData())
 	{
-		std::cout << "Save data found." << std::endl;
+		saveData->ReadIntroSaveData();
 	}
 	else
 	{
+#if defined(DEBUG_MODE)
 		std::cout << "No save data found." << std::endl;
+#endif
 	}
-
-	/*std::ifstream in("C:\\Users\\Nick\\Desktop\\fileReadTest.txt");
-	std::string text;
-	
-	if (in.is_open())
-	{
-		while (std::getline(in, text))
-		{
-			std::cout << text << std::endl;
-		}
-		in.close();
-	}*/
 
 	// File read testtttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt
 
