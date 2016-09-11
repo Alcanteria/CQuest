@@ -8,6 +8,8 @@ public:
 	Dice();
 	~Dice();
 
+	const static int NUMBER_OF_INTROS = 5;
+
 	const int Roll(int lowest, int highest);
 
 private:

@@ -17,26 +17,28 @@ public:
 	// List of possible menus.
 	//enum MENUS { MAIN, CHARACTER_SELECT, GAME_OVER, NONE };
 
-	const		void									SetGameOver(bool poop)											{ gameOver = poop; }
-	const		void									EndGame();
-	const		bool									IsGameOver()													{ return gameOver; }
 	const		void									AddMenu(Menu::MENUS menuName, Menu* menu);
-	const		std::map<Menu::MENUS, Menu*>			GetMenus()										const			{ return menus; }
-	const		Menu*									GetMenu(Menu::MENUS menuName)					const;
-	const		void									SetActiveMenu(Menu::MENUS menu)									{ activeMenu = menu; }
-	const		void									SetPreviousMenu(Menu::MENUS menu)								{ previousMenu = menu; }
-	const		Menu*									GetActiveMenu()									const;
-	const		Menu*									GetPreviousMenu()								const;
 				bool									CheckActiveMenu()								const;
 	const		void									ChangeGameMenu(Menu::MENUS menu);
-	const		void									NameCharacter(std::string name);
-	const		CharacterClass*							GetCharacter()									const			{ return playerCharacter; }
 	const		void									CreateNewCharacter(CharacterClass* character);
+	const		void									EndGame();
+	const		Menu*									GetActiveMenu()									const;
+				Dice&									GetDice()										const			{ return *dice; }
+	const		CharacterClass*							GetCharacter()									const			{ return playerCharacter; }
 	const		std::string								GetCharacterName()								const			{ return characterName; }
-				Timer&									GetTimer()														{ return *timer; }
-	const		Story&									GetStory()										const			{ return *story; }
-				Dice&									GetDice()														{ return *dice; }
+	const		Menu*									GetMenu(Menu::MENUS menuName)					const;
+	const		std::map<Menu::MENUS, Menu*>			GetMenus()										const			{ return menus; }
+	const		Menu*									GetPreviousMenu()								const;
 	const		std::string								GetRandomGameIntro();
+	const		SaveData&								GetSaveData()									const			{ return *saveData; }
+	const		Story&									GetStory()										const			{ return *story; }
+				Timer&									GetTimer()														{ return *timer; }	
+	const		bool									IsGameOver()													{ return gameOver; }
+	const		void									NameCharacter(std::string name);
+	const		void									SetGameOver(bool poop)											{ gameOver = poop; }
+	const		void									SetActiveMenu(Menu::MENUS menu)									{ activeMenu = menu; }
+	const		void									SetPreviousMenu(Menu::MENUS menu)								{ previousMenu = menu; }
+
 
 	// Currently active menu.
 	Menu::MENUS activeMenu = Menu::MENUS::NONE;

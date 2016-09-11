@@ -4,7 +4,6 @@
 #include "..\Menus\GameOverMenu.h"
 #include "..\Menus\CharacterSelectMenu.h"
 #include <iostream>
-#include <fstream>
 
 #define DEBUG_MODE = 1
 
@@ -25,22 +24,9 @@ Game::Game()
 	timer = new Timer();
 	story = new Story();
 	dice = new Dice();
-	saveData = new SaveData();
+	saveData = new SaveData(*this);
 
-	// File read testtttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt
-
-	if (saveData->CheckForIntroSaveData())
-	{
-		saveData->ReadIntroSaveData();
-	}
-	else
-	{
-#if defined(DEBUG_MODE)
-		std::cout << "No save data found." << std::endl;
-#endif
-	}
-
-	// File read testtttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt
+	GetSaveData().VerifyTestData();
 
 	GetTimer().PrintFastGap();
 	std::cout << GetRandomGameIntro() << std::endl;
@@ -70,24 +56,6 @@ const void Game::AddMenu(Menu::MENUS menuName, Menu* menu)
 	menus.insert(std::make_pair(menuName, menu));
 }
 
-// Retrieve the specified menu.
-const Menu* Game::GetMenu(Menu::MENUS menu) const
-{
-	return menus.at(menu);
-}
-
-// Retrieve the currently active menu.
-const Menu* Game::GetActiveMenu() const
-{
-	return menus.at(activeMenu);
-}
-
-// Retrieve the menu viewed previous to the current one.
-const Menu* Game::GetPreviousMenu() const
-{
-	return menus.at(previousMenu);
-}
-
 // Check to see if the active menu is a real menu, or the indicator that the game is at an end.
 bool Game::CheckActiveMenu() const
 {
@@ -95,14 +63,6 @@ bool Game::CheckActiveMenu() const
 		return true;
 	else
 		return false;
-}
-
-// Ends the current game. This ends the game loop so the main() can properly clean up before exiting the program.
-const void Game::EndGame()
-{
-	Menu::PrintGap(2);
-	std::cout << "##### GAME OVER #####" << std::endl;
-	SetGameOver(true);
 }
 
 // Change the active menu to the passes menu enum.
@@ -124,13 +84,8 @@ const void Game::ChangeGameMenu(Menu::MENUS menu)
 
 	// Printed out a series of lines to make output text easier to read.
 	GetTimer().PrintFastGap();
-	
-	menus.at(menu)->ShowWelcomeMessage();
-}
 
-const void Game::NameCharacter(std::string name)
-{
-	characterName = name;
+	menus.at(menu)->ShowWelcomeMessage();
 }
 
 const void Game::CreateNewCharacter(CharacterClass* character)
@@ -138,9 +93,40 @@ const void Game::CreateNewCharacter(CharacterClass* character)
 	playerCharacter = character;
 }
 
+// Ends the current game. This ends the game loop so the main() can properly clean up before exiting the program.
+const void Game::EndGame()
+{
+	Menu::PrintGap(2);
+	std::cout << "##### GAME OVER #####" << std::endl;
+	SetGameOver(true);
+}
+
+// Retrieve the currently active menu.
+const Menu* Game::GetActiveMenu() const
+{
+	return menus.at(activeMenu);
+}
+
+// Retrieve the specified menu.
+const Menu* Game::GetMenu(Menu::MENUS menu) const
+{
+	return menus.at(menu);
+}
+
+// Retrieve the menu viewed previous to the current one.
+const Menu* Game::GetPreviousMenu() const
+{
+	return menus.at(previousMenu);
+}
+
 const std::string Game::GetRandomGameIntro()
 {
 	int poop = GetStory().GetIntros().size() - 1;
 
 	return GetStory().GetIntros().at(GetDice().Roll(0, poop));
+}
+
+const void Game::NameCharacter(std::string name)
+{
+	characterName = name;
 }
