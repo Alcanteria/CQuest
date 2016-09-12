@@ -8,28 +8,28 @@ public:
 	Timer();
 	~Timer();
 
-	const		LARGE_INTEGER&			StartTime()											const;
-	const		LARGE_INTEGER&			CurrentTime()										const;
-	const		LARGE_INTEGER&			LastTime()											const;
-				double					GetTotalGameTime()												{return mTotalGameTime; }
-				void					SetTotalGameTime(double totalGameTime);
-				double					GetDeltaTime()													{return mDeltaTime;}
-				void					SetDeltaTime(double deltaTime)									{ mDeltaTime = deltaTime; }
-				void					Reset();
+				double					GetDeltaTime()													{ return mDeltaTime; }
 				double					GetFrequency()										const;
-				void					GetTime(LARGE_INTEGER& time)						const;
-				void					UpdateGameTime();
-	const		void					PrintSlowGap();
-	const		void					PrintModerateGap();
+				LARGE_INTEGER&			GetTimeStamp()													{ return mTimeStamp; }
+				double					GetTotalGameTime()												{ return mTotalGameTime; }
+	const		LARGE_INTEGER&			LastTime()											const;
 	const		void					PrintFastGap();
+	const		void					PrintModerateGap();
+	const		void					PrintSlowGap();
+				void					Reset();
+				void					SetDeltaTime(double deltaTime)									{ mDeltaTime = deltaTime; }
+				void					SetTotalGameTime(double totalGameTime);
+	const		LARGE_INTEGER&			StartTime()											const;
+	const		void					TakeTimeStamp(LARGE_INTEGER& timeStamp)				const;
+				void					UpdateGameTime();
 	const		void					Wait(double lengthOfWait);
 
 private:
-	LARGE_INTEGER		mStartTime;
-	LARGE_INTEGER		mCurrentTime;
-	LARGE_INTEGER		mLastTime;
-	double				mFrequency;
-	double				mTotalGameTime;
 	double				mDeltaTime;
+	double				mFrequency;
+	LARGE_INTEGER		mLastTime;
+	LARGE_INTEGER		mStartTime;
+	LARGE_INTEGER		mTimeStamp;
+	double				mTotalGameTime;
 };
 

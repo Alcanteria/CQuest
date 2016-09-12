@@ -8,9 +8,9 @@ public:
 	Dice();
 	~Dice();
 
-	const static int NUMBER_OF_INTROS = 5;
+	const	static	int		NUMBER_OF_INTROS = 5;
 
-	const int Roll(int lowest, int highest);
+	const	int		Roll(int lowest, int highest);
 
 private:
 	std::mt19937 rng;

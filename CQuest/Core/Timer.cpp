@@ -4,7 +4,7 @@
 #include <iostream>
 
 
-Timer::Timer() : mStartTime(), mCurrentTime(), mLastTime(), mFrequency(), mTotalGameTime(0.0), mDeltaTime(0.0)
+Timer::Timer() : mStartTime(), mTimeStamp(), mLastTime(), mFrequency(), mTotalGameTime(0.0), mDeltaTime(0.0)
 {
 	mFrequency = GetFrequency();
 }
@@ -14,27 +14,10 @@ Timer::~Timer()
 {
 }
 
-const LARGE_INTEGER& Timer::StartTime() const
-{
-	return mStartTime;
-}
-
-const LARGE_INTEGER& Timer::CurrentTime() const
-{
-	return mCurrentTime;
-}
-
-const LARGE_INTEGER& Timer::LastTime() const
-{
-	return mLastTime;
-}
-
-void Timer::Reset()
-{
-	GetTime(mStartTime);
-	mCurrentTime = mStartTime;
-	mLastTime = mCurrentTime;
-}
+//const LARGE_INTEGER& Timer::CurrentTime() const
+//{
+	//return mCurrentTime;
+//}
 
 double Timer::GetFrequency() const
 {
@@ -48,26 +31,23 @@ double Timer::GetFrequency() const
 	return (double)frequency.QuadPart;
 }
 
-void Timer::GetTime(LARGE_INTEGER& time) const
+//void Timer::GetTime(LARGE_INTEGER& time) const
+//{
+	//QueryPerformanceCounter(&time);
+//}
+
+const void Timer::TakeTimeStamp(LARGE_INTEGER& timeStamp) const
 {
-	QueryPerformanceCounter(&time);
+	QueryPerformanceCounter(&mTimeStamp);
 }
 
-void Timer::UpdateGameTime()
+const LARGE_INTEGER& Timer::LastTime() const
 {
-	GetTime(mCurrentTime);
-	SetTotalGameTime((mCurrentTime.QuadPart - mStartTime.QuadPart) / mFrequency);
-	SetDeltaTime((mCurrentTime.QuadPart - mLastTime.QuadPart) / mFrequency);
-	mLastTime = mCurrentTime;
-}
-
-void Timer::SetTotalGameTime(double totalGameTime)
-{
-	mTotalGameTime = totalGameTime;
+	return mLastTime;
 }
 
 // Prints out a series lines at timed intervals. This is to make output text easier to read.
-const void Timer::PrintSlowGap()
+const void Timer::PrintFastGap()
 {
 	// Placeholder for total accumulated time between spaces.
 	double elapsedTime = 0;
@@ -75,11 +55,11 @@ const void Timer::PrintSlowGap()
 	// Make sure you reset the clock so the starting time isn't from an earlier call to Reset();
 	Reset();
 
-	// Loops 3 times, printing a line every second. (This is the "slow" version)
+	// Loops 3 times, printing a line every .33 seconds. (This is the "fast" version)
 	for (int i = 0; i < 3; i++)
 	{
 		Menu::PrintSeperator();
-		while (elapsedTime < 1)
+		while (elapsedTime < .33)
 		{
 			UpdateGameTime();
 			elapsedTime += GetDeltaTime();
@@ -111,7 +91,7 @@ const void Timer::PrintModerateGap()
 }
 
 // Prints out a series lines at timed intervals. This is to make output text easier to read.
-const void Timer::PrintFastGap()
+const void Timer::PrintSlowGap()
 {
 	// Placeholder for total accumulated time between spaces.
 	double elapsedTime = 0;
@@ -119,17 +99,42 @@ const void Timer::PrintFastGap()
 	// Make sure you reset the clock so the starting time isn't from an earlier call to Reset();
 	Reset();
 
-	// Loops 3 times, printing a line every .33 seconds. (This is the "fast" version)
+	// Loops 3 times, printing a line every second. (This is the "slow" version)
 	for (int i = 0; i < 3; i++)
 	{
 		Menu::PrintSeperator();
-		while (elapsedTime < .33)
+		while (elapsedTime < 1)
 		{
 			UpdateGameTime();
 			elapsedTime += GetDeltaTime();
 		}
 		elapsedTime = 0;
 	}
+}
+
+void Timer::Reset()
+{
+	TakeTimeStamp();
+	mTimeStamp = mStartTime;
+	mLastTime = mTimeStamp;
+}
+
+void Timer::SetTotalGameTime(double totalGameTime)
+{
+	mTotalGameTime = totalGameTime;
+}
+
+const LARGE_INTEGER& Timer::StartTime() const
+{
+	return mStartTime;
+}
+
+void Timer::UpdateGameTime()
+{
+	TakeTimeStamp();
+	SetTotalGameTime((mTimeStamp.QuadPart - mStartTime.QuadPart) / mFrequency);
+	SetDeltaTime((mTimeStamp.QuadPart - mLastTime.QuadPart) / mFrequency);
+	mLastTime = mTimeStamp;
 }
 
 // Does nothing for the amount of time passed. Time is measured in seconds.

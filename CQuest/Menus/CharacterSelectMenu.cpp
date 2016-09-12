@@ -39,16 +39,29 @@ CharacterSelectMenu::~CharacterSelectMenu()
 {
 }
 
-void CharacterSelectMenu::ValidateKeyPressed(std::string key) const
+// Prompts the user to name their character.
+const void CharacterSelectMenu::NameCharacter() const
 {
-	if (IsOptionKeyPresent(key))
-	{
-		ProcessOptionKeyPress(key);
-	}
-	else
-	{
-		PrintInvalidOption();
-	}
+
+	// Create a string to hold the character name input by the player.
+	std::string newName;
+
+	game->GetTimer().PrintFastGap();
+	std::cout << "Please enter your character's name." << std::endl;
+
+	// This line is necesssary. If you don't use this, it will skip the user input line, not letting them enter their name.
+	std::cin.ignore();
+
+	// Read the line entered by the user.
+	std::getline(std::cin, newName);
+
+	// Set the player's character name.
+	game->NameCharacter(newName);
+
+	// Print the name the player entered after it has been set as the character name.
+	game->GetTimer().PrintFastGap();
+	std::cout << "Hello, " << game->GetCharacterName() << std::endl;
+	game->GetTimer().PrintFastGap();
 }
 
 // Determine what is to be done with the key entered by the user.
@@ -82,27 +95,14 @@ void CharacterSelectMenu::ProcessOptionKeyPress(std::string key) const
 	}
 }
 
-// Prompts the user to name their character.
-const void CharacterSelectMenu::NameCharacter() const
+void CharacterSelectMenu::ValidateKeyPressed(std::string key) const
 {
-
-	// Create a string to hold the character name input by the player.
-	std::string newName;
-
-	game->GetTimer().PrintFastGap();
-	std::cout << "Please enter your character's name." << std::endl;
-
-	// This line is necesssary. If you don't use this, it will skip the user input line, not letting them enter their name.
-	std::cin.ignore();
-
-	// Read the line entered by the user.
-	std::getline(std::cin, newName);
-
-	// Set the player's character name.
-	game->NameCharacter(newName);
-
-	// Print the name the player entered after it has been set as the character name.
-	game->GetTimer().PrintFastGap();
-	std::cout << "Hello, " << game->GetCharacterName() << std::endl;
-	game->GetTimer().PrintFastGap();
+	if (IsOptionKeyPresent(key))
+	{
+		ProcessOptionKeyPress(key);
+	}
+	else
+	{
+		PrintInvalidOption();
+	}
 }

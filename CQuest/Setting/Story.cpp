@@ -14,12 +14,17 @@ Story::Story()
 
 Story::~Story()
 {
-	delete gameIntros;
 	delete characterClassSelectionQuips;
+	delete gameIntros;
 	delete nameSelectionQuips;
 }
 
-const void Story::WriteGameIntros()
+const void Story::WriteCharacterSelectQuips() const
+{
+
+}
+
+const void Story::WriteGameIntros() const
 {
 	gameIntros->push_back("Well hello there, nerd.\nFeel like playing a fake adventure \nfor some randomly awarded fake treasure?\nGood.\nMe too.");
 	gameIntros->push_back("Nothing better to do, huh?\nLet's just get this over with.\nNo eye contact, please.");
@@ -28,7 +33,7 @@ const void Story::WriteGameIntros()
 	gameIntros->push_back("Hi! You are in luck. I'm in a good mood right now.\nMaybe I can nudge the random number generator a little in your favor today.");
 }
 
-const void Story::WriteNameSelectQuips()
+const void Story::WriteNameSelectQuips() const
 {
 	nameSelectionQuips->push_back("That's not your real name, is it?");
 	nameSelectionQuips->push_back("Wow. Very original.\nSeriously. That's not sarcasm.");

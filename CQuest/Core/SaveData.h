@@ -10,9 +10,9 @@ public:
 	SaveData(Game& gameReference);
 	~SaveData();
 
-	const static int INTRO_ROLL_HISTORY_COUNT = 3;
-	const static std::string INTRO_SAVE_FILE_NAME;
-	const static std::string TEST_FILE_NAME;
+	const static int			INTRO_ROLL_HISTORY_COUNT = 3;
+	const static std::string	INTRO_SAVE_FILE_NAME;
+	const static std::string	TEST_FILE_NAME;
 
 	const		bool		CheckIntroRoll(int roll);
 	const		void		CreateDefaultIntroSaveFile()		const;
