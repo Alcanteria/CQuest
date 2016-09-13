@@ -26,12 +26,12 @@ Game::Game()
 	dice = new Dice();
 	saveData = new SaveData(*this);
 
-	GetSaveData().VerifyTestData();
+	saveData->VerifyTestData();
 
-	GetTimer().PrintFastGap();
+	timer->PrintFastGap();
 	std::cout << GetRandomGameIntro() << std::endl;
-	GetTimer().Wait(4);
-	GetTimer().PrintFastGap();
+	timer->Wait(4);
+	timer->PrintFastGap();
 }
 
 
@@ -83,7 +83,7 @@ const void Game::ChangeGameMenu(Menu::MENUS menu)
 	menus.at(menu)->SetActiveStatus(true);
 
 	// Printed out a series of lines to make output text easier to read.
-	GetTimer().PrintFastGap();
+	timer->PrintFastGap();
 
 	menus.at(menu)->ShowWelcomeMessage();
 }

@@ -14,11 +14,7 @@ Timer::~Timer()
 {
 }
 
-//const LARGE_INTEGER& Timer::CurrentTime() const
-//{
-	//return mCurrentTime;
-//}
-
+// Wrapper that calls a system method to "calibrate" our timer to the machine's clock speed.
 double Timer::GetFrequency() const
 {
 	LARGE_INTEGER frequency;
@@ -29,21 +25,6 @@ double Timer::GetFrequency() const
 	}
 
 	return (double)frequency.QuadPart;
-}
-
-//void Timer::GetTime(LARGE_INTEGER& time) const
-//{
-	//QueryPerformanceCounter(&time);
-//}
-
-const void Timer::TakeTimeStamp(LARGE_INTEGER& timeStamp) const
-{
-	QueryPerformanceCounter(&mTimeStamp);
-}
-
-const LARGE_INTEGER& Timer::LastTime() const
-{
-	return mLastTime;
 }
 
 // Prints out a series lines at timed intervals. This is to make output text easier to read.
@@ -112,26 +93,30 @@ const void Timer::PrintSlowGap()
 	}
 }
 
+// Prepares the timer to start tracking time from when this method is called.
 void Timer::Reset()
 {
-	TakeTimeStamp();
+	TakeTimeStamp(mStartTime);
 	mTimeStamp = mStartTime;
 	mLastTime = mTimeStamp;
 }
 
-void Timer::SetTotalGameTime(double totalGameTime)
+/*	Gets a time stamp and saves it to the passed LARGE_INTEGER.
+	-----------------------------------------------------------
+	Note:	This is not a traditional time stamp. It uses the system method
+			for tracking time. You can't use this result to get a value in 
+			milliseconds directly. This value is simply needed to calculate
+			useful values like milliseconds. */
+const void Timer::TakeTimeStamp(LARGE_INTEGER& timeStamp) const
 {
-	mTotalGameTime = totalGameTime;
+	QueryPerformanceCounter(&timeStamp);
 }
 
-const LARGE_INTEGER& Timer::StartTime() const
-{
-	return mStartTime;
-}
-
+/*	This calculates and stores delta time. This must be called every frame/iteration 
+	of a timed event to successfully track time. */
 void Timer::UpdateGameTime()
 {
-	TakeTimeStamp();
+	TakeTimeStamp(mTimeStamp);
 	SetTotalGameTime((mTimeStamp.QuadPart - mStartTime.QuadPart) / mFrequency);
 	SetDeltaTime((mTimeStamp.QuadPart - mLastTime.QuadPart) / mFrequency);
 	mLastTime = mTimeStamp;
