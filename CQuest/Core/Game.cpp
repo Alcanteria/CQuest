@@ -5,17 +5,15 @@
 #include "..\Menus\CharacterSelectMenu.h"
 #include <iostream>
 
-#define DEBUG_MODE = 1
-
 Game::Game()
 {
-	MainMenu* mainMenu = new MainMenu(this);
+	MainMenu* mainMenu = new MainMenu(*this);
 	AddMenu(Menu::MENUS::MAIN, mainMenu);
 
-	GameOverMenu* gameOverMenu = new GameOverMenu(this);
+	GameOverMenu* gameOverMenu = new GameOverMenu(*this);
 	AddMenu(Menu::MENUS::GAME_OVER, gameOverMenu);
 
-	CharacterSelectMenu* characterSelectMenu = new CharacterSelectMenu(this);
+	CharacterSelectMenu* characterSelectMenu = new CharacterSelectMenu(*this);
 	AddMenu(Menu::MENUS::CHARACTER_SELECT, characterSelectMenu);
 
 	SetActiveMenu(Menu::MENUS::MAIN);
@@ -25,6 +23,7 @@ Game::Game()
 	story = new Story();
 	dice = new Dice();
 	saveData = new SaveData(*this);
+	debugger = new Debugger();
 
 	saveData->VerifyTestData();
 
@@ -44,10 +43,9 @@ Game::~Game()
 	delete story;
 	delete dice;
 	delete saveData;
+	delete debugger;
 
-#if defined(DEBUG_MODE)
-	std::cout << "Game Destructor." << std::endl;
-#endif
+	debugger->Print("Game Destructor.");
 }
 
 // Add a new menu to the store of possibe game menus.

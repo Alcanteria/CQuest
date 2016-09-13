@@ -2,7 +2,7 @@
 #include "GameOverMenu.h"
 
 
-GameOverMenu::GameOverMenu(Game* game) : Menu(game)
+GameOverMenu::GameOverMenu(Game& gameReference) : Menu(gameReference)
 {
 	SetWelcomeMessage("*****GAME OVER*****");
 }

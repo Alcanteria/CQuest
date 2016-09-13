@@ -8,7 +8,7 @@ class Game;
 class CharacterSelectMenu : public Menu
 {
 public:
-	CharacterSelectMenu(Game* game);
+	CharacterSelectMenu(Game& gameReference);
 	~CharacterSelectMenu();
 
 	const		void		NameCharacter()								const;

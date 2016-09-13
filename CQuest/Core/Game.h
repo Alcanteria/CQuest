@@ -7,6 +7,7 @@
 #include "..\Setting\Story.h"
 #include "Dice.h"
 #include "SaveData.h"
+#include "Debugger.h"
 
 class Game
 {
@@ -14,15 +15,13 @@ public:
 	Game();
 	~Game();
 
-	// List of possible menus.
-	//enum MENUS { MAIN, CHARACTER_SELECT, GAME_OVER, NONE };
-
 	const		void									AddMenu(Menu::MENUS menuName, Menu* menu);
 				bool									CheckActiveMenu()								const;
 	const		void									ChangeGameMenu(Menu::MENUS menu);
 	const		void									CreateNewCharacter(CharacterClass* character);
 	const		void									EndGame();
 	const		Menu*									GetActiveMenu()									const;
+	const		Debugger&								GetDebugger()									const			{ return *debugger; }
 				Dice&									GetDice()										const			{ return *dice; }
 	const		CharacterClass*							GetCharacter()									const			{ return playerCharacter; }
 	const		std::string								GetCharacterName()								const			{ return characterName; }
@@ -39,7 +38,6 @@ public:
 	const		void									SetActiveMenu(Menu::MENUS menu)									{ activeMenu = menu; }
 	const		void									SetPreviousMenu(Menu::MENUS menu)								{ previousMenu = menu; }
 
-
 	// Currently active menu.
 	Menu::MENUS activeMenu = Menu::MENUS::NONE;
 
@@ -47,6 +45,15 @@ public:
 	Menu::MENUS previousMenu = Menu::MENUS::NONE;
 
 private:
+	// The name of the player character.
+	std::string characterName;
+
+	// Object that handles debug status and reporting.
+	Debugger* debugger;
+
+	// Object for random number generation.
+	Dice* dice;
+
 	// Game over status.
 	bool gameOver;
 
@@ -56,19 +63,13 @@ private:
 	// The class that the player selects.
 	CharacterClass* playerCharacter;
 
-	// The name of the player character.
-	std::string characterName;
-
-	// Class used to track time and function as a stopwatch.
-	Timer* timer;
+	// Object for reading/writing save data.
+	SaveData* saveData;
 
 	// Object that stores story text.
 	Story* story;
 
-	// Object for random number generation.
-	Dice* dice;
-
-	// Object for reading/writing save data.
-	SaveData* saveData;
+	// Class used to track time and function as a stopwatch.
+	Timer* timer;
 };
 

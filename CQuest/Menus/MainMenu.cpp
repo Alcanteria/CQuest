@@ -4,7 +4,7 @@
 #include "..\Core\Game.h"
 
 
-MainMenu::MainMenu(Game* game) : Menu(game)
+MainMenu::MainMenu(Game& gameReference) : Menu(gameReference)
 {
 	welcomeMessage = "**********Welcome To C Quest**********";
 

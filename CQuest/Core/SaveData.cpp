@@ -5,10 +5,8 @@
 #include <string>
 #include "Core\Game.h"
 
-#define DEBUG_MODE = 1
-
-const std::string SaveData::INTRO_SAVE_FILE_NAME = "Data\\IntroData.txt";
-const std::string SaveData::TEST_FILE_NAME = "Data\\TestFile.txt";
+const std::string SaveData::INTRO_SAVE_FILE_NAME	= "Data\\IntroData.txt";
+const std::string SaveData::TEST_FILE_NAME			= "Data\\TestFile.txt";
 
 SaveData::SaveData(Game& gameReference) : game(gameReference)
 {
@@ -71,9 +69,8 @@ const bool SaveData::VerifyIntroSaveData() const
 {
 	std::ifstream file(SaveData::INTRO_SAVE_FILE_NAME.c_str());
 
-#if defined(DEBUG_MODE)
-	std::cout << "Looking for IntroData.txt in " << SaveData::INTRO_SAVE_FILE_NAME.c_str() << std::endl;
-#endif
+	GetGame().GetDebugger().Print("Looking for IntroData.txt in ");
+	GetGame().GetDebugger().Print(SaveData::INTRO_SAVE_FILE_NAME);
 
 	return file.good();
 }
@@ -83,9 +80,7 @@ const void SaveData::VerifySaveData() const
 {
 	if (VerifyIntroSaveData())
 	{
-#if defined(DEBUG_MODE)
-		std::cout << "Intro save data found." << std::endl;
-#endif
+		GetGame().GetDebugger().Print("Intro save data found.");
 	}
 }
 
@@ -95,7 +90,7 @@ const void SaveData::VerifyTestData() const
 
 	if (file.good())
 	{
-		std::cout << "Test file found." << std::endl;
+		GetGame().GetDebugger().Print("Test file found.");
 	}
 	else
 	{

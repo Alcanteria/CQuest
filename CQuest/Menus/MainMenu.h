@@ -8,7 +8,7 @@ class Game;
 class MainMenu : public Menu
 {
 public:
-	MainMenu(Game* game);
+	MainMenu(Game& gameReference);
 	~MainMenu();
 
 	virtual void ValidateKeyPressed(std::string key) const override;

@@ -4,18 +4,11 @@
 #include <iostream>
 #include "Core\Game.h"
 
-//#define DEBUG_MODE = 1
-
 int _tmain(int argc, _TCHAR* argv[])
 {
 	Game* game = new Game();
 
 	char input;
-
-#if defined(DEBUG_MODE)
-	std::cout << "DEBUG MODE" << std::endl;
-#endif
-
 
 	game->GetActiveMenu()->ShowWelcomeMessage();
 

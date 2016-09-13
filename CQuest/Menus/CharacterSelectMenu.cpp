@@ -5,7 +5,7 @@
 #include "..\Core\Game.h"
 #include <chrono>
 
-CharacterSelectMenu::CharacterSelectMenu(Game* game) : Menu(game)
+CharacterSelectMenu::CharacterSelectMenu(Game& gameReference) : Menu(gameReference)
 {
 	welcomeMessage = "**********Choose a Character Class.**********";
 	
@@ -42,7 +42,6 @@ CharacterSelectMenu::~CharacterSelectMenu()
 // Prompts the user to name their character.
 const void CharacterSelectMenu::NameCharacter() const
 {
-
 	// Create a string to hold the character name input by the player.
 	std::string newName;
 
@@ -56,7 +55,7 @@ const void CharacterSelectMenu::NameCharacter() const
 	std::getline(std::cin, newName);
 
 	// Set the player's character name.
-	game->NameCharacter(newName);
+	GetGame().NameCharacter(newName);
 
 	// Print the name the player entered after it has been set as the character name.
 	game->GetTimer().PrintFastGap();

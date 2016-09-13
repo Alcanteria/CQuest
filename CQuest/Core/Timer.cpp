@@ -9,7 +9,6 @@ Timer::Timer() : mStartTime(), mTimeStamp(), mLastTime(), mFrequency(), mTotalGa
 	mFrequency = GetFrequency();
 }
 
-
 Timer::~Timer()
 {
 }
