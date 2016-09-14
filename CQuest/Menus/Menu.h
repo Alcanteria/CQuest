@@ -23,7 +23,7 @@ public:
 	const std::string GO_BACK = "<----GO BACK";
 
 	const	void									AddOptionKey(std::string key, std::string description);
-	const	Game&									GetGame()													const		{ return game; }
+			Game&									GetGame()													const		{ return game; }
 	const	std::map<std::string, std::string>		GetOptionKeys()												const		{ return optionKeys; }
 	const	std::string								GetWelcomeMessage()											const		{ return welcomeMessage; }
 	const	bool									IsActive()													const		{ return isActive; }

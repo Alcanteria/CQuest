@@ -44,8 +44,8 @@ const void CharacterSelectMenu::NameCharacter() const
 {
 	// Create a string to hold the character name input by the player.
 	std::string newName;
-
-	game->GetTimer().PrintFastGap();
+	GetGame().GetTimer().PrintFastGap();
+	GetGame().GetTimer().PrintFastGap();
 	std::cout << "Please enter your character's name." << std::endl;
 
 	// This line is necesssary. If you don't use this, it will skip the user input line, not letting them enter their name.
@@ -58,9 +58,9 @@ const void CharacterSelectMenu::NameCharacter() const
 	GetGame().NameCharacter(newName);
 
 	// Print the name the player entered after it has been set as the character name.
-	game->GetTimer().PrintFastGap();
-	std::cout << "Hello, " << game->GetCharacterName() << std::endl;
-	game->GetTimer().PrintFastGap();
+	GetGame().GetTimer().PrintFastGap();
+	std::cout << "Hello, " << GetGame().GetCharacterName() << std::endl;
+	GetGame().GetTimer().PrintFastGap();
 }
 
 // Determine what is to be done with the key entered by the user.
@@ -72,7 +72,7 @@ void CharacterSelectMenu::ProcessOptionKeyPress(std::string key) const
 	// If the value is less than the NUMBER_OF_CLASSES + 1 enum, it means a class was selected from the list.
 	if (input < CharacterClass::CLASSES::NUMBER_OF_CLASSES + 1)
 	{
-		game->GetTimer().PrintFastGap();
+		GetGame().GetTimer().PrintFastGap();
 		std::cout << "You picked a " << CharacterClass::CLASS_NAMES.at(input) << std::endl;
 		NameCharacter();
 	}
@@ -82,10 +82,10 @@ void CharacterSelectMenu::ProcessOptionKeyPress(std::string key) const
 		switch (input)
 		{
 		case CharacterClass::CLASSES::NUMBER_OF_CLASSES + 1:
-			game->ChangeGameMenu(game->previousMenu);
+			GetGame().ChangeGameMenu(GetGame().previousMenu);
 			break;
 		case CharacterClass::CLASSES::NUMBER_OF_CLASSES + 2:
-			game->EndGame();
+			GetGame().EndGame();
 			break;
 		default:
 			PrintInvalidOption();

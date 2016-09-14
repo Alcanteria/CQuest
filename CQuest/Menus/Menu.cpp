@@ -86,7 +86,7 @@ const void Menu::ShowAllOptions() const
 		std::cout << item.first << ".     " << item.second << std::endl;
 
 		// Pause for a short time. This hopefully makes the menu easier to read instead of just puking a chunk of text onto the screen.
-		game->GetTimer().Wait(.33);
+		game.GetTimer().Wait(.33);
 	}
 
 	PrintGap(1);
