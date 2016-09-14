@@ -11,7 +11,7 @@ public:
 				double					GetDeltaTime()													{ return mDeltaTime; }
 				double					GetFrequency()										const;
 	const		LARGE_INTEGER&			GetLastTime()										const		{ return mLastTime; }
-	const		LARGE_INTEGER&			GetStartTime()											const	{ return mStartTime; }
+	const		LARGE_INTEGER&			GetStartTime()										const		{ return mStartTime; }
 				LARGE_INTEGER&			GetTimeStamp()													{ return mTimeStamp; }
 				double					GetTotalGameTime()												{ return mTotalGameTime; }
 	const		void					PrintFastGap();
