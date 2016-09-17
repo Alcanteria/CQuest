@@ -16,11 +16,13 @@ public:
 
 	const		bool		CheckIntroRoll(int roll);
 	const		void		CreateDefaultIntroSaveFile()		const;
+	const		void		GenerateRandomIntroValues()			const;
 	const		Game&		GetGame()							const		{ return game; }
-	const		void		ReadIntroSaveData();
+	const		void		ReadIntroSaveData()					const;
 	const		bool		VerifyIntroSaveData()				const;
 	const		void		VerifySaveData()					const;
 	const		void		VerifyTestData()					const;
+	const		void		WriteDefaultIntroSaveData()			const;
 	const		void		WriteTestFile()						const;
 
 private:

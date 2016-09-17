@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "Dice.h"
+#include "Core\Game.h"
 
 
-
-Dice::Dice()
+Dice::Dice(Game& gameReference) : game(gameReference)
 {
 	rng.seed(std::random_device()());
 }
@@ -11,6 +11,7 @@ Dice::Dice()
 
 Dice::~Dice()
 {
+	GetGame().GetDebugger().Print("Dice() Destructor.");
 }
 
 // Returns a random number from the lowest number supplied to the highest.

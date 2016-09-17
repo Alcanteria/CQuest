@@ -11,9 +11,7 @@ Menu::Menu(Game& gameReference) : game(gameReference)
 
 Menu::~Menu()
 {
-#if defined(DEBUG_MODE)
-	std::cout << "Menu() Destructor." << std::endl;
-#endif
+	GetGame().GetDebugger().Print("Menu() Destructor.");
 }
 
 // Add the passed string description at the passed character key location.

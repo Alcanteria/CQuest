@@ -21,11 +21,11 @@ Game::Game()
 
 	timer = new Timer();
 	story = new Story();
-	dice = new Dice();
+	dice = new Dice(*this);
 	saveData = new SaveData(*this);
 	debugger = new Debugger();
 
-	saveData->VerifyTestData();
+	saveData->VerifySaveData();
 
 	timer->PrintFastGap();
 	std::cout << GetRandomGameIntro() << std::endl;
@@ -36,16 +36,24 @@ Game::Game()
 
 Game::~Game()
 {
-	delete menus.at(Menu::MENUS::MAIN);
-	delete menus.at(Menu::MENUS::CHARACTER_SELECT);
-	delete menus.at(Menu::MENUS::GAME_OVER);
-	delete timer;
-	delete story;
-	delete dice;
-	delete saveData;
-	delete debugger;
+	debugger->Print("Game() Destructor.");
 
-	debugger->Print("Game Destructor.");
+	delete	menus.at(Menu::MENUS::MAIN);
+			menus.at(Menu::MENUS::MAIN) = nullptr;
+	delete	menus.at(Menu::MENUS::CHARACTER_SELECT);
+			menus.at(Menu::MENUS::CHARACTER_SELECT) = nullptr;
+	delete	menus.at(Menu::MENUS::GAME_OVER);
+			menus.at(Menu::MENUS::GAME_OVER) = nullptr;
+	delete	timer;
+			timer = nullptr;
+	delete	story;
+			story = nullptr;
+	delete	dice;
+			dice = nullptr;
+	delete	saveData;
+			saveData = nullptr;
+	delete	debugger;
+			debugger = nullptr;
 }
 
 // Add a new menu to the store of possibe game menus.
@@ -94,7 +102,7 @@ const void Game::CreateNewCharacter(CharacterClass* character)
 // Ends the current game. This ends the game loop so the main() can properly clean up before exiting the program.
 const void Game::EndGame()
 {
-	Menu::PrintGap(2);
+	GetTimer().PrintFastGap();
 	std::cout << "##### GAME OVER #####" << std::endl;
 	SetGameOver(true);
 }

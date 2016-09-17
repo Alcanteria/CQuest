@@ -9,6 +9,7 @@ Debugger::Debugger()
 
 Debugger::~Debugger()
 {
+	Print("Debugger() Destructor.");
 }
 
 // Prints a message to the console if debug mode is active.
