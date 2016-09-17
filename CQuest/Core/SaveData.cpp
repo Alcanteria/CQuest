@@ -28,25 +28,24 @@ const void SaveData::CreateDefaultIntroSaveFile() const
 	
 	// String to store all of the text to be written.
 	std::string newData;
-	
-	// Loop a number a times equal to the defined "History Count". This is a static int defined in the SaveData class.
-	for (int i = 0; i < SaveData::INTRO_ROLL_HISTORY_COUNT; i++)
-	{
-		// Get a die roll from 0 to the defined (in Dice class) number of intros stored in the history.
-		int roll = GetGame().GetDice().Roll(0, Dice::NUMBER_OF_INTROS);
 
+	GenerateRandomIntroValues();
+
+	// Loop through vector of roll values and add them as text to the save file.
+	for (auto i : *introRolls)
+	{
 		// Create a placeholder string.
 		std::string finalString;
 
 		// Combine the die roll with a line terminator.
-		finalString = std::to_string(roll) + "\n";
+		finalString = std::to_string(i) + "\n";
 
 		// Append the output string with the combined roll and line terminator.
 		newData.append(finalString);
 	}
 
 	// Write the new text into the output file.
-	outputFile << newData << std::endl;
+	outputFile << newData;
 
 	outputFile.close();
 }
@@ -54,6 +53,9 @@ const void SaveData::CreateDefaultIntroSaveFile() const
 // Generate a set of random numbers and add them to the introValues vector.
 const void SaveData::GenerateRandomIntroValues() const
 {
+	// Clean out whatever was already in the vector. Most likely nothing at all.
+	introRolls->clear();
+
 	// Loop a number a times equal to the defined "History Count". This is a static int defined in the SaveData class.
 	for (int i = 0; i < SaveData::INTRO_ROLL_HISTORY_COUNT; i++)
 	{
@@ -76,13 +78,16 @@ const void SaveData::ReadIntroSaveData() const
 	{
 		while (std::getline(in, text))
 		{
-			GetGame().GetDebugger().Print("File output...");
-			GetGame().GetDebugger().Print(text);
+			if (text != "")
+			{
+				GetGame().GetDebugger().Print("File output...");
+				GetGame().GetDebugger().Print(text);
 
-			introRolls->push_back(std::stoi(text));
+				introRolls->push_back(std::stoi(text));
 
-			GetGame().GetDebugger().Print("Variable output...");
-			GetGame().GetDebugger().Print(std::to_string(introRolls->back()));
+				GetGame().GetDebugger().Print("Variable output...");
+				GetGame().GetDebugger().Print(std::to_string(introRolls->back()));
+			}
 		}
 		in.close();
 	}
@@ -137,33 +142,24 @@ const void SaveData::WriteDefaultIntroSaveData() const
 {
 	GetGame().GetDebugger().Print("SaveData::WriteDefaultIntroSaveData() - Writing Intro Save Data file.");
 
+	GenerateRandomIntroValues();
+
 	std::ofstream outputFile(SaveData::INTRO_SAVE_FILE_NAME);
 
 	// String to store all of the text to be written.
 	std::string newData;
 
-	for (int i : introRolls)
+	// Loop through vector of roll values and add them as text to the save file.
+	for (auto i : *introRolls)
 	{
-
-	}
-
-	// Loop a number a times equal to the defined "History Count". This is a static int defined in the SaveData class.
-	for (int i = 0; i < SaveData::INTRO_ROLL_HISTORY_COUNT; i++)
-	{
-		// Get a die roll from 0 to the defined (in Dice class) number of intros stored in the history.
-		int roll = GetGame().GetDice().Roll(0, Dice::NUMBER_OF_INTROS);
-
-		// Create a placeholder string.
 		std::string finalString;
 
-		// Combine the die roll with a line terminator.
-		finalString = std::to_string(roll) + "\n";
+		finalString = std::to_string(i) + "\n";
 
-		// Append the output string with the combined roll and line terminator.
 		newData.append(finalString);
 	}
 
-	outputFile << newData << std::endl;
+	outputFile << newData;
 
 	outputFile.close();
 }
