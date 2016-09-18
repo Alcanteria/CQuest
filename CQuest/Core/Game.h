@@ -28,7 +28,6 @@ public:
 	const		Menu*									GetMenu(Menu::MENUS menuName)					const;
 	const		std::map<Menu::MENUS, Menu*>			GetMenus()										const			{ return menus; }
 	const		Menu*									GetPreviousMenu()								const;
-	const		std::string								GetRandomGameIntro();
 	const		SaveData&								GetSaveData()									const			{ return *saveData; }
 	const		Story&									GetStory()										const			{ return *story; }
 				Timer&									GetTimer()														{ return *timer; }	

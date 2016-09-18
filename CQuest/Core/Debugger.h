@@ -9,9 +9,8 @@ public:
 	Debugger();
 	~Debugger();
 
-	const void Print(std::string message) const;
+	const static bool DEBUG_MODE = true;
 
-private:
-	const bool DEBUG_MODE = true;
+	const void Print(std::string message) const;
 };
 

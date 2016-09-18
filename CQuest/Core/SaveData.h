@@ -14,16 +14,19 @@ public:
 	const static std::string	INTRO_SAVE_FILE_NAME;
 	const static std::string	TEST_FILE_NAME;
 
-	const		bool		CheckIntroRoll(int roll);
-	const		void		CreateDefaultIntroSaveFile()		const;
-	const		void		GenerateRandomIntroValues()			const;
-	const		Game&		GetGame()							const		{ return game; }
-	const		void		ReadIntroSaveData()					const;
-	const		bool		VerifyIntroSaveData()				const;
-	const		void		VerifySaveData()					const;
-	const		void		VerifyTestData()					const;
-	const		void		WriteDefaultIntroSaveData()			const;
-	const		void		WriteTestFile()						const;
+	const		void					AddNewIntroRollToHistory(int roll)	const;
+	const		bool					CheckIntroRoll(int roll);
+	const		void					CreateDefaultIntroSaveFile()		const;
+	const		void					GenerateRandomIntroValues()			const;
+	const		Game&					GetGame()							const		{ return game; }
+	const		std::vector<int>&		GetIntroRolls()						const		{ return *introRolls; }
+	const		void					PrintIntroRollHistory()				const;
+	const		void					ReadIntroSaveData()					const;
+	const		void					SaveIntroData()						const;
+	const		bool					VerifyIntroSaveData()				const;
+	const		void					VerifySaveData()					const;
+	const		void					VerifyTestData()					const;
+	const		void					WriteTestFile()						const;
 
 private:
 

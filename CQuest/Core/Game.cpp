@@ -20,7 +20,7 @@ Game::Game()
 	SetPreviousMenu(Menu::MENUS::MAIN);
 
 	timer = new Timer();
-	story = new Story();
+	story = new Story(*this);
 	dice = new Dice(*this);
 	saveData = new SaveData(*this);
 	debugger = new Debugger();
@@ -28,7 +28,7 @@ Game::Game()
 	saveData->VerifySaveData();
 
 	timer->PrintFastGap();
-	std::cout << GetRandomGameIntro() << std::endl;
+	std::cout << story->GetRandomIntro() << std::endl;
 	timer->Wait(4);
 	timer->PrintFastGap();
 }
@@ -123,13 +123,6 @@ const Menu* Game::GetMenu(Menu::MENUS menu) const
 const Menu* Game::GetPreviousMenu() const
 {
 	return menus.at(previousMenu);
-}
-
-const std::string Game::GetRandomGameIntro()
-{
-	int poop = GetStory().GetIntros().size() - 1;
-
-	return GetStory().GetIntros().at(GetDice().Roll(0, poop));
 }
 
 const void Game::NameCharacter(std::string name)
