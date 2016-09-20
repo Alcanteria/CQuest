@@ -17,6 +17,6 @@ const void Debugger::Print(std::string message) const
 {
 	if (DEBUG_MODE)
 	{
-		std::cout << "DEBUGGER:::::" << message << std::endl;
+		std::cout << "::::DEBUGGER:::::" << message << std::endl;
 	}
 }

@@ -48,6 +48,8 @@ if (Debugger::DEBUG_MODE)
 // Create a file for the intro save data using new values. This will ignore any roll "history".
 const void SaveData::CreateDefaultIntroSaveFile() const
 {
+GetGame().GetDebugger().Print("SaveData::CreateDefaultIntroSaveFile() - Creating default save file.");
+	
 	GenerateRandomIntroValues();
 
 	SaveIntroData();
@@ -62,11 +64,31 @@ const void SaveData::GenerateRandomIntroValues() const
 	// Loop a number a times equal to the defined "History Count". This is a static int defined in the SaveData class.
 	for (int i = 0; i < SaveData::INTRO_ROLL_HISTORY_COUNT; i++)
 	{
-		// Get a die roll from 0 to the defined (in Dice class) number of intros stored in the history.
-		int roll = GetGame().GetDice().Roll(0, Dice::NUMBER_OF_INTROS);
+		bool unique = false;
 
-		// Add the roll to the vector.
-		introRolls->push_back(roll);
+		int uniqueRoll;
+
+		while (!unique)
+		{
+			// Get a random number between zero and the size of the gameIntros vector.
+			uniqueRoll = GetGame().GetDice().Roll(0, Dice::NUMBER_OF_INTROS);
+
+			// Use the std library's vector find function to see if our new roll is a duplicate. Returns TRUE if it is NOT found.
+			if (std::find(introRolls->begin(), introRolls->end(), uniqueRoll) == introRolls->end())
+			{
+				unique = true;
+
+				introRolls->push_back(uniqueRoll);
+
+GetGame().GetDebugger().Print("Story::GetNewIntroDiceRoll() - Unique roll found. Roll is...");
+GetGame().GetDebugger().Print(std::to_string(uniqueRoll));
+
+if (Debugger::DEBUG_MODE)
+{
+	GetGame().GetSaveData().PrintIntroRollHistory();
+}
+			}
+		}
 	}
 }
 
