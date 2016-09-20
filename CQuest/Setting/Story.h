@@ -14,11 +14,10 @@ public:
 	const	std::vector<std::string>&	GetCharacterSelectQuips()		const	{ return *characterClassSelectionQuips; }
 			Game&						GetGame()						const	{ return game; }
 	const	int							GetNewIntroDiceRoll()			const;
-	const	std::vector<std::string>&	GetIntros()						const	{ return *gameIntros; }
+			std::vector<std::string>&	GetIntros()						const	{ return *gameIntros; }
 	const	std::vector<std::string>&	GetNameSelectQuips()			const	{ return *nameSelectionQuips; }
 	const	std::string					GetRandomIntro()				const;
 	const	void						WriteCharacterSelectQuips()		const;
-	const	void						WriteGameIntros()				const;
 	const	void						WriteNameSelectQuips()			const;
 
 private:

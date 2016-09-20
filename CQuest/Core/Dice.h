@@ -11,8 +11,6 @@ public:
 	Dice(Game& gameReference);
 	~Dice();
 
-	const	static	int		NUMBER_OF_INTROS = 5;
-
 					Game&	GetGame()							{ return game; }
 	const			int		Roll(int lowest, int highest);
 

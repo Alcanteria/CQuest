@@ -9,7 +9,7 @@ Story::Story(Game& gameReference) : game(gameReference)
 	characterClassSelectionQuips = new std::vector<std::string>;
 	nameSelectionQuips = new std::vector<std::string>;
 
-	WriteGameIntros();
+	//WriteGameIntros();
 }
 
 
@@ -68,15 +68,6 @@ const std::string Story::GetRandomIntro() const
 const void Story::WriteCharacterSelectQuips() const
 {
 
-}
-
-const void Story::WriteGameIntros() const
-{
-	gameIntros->push_back("Well hello there, nerd.\nFeel like playing a fake adventure \nfor some randomly awarded fake treasure?\nGood.\nMe too.");
-	gameIntros->push_back("Nothing better to do, huh?\nLet's just get this over with.\nNo eye contact, please.");
-	gameIntros->push_back("I honestly don't remember if I've seen you before.\nAll of you nerds look alike.\nLet's get started");
-	gameIntros->push_back("Hello. Here to play a game? This should be fun.\nYou have a LOT of porn on your hard drive.\nNothing wrong with that. Just saying.");
-	gameIntros->push_back("Hi! You are in luck. I'm in a good mood right now.\nMaybe I can nudge the random number generator a little in your favor today.");
 }
 
 const void Story::WriteNameSelectQuips() const

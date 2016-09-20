@@ -5,12 +5,15 @@
 #include <string>
 #include "Core\Game.h"
 
-const std::string SaveData::INTRO_SAVE_FILE_NAME	= "Data\\IntroData.txt";
-const std::string SaveData::TEST_FILE_NAME			= "Data\\TestFile.txt";
+const std::string SaveData::INTRO_ROLL_HISTORY_FILENAME		= "Data\\IntroRollHistory.txt";
+const std::string SaveData::INTRO_STORY_TEXT_FILENAME		= "Data\\Introductions.txt";
+const std::string SaveData::TEST_FILE_NAME					= "Data\\TestFile.txt";
 
 SaveData::SaveData(Game& gameReference) : game(gameReference)
 {
 	introRolls = new std::vector < int > ;
+
+	ReadIntroStoryText();
 }
 
 
@@ -71,7 +74,7 @@ const void SaveData::GenerateRandomIntroValues() const
 		while (!unique)
 		{
 			// Get a random number between zero and the size of the gameIntros vector.
-			uniqueRoll = GetGame().GetDice().Roll(0, Dice::NUMBER_OF_INTROS);
+			uniqueRoll = GetGame().GetDice().Roll(0, GetGame().GetStory().GetIntros().size() - 1);
 
 			// Use the std library's vector find function to see if our new roll is a duplicate. Returns TRUE if it is NOT found.
 			if (std::find(introRolls->begin(), introRolls->end(), uniqueRoll) == introRolls->end())
@@ -104,9 +107,9 @@ GetGame().GetDebugger().Print("Current intro roll history...");
 }
 
 // Read in the file for the intro save data or load default values if no file can be read.
-const void SaveData::ReadIntroSaveData() const
+const void SaveData::ReadIntroRollHistory() const
 {
-	std::ifstream in(SaveData::INTRO_SAVE_FILE_NAME);
+	std::ifstream in(SaveData::INTRO_ROLL_HISTORY_FILENAME);
 	std::string text;
 	
 	// This makes sure the file is readable. If we got this far it damn well should be.
@@ -134,11 +137,57 @@ GetGame().GetDebugger().Print(std::to_string(introRolls->back()));
 	}
 }
 
+// Reads the story text from the external file and loads it into a vector.
+const void SaveData::ReadIntroStoryText() const
+{
+	std::ifstream in(SaveData::INTRO_STORY_TEXT_FILENAME);
+	std::string text;
+
+	// This makes sure the file is readable. If we got this far it damn well should be.
+	if (in.is_open())
+	{
+		// Start reading from the first line in the file.
+		while (std::getline(in, text))
+		{
+			// If the line isn't blank...
+			if (text != "")
+			{
+				// If the line has the tilde character, which signals the start/stop of an entry...
+				if (text == "~")
+				{
+					// Grab the next line...
+					std::getline(in, text);
+
+					// Push it into the vector...
+					GetGame().GetStory().GetIntros().push_back(text);
+
+					// Go to the next line...
+					std::getline(in, text);
+
+					// While we don't see the end of entry character...
+					while (text != "~")
+					{
+						// Add the new chunk of text and with a line terminator in front...
+						GetGame().GetStory().GetIntros().back().append("\n");
+						GetGame().GetStory().GetIntros().back().append(text);
+
+						// Go to the next line.
+						std::getline(in, text);
+					}
+				}				
+GetGame().GetDebugger().Print("Read from file...");
+GetGame().GetDebugger().Print(GetGame().GetStory().GetIntros().back());
+			}
+		}
+		in.close();
+	}
+}
+
 const void SaveData::SaveIntroData() const
 {
 GetGame().GetDebugger().Print("SaveData::SaveIntroData() - Writing Intro Save Data file.");
 
-	std::ofstream outputFile(SaveData::INTRO_SAVE_FILE_NAME);
+std::ofstream outputFile(SaveData::INTRO_ROLL_HISTORY_FILENAME);
 
 	// String to store all of the text to be written.
 	std::string newData;
@@ -161,10 +210,10 @@ GetGame().GetDebugger().Print("SaveData::SaveIntroData() - Writing Intro Save Da
 // Looks for the presence of the intro data save file.
 const bool SaveData::VerifyIntroSaveData() const
 {
-	std::ifstream file(SaveData::INTRO_SAVE_FILE_NAME.c_str());
+	std::ifstream file(SaveData::INTRO_ROLL_HISTORY_FILENAME.c_str());
 
 GetGame().GetDebugger().Print("Looking for IntroData.txt in...");
-GetGame().GetDebugger().Print(SaveData::INTRO_SAVE_FILE_NAME);
+GetGame().GetDebugger().Print(SaveData::INTRO_ROLL_HISTORY_FILENAME);
 
 	return file.good();
 }
@@ -175,7 +224,7 @@ const void SaveData::VerifySaveData() const
 	if (VerifyIntroSaveData())
 	{
 GetGame().GetDebugger().Print("Intro save data found.");
-		ReadIntroSaveData();
+		ReadIntroRollHistory();
 	}
 	else
 	{
@@ -209,7 +258,7 @@ const void SaveData::WriteTestFile() const
 	for (int i = 0; i < SaveData::INTRO_ROLL_HISTORY_COUNT; i++)
 	{
 		// Get a die roll from 0 to the defined (in Dice class) number of intros stored in the history.
-		int roll = GetGame().GetDice().Roll(0, Dice::NUMBER_OF_INTROS);
+		int roll = GetGame().GetDice().Roll(0, GetGame().GetStory().GetIntros().size() - 1);
 
 		// Create a placeholder string.
 		std::string finalString;
