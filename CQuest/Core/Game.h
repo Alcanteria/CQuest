@@ -8,6 +8,7 @@
 #include "Dice.h"
 #include "SaveData.h"
 #include "Debugger.h"
+#include "Graphics\Logo.h"
 
 class Game
 {
@@ -70,5 +71,8 @@ private:
 
 	// Class used to track time and function as a stopwatch.
 	Timer* timer;
+
+	// Class used to load and display the logo.
+	Logo* logo;
 };
 

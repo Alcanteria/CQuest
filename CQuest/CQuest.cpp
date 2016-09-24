@@ -3,9 +3,13 @@
 #include "stdafx.h"
 #include <iostream>
 #include "Core\Game.h"
+#include <Windows.h>
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	// Had to make the console window width bigger so the logo would fit.
+	System::Console::WindowWidth = System::Console::LargestWindowWidth / 2;
+
 	Game* game = new Game();
 
 	char input;
@@ -25,7 +29,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 
 	delete game;
-	game = 0;
+	game = nullptr;
 
 	return 0;
 }

@@ -24,9 +24,13 @@ Game::Game()
 	dice = new Dice(*this);
 	saveData = new SaveData(*this);
 	debugger = new Debugger();
+	logo = new Logo(*this);
 
 	saveData->VerifySaveData();
 
+	logo->ShowLogo();
+	timer->Wait(2);
+	
 	timer->PrintFastGap();
 	std::cout << story->GetRandomIntro() << std::endl;
 	timer->Wait(4);
@@ -54,6 +58,8 @@ Game::~Game()
 			saveData = nullptr;
 	delete	debugger;
 			debugger = nullptr;
+	delete	logo;
+			logo = nullptr;
 }
 
 // Add a new menu to the store of possibe game menus.

@@ -21,6 +21,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <CLRSupport>true</CLRSupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -78,6 +79,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="Data\Introductions.txt" />
+    <Text Include="Data\Logo.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -85,6 +87,7 @@
     <ClInclude Include="Characters\CharacterClass.h" />
     <ClInclude Include="Core\Dice.h" />
     <ClInclude Include="Core\Debugger.h" />
+    <ClInclude Include="Graphics\Logo.h" />
     <ClInclude Include="Menus\CharacterSelectMenu.h" />
     <ClInclude Include="Core\Game.h" />
     <ClInclude Include="Menus\GameOverMenu.h" />
@@ -102,6 +105,7 @@
     <ClCompile Include="Characters\CharacterClass.cpp" />
     <ClCompile Include="Core\Dice.cpp" />
     <ClCompile Include="Core\Debugger.cpp" />
+    <ClCompile Include="Graphics\Logo.cpp" />
     <ClCompile Include="Menus\CharacterSelectMenu.cpp" />
     <ClCompile Include="CQuest.cpp" />
     <ClCompile Include="Core\Game.cpp" />

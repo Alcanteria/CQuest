@@ -36,7 +36,7 @@ const bool Menu::IsOptionKeyPresent(std::string key) const
 const void Menu::PrintChunk()
 {
 	for (int i = 0; i < 9; i++)
-		std::cout << "==========" << std::endl;
+		std::cout << "====================================================" << std::endl;
 }
 
 // Prints a sequence of empty spaces to create a margin between print outs. This attempts to make the text more readable.
@@ -56,7 +56,7 @@ const void Menu::PrintInvalidOption() const
 // Prints out a single line divider to help make text easier to read.
 const void Menu::PrintSeperator()
 {
-	std::cout << "==========================" << std::endl;
+	std::cout << "====================================================" << std::endl;
 }
 
 // Takes a key input that has been verified to be a legal option in the menu and performs the corresponding task.
