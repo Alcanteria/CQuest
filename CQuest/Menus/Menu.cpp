@@ -11,7 +11,7 @@ Menu::Menu(Game& gameReference) : game(gameReference)
 
 Menu::~Menu()
 {
-	GetGame().GetDebugger().Print("Menu() Destructor.");
+GetGame().GetDebugger().Print("Menu() Destructor.");
 }
 
 // Add the passed string description at the passed character key location.
