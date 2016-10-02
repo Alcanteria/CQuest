@@ -10,7 +10,6 @@ Logo::Logo(Game& gameReference) : game(gameReference)
 {
 }
 
-
 Logo::~Logo()
 {
 }
@@ -39,9 +38,12 @@ GetGame().GetDebugger().Print("Reading logo file...");
 		}
 		in.close();
 	}
-	// If for some reason we still can't read the save file, just generate some new random values.
 	else
 	{
+		std::cout << "Aww, shit. Can't read the logo file. Here, how's this for a logo:" << std::endl;
+		GetGame().GetTimer().Wait(3);
+		std::cout << "8======D" << std::endl;
+
 GetGame().GetDebugger().Print("Cannot open logo file.");
 	}
 }
