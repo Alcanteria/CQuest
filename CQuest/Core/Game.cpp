@@ -25,9 +25,11 @@ Game::Game()
 	saveData = new SaveData(*this);
 	debugger = new Debugger();
 	logo = new Logo(*this);
+	dm = new DM(*this);
 
 	saveData->VerifySaveData();
 
+	dm->GetAllStoryFilesInDirectory();
 	logo->ShowLogo();
 	timer->Wait(2);
 	
@@ -60,6 +62,8 @@ Game::~Game()
 			debugger = nullptr;
 	delete	logo;
 			logo = nullptr;
+	delete	dm;
+			dm = nullptr;
 }
 
 // Add a new menu to the store of possibe game menus.

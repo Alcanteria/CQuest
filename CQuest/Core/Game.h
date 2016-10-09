@@ -9,6 +9,7 @@
 #include "SaveData.h"
 #include "Debugger.h"
 #include "Graphics\Logo.h"
+#include "Setting\DM.h"
 
 class Game
 {
@@ -22,10 +23,11 @@ public:
 	const		void									CreateNewCharacter(CharacterClass* character);
 	const		void									EndGame();
 	const		Menu*									GetActiveMenu()									const;
-	const		Debugger&								GetDebugger()									const			{ return *debugger; }
-				Dice&									GetDice()										const			{ return *dice; }
 	const		CharacterClass*							GetCharacter()									const			{ return playerCharacter; }
 	const		std::string								GetCharacterName()								const			{ return characterName; }
+	const		Debugger&								GetDebugger()									const			{ return *debugger; }
+				Dice&									GetDice()										const			{ return *dice; }
+	const		DM&										GetDM()											const			{ return *dm; }
 	const		Menu*									GetMenu(Menu::MENUS menuName)					const;
 	const		std::map<Menu::MENUS, Menu*>			GetMenus()										const			{ return menus; }
 	const		Menu*									GetPreviousMenu()								const;
@@ -74,5 +76,8 @@ private:
 
 	// Class used to load and display the logo.
 	Logo* logo;
+
+	// Class that handles all of the story and game progression information.
+	DM* dm;
 };
 
