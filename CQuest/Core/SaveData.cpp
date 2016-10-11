@@ -24,7 +24,7 @@ SaveData::~SaveData()
 }
 
 // Adds a new roll to the FRONT of the roll history.
-const void SaveData::AddNewIntroRollToHistory(int roll) const
+void SaveData::AddNewIntroRollToHistory(int roll) const
 {
 if (Debugger::DEBUG_MODE)
 {
@@ -49,7 +49,7 @@ if (Debugger::DEBUG_MODE)
 }
 
 // Create a file for the intro save data using new values. This will ignore any roll "history".
-const void SaveData::CreateDefaultIntroSaveFile() const
+void SaveData::CreateDefaultIntroSaveFile() const
 {
 GetGame().GetDebugger().Print("SaveData::CreateDefaultIntroSaveFile() - Creating default save file.");
 	
@@ -59,7 +59,7 @@ GetGame().GetDebugger().Print("SaveData::CreateDefaultIntroSaveFile() - Creating
 }
 
 // Generate a set of random numbers and add them to the introValues vector.
-const void SaveData::GenerateRandomIntroValues() const
+void SaveData::GenerateRandomIntroValues() const
 {
 	// Clean out whatever was already in the vector. Most likely nothing at all.
 	introRolls->clear();
@@ -96,7 +96,7 @@ if (Debugger::DEBUG_MODE)
 }
 
 // Prints all of the intro roll history to the console. This is for debugging purposes.
-const void SaveData::PrintIntroRollHistory() const
+void SaveData::PrintIntroRollHistory() const
 {
 GetGame().GetDebugger().Print("Current intro roll history...");
 
@@ -107,7 +107,7 @@ GetGame().GetDebugger().Print("Current intro roll history...");
 }
 
 // Read in the file for the intro save data or load default values if no file can be read.
-const void SaveData::ReadIntroRollHistory() const
+void SaveData::ReadIntroRollHistory() const
 {
 	std::ifstream in(SaveData::INTRO_ROLL_HISTORY_FILENAME);
 	std::string text;
@@ -138,7 +138,7 @@ GetGame().GetDebugger().Print(std::to_string(introRolls->back()));
 }
 
 // Reads the story text from the external file and loads it into a vector.
-const void SaveData::ReadIntroStoryText() const
+void SaveData::ReadIntroStoryText() const
 {
 	std::ifstream in(SaveData::INTRO_STORY_TEXT_FILENAME);
 	std::string text;
@@ -183,7 +183,7 @@ GetGame().GetDebugger().Print(GetGame().GetStory().GetIntros().back());
 	}
 }
 
-const void SaveData::SaveIntroData() const
+void SaveData::SaveIntroData() const
 {
 GetGame().GetDebugger().Print("SaveData::SaveIntroData() - Writing Intro Save Data file.");
 
@@ -219,7 +219,7 @@ GetGame().GetDebugger().Print(SaveData::INTRO_ROLL_HISTORY_FILENAME);
 }
 
 // Verify that all of the save files are present, and take the necessary measures if they aren't found.
-const void SaveData::VerifySaveData() const
+void SaveData::VerifySaveData() const
 {
 	if (VerifyIntroSaveData())
 	{
@@ -233,7 +233,7 @@ GetGame().GetDebugger().Print("Intro save data not found.");
 	}
 }
 
-const void SaveData::VerifyTestData() const
+void SaveData::VerifyTestData() const
 {
 	std::ifstream file(SaveData::TEST_FILE_NAME.c_str());
 
@@ -247,7 +247,7 @@ GetGame().GetDebugger().Print("Test file found.");
 	}
 }
 
-const void SaveData::WriteTestFile() const
+void SaveData::WriteTestFile() const
 {
 	std::ofstream outputFile(SaveData::TEST_FILE_NAME);
 

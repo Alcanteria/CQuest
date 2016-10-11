@@ -14,7 +14,7 @@ Logo::~Logo()
 {
 }
 
-const void Logo::ShowLogo() const
+void Logo::ShowLogo() const
 {
 	std::ifstream in(Logo::LOGO_FILE_NAME);
 	std::string text;

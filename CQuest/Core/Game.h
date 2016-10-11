@@ -17,11 +17,11 @@ public:
 	Game();
 	~Game();
 
-	const		void									AddMenu(Menu::MENUS menuName, Menu* menu);
+				void									AddMenu(Menu::MENUS menuName, Menu* menu);
 				bool									CheckActiveMenu()								const;
-	const		void									ChangeGameMenu(Menu::MENUS menu);
-	const		void									CreateNewCharacter(CharacterClass* character);
-	const		void									EndGame();
+				void									ChangeGameMenu(Menu::MENUS menu);
+				void									CreateNewCharacter(CharacterClass* character);
+				void									EndGame();
 	const		Menu*									GetActiveMenu()									const;
 	const		CharacterClass*							GetCharacter()									const			{ return playerCharacter; }
 	const		std::string								GetCharacterName()								const			{ return characterName; }
@@ -35,10 +35,10 @@ public:
 	const		Story&									GetStory()										const			{ return *story; }
 				Timer&									GetTimer()														{ return *timer; }	
 	const		bool									IsGameOver()													{ return gameOver; }
-	const		void									NameCharacter(std::string name);
-	const		void									SetGameOver(bool poop)											{ gameOver = poop; }
-	const		void									SetActiveMenu(Menu::MENUS menu)									{ activeMenu = menu; }
-	const		void									SetPreviousMenu(Menu::MENUS menu)								{ previousMenu = menu; }
+				void									NameCharacter(std::string name);
+				void									SetGameOver(bool poop)											{ gameOver = poop; }
+				void									SetActiveMenu(Menu::MENUS menu)									{ activeMenu = menu; }
+				void									SetPreviousMenu(Menu::MENUS menu)								{ previousMenu = menu; }
 
 	// Currently active menu.
 	Menu::MENUS activeMenu = Menu::MENUS::NONE;

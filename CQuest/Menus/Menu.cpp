@@ -15,7 +15,7 @@ GetGame().GetDebugger().Print("Menu() Destructor.");
 }
 
 // Add the passed string description at the passed character key location.
-const void Menu::AddOptionKey(std::string key, std::string description)
+void Menu::AddOptionKey(std::string key, std::string description)
 {
 	optionKeys.insert(std::make_pair(key, description));
 }
@@ -33,28 +33,28 @@ const bool Menu::IsOptionKeyPresent(std::string key) const
 }
 
 // Prints a block of spaces with an arrow. Makes it easier to separate blocks of text that are printed to the command prompt.
-const void Menu::PrintChunk()
+void Menu::PrintChunk()
 {
 	for (int i = 0; i < 9; i++)
 		std::cout << "====================================================" << std::endl;
 }
 
 // Prints a sequence of empty spaces to create a margin between print outs. This attempts to make the text more readable.
-const void Menu::PrintGap(int spaces)
+void Menu::PrintGap(int spaces)
 {
 	for (int i = 0; i < spaces; i++)
 		std::cout << "" << std::endl;
 }
 
 // Prints out the standar error message if a key entered by the user is not one of the available options.
-const void Menu::PrintInvalidOption() const
+void Menu::PrintInvalidOption() const
 {
 	std::cout << "^^^^^ Invalid Key Entered ^^^^^" << std::endl;
 	PrintGap(2);
 }
 
 // Prints out a single line divider to help make text easier to read.
-const void Menu::PrintSeperator()
+void Menu::PrintSeperator()
 {
 	std::cout << "====================================================" << std::endl;
 }
@@ -77,7 +77,7 @@ void Menu::ProcessOptionKeyPress(std::string key) const
 }
 
 // Cycles through the option key map and prints every item to the console.
-const void Menu::ShowAllOptions() const
+void Menu::ShowAllOptions() const
 {
 	for (auto const &item : optionKeys)
 	{
@@ -92,7 +92,7 @@ const void Menu::ShowAllOptions() const
 }
 
 // Print the default welcome message to the console.
-const void Menu::ShowWelcomeMessage() const
+void Menu::ShowWelcomeMessage() const
 {
 	PrintGap(1);
 	std::cout << GetWelcomeMessage() << std::endl;

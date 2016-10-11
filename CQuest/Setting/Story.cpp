@@ -65,12 +65,12 @@ const std::string Story::GetRandomIntro() const
 	return gameIntros->at(poop);
 }
 
-const void Story::WriteCharacterSelectQuips() const
+void Story::WriteCharacterSelectQuips() const
 {
 
 }
 
-const void Story::WriteNameSelectQuips() const
+void Story::WriteNameSelectQuips() const
 {
 	nameSelectionQuips->push_back("That's not your real name, is it?");
 	nameSelectionQuips->push_back("Wow. Very original.\nSeriously. That's not sarcasm.");

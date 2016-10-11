@@ -27,7 +27,7 @@ double Timer::GetFrequency() const
 }
 
 // Prints out a series lines at timed intervals. This is to make output text easier to read.
-const void Timer::PrintFastGap()
+void Timer::PrintFastGap()
 {
 	// Placeholder for total accumulated time between spaces.
 	double elapsedTime = 0;
@@ -49,7 +49,7 @@ const void Timer::PrintFastGap()
 }
 
 // Prints out a series lines at timed intervals. This is to make output text easier to read.
-const void Timer::PrintModerateGap()
+void Timer::PrintModerateGap()
 {
 	// Placeholder for total accumulated time between spaces.
 	double elapsedTime = 0;
@@ -71,7 +71,7 @@ const void Timer::PrintModerateGap()
 }
 
 // Prints out a series lines at timed intervals. This is to make output text easier to read.
-const void Timer::PrintSlowGap()
+void Timer::PrintSlowGap()
 {
 	// Placeholder for total accumulated time between spaces.
 	double elapsedTime = 0;
@@ -106,7 +106,7 @@ void Timer::Reset()
 			for tracking time. You can't use this result to get a value in 
 			milliseconds directly. This value is simply needed to calculate
 			useful values like milliseconds. */
-const void Timer::TakeTimeStamp(LARGE_INTEGER& timeStamp) const
+void Timer::TakeTimeStamp(LARGE_INTEGER& timeStamp) const
 {
 	QueryPerformanceCounter(&timeStamp);
 }
@@ -122,7 +122,7 @@ void Timer::UpdateGameTime()
 }
 
 // Does nothing for the amount of time passed. Time is measured in seconds.
-const void Timer::Wait(double lengthOfWait)
+void Timer::Wait(double lengthOfWait)
 {
 	Reset();
 

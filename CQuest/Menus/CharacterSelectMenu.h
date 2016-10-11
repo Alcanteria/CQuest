@@ -11,7 +11,7 @@ public:
 	CharacterSelectMenu(Game& gameReference);
 	~CharacterSelectMenu();
 
-	const		void		NameCharacter()								const;
+				void		NameCharacter()								const;
 	virtual		void		ProcessOptionKeyPress(std::string key)		const override;
 	virtual		void		ValidateKeyPressed(std::string key)			const override;
 };

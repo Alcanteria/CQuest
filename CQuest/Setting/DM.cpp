@@ -34,7 +34,7 @@ GetGame().GetDebugger().Print("DM() Destructor.");
 }
 
 // Grabs all of the files in the Story directory, weeding out other files that may be in there.
-const void DM::GetAllStoryFilesInDirectory() const
+void DM::GetAllStoryFilesInDirectory() const
 {
 	// Store for all found file names.
 	std::vector<std::string> fileNames;
@@ -84,7 +84,7 @@ if (Debugger::DEBUG_MODE)
 }
 }
 
-const void DM::ReadStoryFiles() const
+void DM::ReadStoryFiles() const
 {
 
 }

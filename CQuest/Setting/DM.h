@@ -25,9 +25,9 @@ public:
 	// Location of the story files.
 	const static std::string STORY_FILE_PATH;
 
-	const			void										AddRest(int extraRest)										{ rest += extraRest; }
-	const			void										AddTime(int extraTime)										{ timeLeft += extraTime; }
-	const			void										GetAllStoryFilesInDirectory()				const;
+					void										AddRest(int extraRest)										{ rest += extraRest; }
+					void										AddTime(int extraTime)										{ timeLeft += extraTime; }
+					void										GetAllStoryFilesInDirectory()				const;
 	const			std::string&								GetCurrentStoryID()							const			{ return *currentStoryID; }
 					Game&										GetGame()									const			{ return game; }
 	const			int											GetRest()									const			{ return rest; }
@@ -35,10 +35,10 @@ public:
 	const			std::map<std::string, std::string>&			GetStoryNames()								const			{ return *storyNames; }
 	const			std::map<std::string, std::string>&			GetStoryFiles()								const			{ return *storyFiles; }
 	const			int											GetTimeLeft()								const			{ return timeLeft; }
-	const			void										RemoveRest(int restLost)									{ rest -= restLost; }
-	const			void										ReadStoryFiles()							const;
-	const			void										RemoveTime(int timeLost)									{ timeLeft -= timeLost; }
-	const			void										SetCurrentStoryID(std::string newID)						{ *currentStoryID = newID; }
+					void										RemoveRest(int restLost)									{ rest -= restLost; }
+					void										ReadStoryFiles()							const;
+					void										RemoveTime(int timeLost)									{ timeLeft -= timeLost; }
+					void										SetCurrentStoryID(std::string newID)						{ *currentStoryID = newID; }
 
 
 private:

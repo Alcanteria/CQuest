@@ -67,7 +67,7 @@ Game::~Game()
 }
 
 // Add a new menu to the store of possibe game menus.
-const void Game::AddMenu(Menu::MENUS menuName, Menu* menu)
+void Game::AddMenu(Menu::MENUS menuName, Menu* menu)
 {
 	menus.insert(std::make_pair(menuName, menu));
 }
@@ -82,7 +82,7 @@ bool Game::CheckActiveMenu() const
 }
 
 // Change the active menu to the passes menu enum.
-const void Game::ChangeGameMenu(Menu::MENUS menu)
+void Game::ChangeGameMenu(Menu::MENUS menu)
 {
 	// Make sure the current menu isn't empty, which should indicate that the game has just loaded.
 	if (activeMenu != Menu::MENUS::NONE)
@@ -104,13 +104,13 @@ const void Game::ChangeGameMenu(Menu::MENUS menu)
 	menus.at(menu)->ShowWelcomeMessage();
 }
 
-const void Game::CreateNewCharacter(CharacterClass* character)
+void Game::CreateNewCharacter(CharacterClass* character)
 {
 	playerCharacter = character;
 }
 
 // Ends the current game. This ends the game loop so the main() can properly clean up before exiting the program.
-const void Game::EndGame()
+void Game::EndGame()
 {
 	GetTimer().PrintFastGap();
 	std::cout << "##### GAME OVER #####" << std::endl;
@@ -135,7 +135,7 @@ const Menu* Game::GetPreviousMenu() const
 	return menus.at(previousMenu);
 }
 
-const void Game::NameCharacter(std::string name)
+void Game::NameCharacter(std::string name)
 {
 	characterName = name;
 }

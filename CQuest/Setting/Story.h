@@ -17,8 +17,8 @@ public:
 			std::vector<std::string>&	GetIntros()						const	{ return *gameIntros; }
 	const	std::vector<std::string>&	GetNameSelectQuips()			const	{ return *nameSelectionQuips; }
 	const	std::string					GetRandomIntro()				const;
-	const	void						WriteCharacterSelectQuips()		const;
-	const	void						WriteNameSelectQuips()			const;
+			void						WriteCharacterSelectQuips()		const;
+			void						WriteNameSelectQuips()			const;
 
 private:
 	std::vector<std::string>* characterClassSelectionQuips;

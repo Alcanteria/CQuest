@@ -13,10 +13,10 @@ Debugger::~Debugger()
 }
 
 // Prints a message to the console if debug mode is active.
-const void Debugger::Print(std::string message) const
+void Debugger::Print(std::string message) const
 {
 	if (DEBUG_MODE)
 	{
-		std::cout << "::::DEBUGGER:::::" << message << std::endl;
+		std::cout << "::::DEBUGGER:::::\t" << message << std::endl;
 	}
 }

@@ -41,7 +41,7 @@ CharacterSelectMenu::~CharacterSelectMenu()
 }
 
 // Prompts the user to name their character.
-const void CharacterSelectMenu::NameCharacter() const
+void CharacterSelectMenu::NameCharacter() const
 {
 	// Create a string to hold the character name input by the player.
 	std::string newName;

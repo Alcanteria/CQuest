@@ -22,20 +22,20 @@ public:
 	// Default "back to previous menu" value.
 	const std::string GO_BACK = "<----GO BACK";
 
-	const	void									AddOptionKey(std::string key, std::string description);
+			void									AddOptionKey(std::string key, std::string description);
 			Game&									GetGame()													const		{ return game; }
 	const	std::map<std::string, std::string>		GetOptionKeys()												const		{ return optionKeys; }
 	const	std::string								GetWelcomeMessage()											const		{ return welcomeMessage; }
 	const	bool									IsActive()													const		{ return isActive; }
 	const	bool									IsOptionKeyPresent(std::string key)							const;
-	const	static	void							PrintChunk();
-	const	static	void							PrintGap(int spaces = 3);
-	const	void									PrintInvalidOption()										const;
-	const	static	void							PrintSeperator();
+	static	void							PrintChunk();
+	static	void							PrintGap(int spaces = 3);
+			void									PrintInvalidOption()										const;
+	static	void							PrintSeperator();
 	virtual	void									ProcessOptionKeyPress(std::string key)						const;
-	const	void									ShowAllOptions()											const;
-	const	void									ShowWelcomeMessage()										const;
-	const	void									SetActiveStatus(bool active)											{ isActive = active; }
+			void									ShowAllOptions()											const;
+			void									ShowWelcomeMessage()										const;
+			void									SetActiveStatus(bool active)											{ isActive = active; }
 	virtual	void									ValidateKeyPressed(std::string key)							const;
 
 protected:
