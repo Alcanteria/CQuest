@@ -29,7 +29,7 @@ Game::Game()
 
 	saveData->VerifySaveData();
 
-	dm->GetAllStoryFilesInDirectory();
+	dm->Initialize();
 	logo->ShowLogo();
 	timer->Wait(2);
 	

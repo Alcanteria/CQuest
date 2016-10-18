@@ -8,8 +8,6 @@ Story::Story(Game& gameReference) : game(gameReference)
 	gameIntros = new std::vector < std::string > ;
 	characterClassSelectionQuips = new std::vector<std::string>;
 	nameSelectionQuips = new std::vector<std::string>;
-
-	//WriteGameIntros();
 }
 
 

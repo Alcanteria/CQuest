@@ -3,6 +3,7 @@
 #include "Core\Game.h"
 #include <Windows.h>
 #include "Core\Debugger.h"
+#include <fstream>
 
 // Placeholder to indicate no story has been selected yet.
 const std::string DM::NO_STORY = "NONE";
@@ -14,7 +15,7 @@ DM::DM(Game& gameReference) : game(gameReference)
 {
 	currentStoryID = new std::string();
 	storyDescriptions = new std::map<std::string, std::string>();
-	storyFiles = new std::map<std::string, std::string>();
+	storyFileNames = new std::map<std::string, std::string>();
 	storyNames = new std::map<std::string, std::string>();
 }
 
@@ -25,17 +26,54 @@ DM::~DM()
 			currentStoryID = nullptr;
 	delete	storyDescriptions;
 			storyDescriptions = nullptr;
-	delete	storyFiles;
-			storyFiles = nullptr;
+	delete	storyFileNames;
+			storyFileNames = nullptr;
 	delete	storyNames;
 			storyNames = nullptr;
 
 GetGame().GetDebugger().Print("DM() Destructor.");
 }
 
-// Grabs all of the files in the Story directory, weeding out other files that may be in there.
-void DM::GetAllStoryFilesInDirectory() const
+// Take a file name as an argument and returns the unique ID contained within the file.
+const std::string DM::ExtractStoryIDFromFile(std::string fileName) const
 {
+	std::ifstream in(DM::STORY_FILE_PATH + fileName);
+	std::string line;
+	bool IDFound;
+
+	// This makes sure the file is readable.
+	if (in.is_open())
+	{
+		while (std::getline(in, line))
+		{
+			if (line != "")
+			{
+				if (line == "@")
+				{
+					std::getline(in, line);
+					IDFound = true;
+GetGame().GetDebugger().Print("DM::ExtractStoryIDFromFile() - ID Found: " + line);
+					break;
+				}
+				
+			}
+		}
+		in.close();
+	}
+
+	if (!IDFound)
+	{
+		line = DM::NO_STORY;
+GetGame().GetDebugger().Print("DM::ExtractStoryIDFromFile() - No ID Found: " + line);
+	}
+
+	return line;
+}
+
+// Grabs all of the files in the Story directory, weeding out other files that may be in there.
+const std::vector<std::string> DM::GetAllStoryFilesInDirectory() const
+{
+GetGame().GetDebugger().Print("DM::GetAllStoryFilesInDirectory()...");
 	// Store for all found file names.
 	std::vector<std::string> fileNames;
 
@@ -72,19 +110,41 @@ void DM::GetAllStoryFilesInDirectory() const
 	// Don't let the door hit you in the ass on your way out.
 	FindClose(hFind);
 
-// Print out all the file names found. Dubugging only to make sure this works.
+// Print out all the file names found. Dubugging use only to make sure this works.
 if (Debugger::DEBUG_MODE)
 {
-	std::cout << "There are " << fileNames.size() << " files in the folder, and they are.." << std::endl;
+	std::string	output = "There are ";
+				output.append(std::to_string(fileNames.size()));
+				output.append(" files in the folder, and they are..");
+
+	GetGame().GetDebugger().Print(output);
 
 	for (auto i : fileNames)
 	{
-		std::cout << i << std::endl;
+		GetGame().GetDebugger().Print(i);
 	}
 }
+
+	return fileNames;
+}
+
+// Performs the functions that need to be done at the launch of the program.
+void DM::Initialize() const
+{
+GetGame().GetDebugger().Print("DM::Initialize() - Initializing DM Class.");
+
+	StoreStoryFileNames();
 }
 
 void DM::ReadStoryFiles() const
 {
 
+}
+
+// Looks through the default directory that stores story files and collects all of the file names.
+void DM::StoreStoryFileNames() const
+{
+GetGame().GetDebugger().Print("DM::StoreStoryFileNames()...");
+
+	std::vector<std::string> fileNames = GetAllStoryFilesInDirectory();
 }
