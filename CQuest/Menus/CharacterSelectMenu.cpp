@@ -37,7 +37,7 @@ CharacterSelectMenu::CharacterSelectMenu(Game& gameReference) : Menu(gameReferen
 
 CharacterSelectMenu::~CharacterSelectMenu()
 {
-	GetGame().GetDebugger().Print("CharacterSelectMenu() Destructor");
+GetGame().GetDebugger().Print("CharacterSelectMenu() Destructor", Debugger::PRIORITY::LOW);
 }
 
 // Prompts the user to name their character.

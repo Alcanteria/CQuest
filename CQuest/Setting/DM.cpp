@@ -31,7 +31,7 @@ DM::~DM()
 	delete	storyNames;
 			storyNames = nullptr;
 
-GetGame().GetDebugger().Print("DM() Destructor.");
+GetGame().GetDebugger().Print("DM() Destructor.", Debugger::PRIORITY::LOW);
 }
 
 // Take a file name as an argument and returns the unique ID contained within the file.
@@ -52,7 +52,7 @@ const std::string DM::ExtractStoryIDFromFile(std::string fileName) const
 				{
 					std::getline(in, line);
 					IDFound = true;
-GetGame().GetDebugger().Print("DM::ExtractStoryIDFromFile() - ID Found: " + line);
+GetGame().GetDebugger().Print("DM::ExtractStoryIDFromFile() - ID Found: " + line, Debugger::PRIORITY::MID);
 					break;
 				}
 				
@@ -64,7 +64,7 @@ GetGame().GetDebugger().Print("DM::ExtractStoryIDFromFile() - ID Found: " + line
 	if (!IDFound)
 	{
 		line = DM::NO_STORY;
-GetGame().GetDebugger().Print("DM::ExtractStoryIDFromFile() - No ID Found: " + line);
+GetGame().GetDebugger().Print("DM::ExtractStoryIDFromFile() - No ID Found: " + line, Debugger::PRIORITY::TOP);
 	}
 
 	return line;
@@ -73,7 +73,8 @@ GetGame().GetDebugger().Print("DM::ExtractStoryIDFromFile() - No ID Found: " + l
 // Grabs all of the files in the Story directory, weeding out other files that may be in there.
 const std::vector<std::string> DM::GetAllStoryFilesInDirectory() const
 {
-GetGame().GetDebugger().Print("DM::GetAllStoryFilesInDirectory()...");
+GetGame().GetDebugger().Print("DM::GetAllStoryFilesInDirectory()...", Debugger::PRIORITY::MID);
+
 	// Store for all found file names.
 	std::vector<std::string> fileNames;
 
@@ -111,18 +112,18 @@ GetGame().GetDebugger().Print("DM::GetAllStoryFilesInDirectory()...");
 	FindClose(hFind);
 
 // Print out all the file names found. Dubugging use only to make sure this works.
-if (Debugger::DEBUG_MODE)
+if (Debugger::DEBUG_MODE == Debugger::PRIORITY::LOW)
 {
-	std::string	output = "There are ";
-				output.append(std::to_string(fileNames.size()));
-				output.append(" files in the folder, and they are..");
+std::string	output = "There are ";
+			output.append(std::to_string(fileNames.size()));
+			output.append(" files in the folder, and they are..");
 
-	GetGame().GetDebugger().Print(output);
+GetGame().GetDebugger().Print(output, Debugger::PRIORITY::LOW);
 
-	for (auto i : fileNames)
-	{
-		GetGame().GetDebugger().Print(i);
-	}
+for (auto i : fileNames)
+{
+GetGame().GetDebugger().Print(i, Debugger::PRIORITY::LOW);
+}
 }
 
 	return fileNames;
@@ -131,7 +132,7 @@ if (Debugger::DEBUG_MODE)
 // Performs the functions that need to be done at the launch of the program.
 void DM::Initialize() const
 {
-GetGame().GetDebugger().Print("DM::Initialize() - Initializing DM Class.");
+GetGame().GetDebugger().Print("DM::Initialize() - Initializing DM Class.", Debugger::PRIORITY::MID);
 
 	StoreStoryFileNames();
 }
@@ -144,7 +145,15 @@ void DM::ReadStoryFiles() const
 // Looks through the default directory that stores story files and collects all of the file names.
 void DM::StoreStoryFileNames() const
 {
-GetGame().GetDebugger().Print("DM::StoreStoryFileNames()...");
+GetGame().GetDebugger().Print("DM::StoreStoryFileNames()...", Debugger::PRIORITY::MID);
 
 	std::vector<std::string> fileNames = GetAllStoryFilesInDirectory();
+
+if (Debugger::DEBUG_MODE == Debugger::PRIORITY::MID)
+{
+for (auto i : fileNames)
+{
+GetGame().GetDebugger().Print(i, Debugger::PRIORITY::MID);
+}
+}
 }
