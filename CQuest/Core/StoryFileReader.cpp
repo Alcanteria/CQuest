@@ -6,8 +6,14 @@
 // Location of the story files.
 const std::string StoryFileReader::STORY_FILE_PATH = "Data\\Stories\\";
 
+// Speical character flags used in reading story file attributes.
+const std::string StoryFileReader::FLAG_STORY_ID = "@";
+const std::string StoryFileReader::FLAG_STORY_NAME = "!";
+const std::string StoryFileReader::FLAG_STORY_DESCRIPTION = "#";
+
 StoryFileReader::StoryFileReader(Game& gameReference) : game(gameReference)
 {
+	GetAllStoryFilesInDirectory();
 }
 
 
@@ -15,54 +21,37 @@ StoryFileReader::~StoryFileReader()
 {
 }
 
+// Returns a map of the containing the unique ID and desired attribute supplied from the supplied file name.
+const std::map<std::string, std::string> StoryFileReader::CreateMapForStoryAttribute(std::string attribute) const
+{
+	// Create a place holder map to store everything. This will be returned and copied to the master map.
+	std::map<std::string, std::string> map;
+
+	for (auto i : fileNames)
+	{
+		// Creates a pair object consisting of the unique ID of the file and the supplied attribute, then inserts the pair into the map.
+		map.insert(std::pair<std::string, std::string>(SearchFileForAttribute(i, StoryFileReader::FLAG_STORY_ID), SearchFileForAttribute(i, attribute)));
+	}
+
+	return map;
+}
+
 // Take a file name as an argument and returns the unique ID contained within the file.
 const std::string StoryFileReader::ExtractStoryIDFromFile(std::string fileName) const
 {
-	std::ifstream in(StoryFileReader::STORY_FILE_PATH + fileName);
-	std::string line;
-	bool IDFound;
+	return SearchFileForAttribute(fileName, StoryFileReader::FLAG_STORY_ID);
+}
 
-	// This makes sure the file is readable.
-	if (in.is_open())
-	{
-		while (std::getline(in, line))
-		{
-GetGame().GetDebugger().Print("StoryFileReader::ExtractStoryIDFromFile() - Line = : " + line, Debugger::PRIORITY::LOW);
-			if (line != "")
-			{
-				if (line == "@")
-				{
-					std::getline(in, line);
-					IDFound = true;
-GetGame().GetDebugger().Print("StoryFileReader::ExtractStoryIDFromFile() - ID Found: " + line, Debugger::PRIORITY::LOW);
-					break;
-				}
-
-			}
-		}
-		in.close();
-	}
-	else
-	{
-GetGame().GetDebugger().Print("StoryFileReader::ExtractStoryIDFromFile() - Cannot Read : " + fileName, Debugger::PRIORITY::TOP);
-	}
-
-	if (!IDFound)
-	{
-		line = DM::NO_STORY;
-GetGame().GetDebugger().Print("StoryFileReader::ExtractStoryIDFromFile() - No ID Found: " + line, Debugger::PRIORITY::TOP);
-	}
-
-	return line;
+// Take a file name as an argument and returns the story name contained within the file.
+const std::string StoryFileReader::ExtractStoryNameFromFile(std::string fileName) const
+{
+	return SearchFileForAttribute(fileName, StoryFileReader::FLAG_STORY_NAME);
 }
 
 // Grabs all of the files in the Story directory, weeding out other files that may be in there.
-const std::vector<std::string> StoryFileReader::GetAllStoryFilesInDirectory() const
+void StoryFileReader::GetAllStoryFilesInDirectory()
 {
 GetGame().GetDebugger().Print("StoryFileReader::GetAllStoryFilesInDirectory()...", Debugger::PRIORITY::MID);
-
-	// Store for all found file names.
-	std::vector<std::string> fileNames;
 
 	// UGLY WINDOWS SHIT.
 	WIN32_FIND_DATAA fileData;
@@ -90,6 +79,7 @@ GetGame().GetDebugger().Print("StoryFileReader::GetAllStoryFilesInDirectory()...
 
 			// Add the file name to the vector of names.
 			fileNames.push_back(fileData.cFileName);
+
 		} while (FindNextFileA(hFind, &fileData));
 	}
 
@@ -97,30 +87,31 @@ GetGame().GetDebugger().Print("StoryFileReader::GetAllStoryFilesInDirectory()...
 	FindClose(hFind);
 
 // Print out all the file names found. Dubugging use only to make sure this works.
-if (Debugger::DEBUG_MODE == Debugger::PRIORITY::LOW)
+if (Debugger::DEBUG_MODE == Debugger::PRIORITY::MID)
 {
 std::string	output = "There are ";
 output.append(std::to_string(fileNames.size()));
 output.append(" files in the folder, and they are..");
 
-GetGame().GetDebugger().Print(output, Debugger::PRIORITY::LOW);
+GetGame().GetDebugger().Print(output, Debugger::PRIORITY::MID);
 
 for (auto i : fileNames)
 {
-GetGame().GetDebugger().Print(i, Debugger::PRIORITY::LOW);
+GetGame().GetDebugger().Print(i, Debugger::PRIORITY::MID);
 }
 }
-
-	return fileNames;
 }
 
-// Finds all of the story file in the default directory and returns a map of the story IDs and their respective file names.
+// Finds all of the story files in the default directory and returns a map of the story IDs and their respective descriptions.
+const std::map<std::string, std::string> StoryFileReader::GetStoryDescriptions() const
+{
+	return CreateMapForStoryAttribute(StoryFileReader::FLAG_STORY_DESCRIPTION);
+}
+
+// Finds all of the story files in the default directory and returns a map of the story IDs and their respective file names.
 const std::map<std::string, std::string> StoryFileReader::GetStoryFileNames() const
 {
-	// Get all of the names of the files in the default directory.
-	std::vector<std::string> fileNames = GetAllStoryFilesInDirectory();
-
-	// Create a map to hold everything. This gets copied to the master list stored elsewhere.
+	// Create a map to hold everything. This gets returned and copied to the master list stored elsewhere.
 	std::map<std::string, std::string> storyFileNamesWithIDs;
 
 	// Loop through all of the file names found and construct a map containing the story IDs and story file names.
@@ -131,4 +122,57 @@ const std::map<std::string, std::string> StoryFileReader::GetStoryFileNames() co
 	}
 
 	return storyFileNamesWithIDs;
+}
+
+// Finds all of the story files in the default directory and returns a map of the story IDs and their respective file names.
+const std::map<std::string, std::string> StoryFileReader::GetStoryNames() const
+{
+	return CreateMapForStoryAttribute(StoryFileReader::FLAG_STORY_NAME);
+}
+
+// Looks through the supplied file name to find the supplied attribute. Return the line proceeding the attribute.
+const std::string StoryFileReader::SearchFileForAttribute(std::string fileName, std::string attribute) const
+{
+	std::ifstream in(StoryFileReader::STORY_FILE_PATH + fileName);
+	std::string line;
+	bool IDFound;
+
+	// This makes sure the file is readable.
+	if (in.is_open())
+	{
+		// While there is still stuff in the file...
+		while (std::getline(in, line))
+		{
+GetGame().GetDebugger().Print("StoryFileReader::SearchFileForAttribute() - Line = : " + line, Debugger::PRIORITY::LOW);
+
+			// Skip blank lines...
+			if (line != "")
+			{
+				// Look for the flag for the story ID attribute,
+				if (line == attribute)
+				{
+					// Jump down to the next line which actually contains the ID.
+					std::getline(in, line);
+
+					IDFound = true;
+GetGame().GetDebugger().Print("StoryFileReader::SearchFileForAttribute() - Attribute " + attribute + " Found: " + line, Debugger::PRIORITY::LOW);
+					break;
+				}
+
+			}
+		}
+		in.close();
+	}
+	else
+	{
+GetGame().GetDebugger().Print("StoryFileReader::SearchFileForAttribute() - Cannot Read : " + fileName, Debugger::PRIORITY::TOP);
+	}
+
+	if (!IDFound)
+	{
+		line = DM::NO_STORY;
+GetGame().GetDebugger().Print("StoryFileReader::SearchFileForAttribute() - No ID Found: " + line, Debugger::PRIORITY::TOP);
+	}
+
+	return line;
 }

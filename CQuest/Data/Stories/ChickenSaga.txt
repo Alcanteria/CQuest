@@ -4,3 +4,6 @@ EP1
 !
 The Chicken That Couldn't Slow Down.
 !
+#
+General Tso wants his chicken back. But he'll have to catch it first.
+#

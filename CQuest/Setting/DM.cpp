@@ -36,14 +36,36 @@ GetGame().GetDebugger().Print("DM() Destructor.", Debugger::PRIORITY::LOW);
 // Performs the functions that need to be done at the launch of the program.
 void DM::Initialize() const
 {
-GetGame().GetDebugger().Print("DM::Initialize() - Initializing DM Class.", Debugger::PRIORITY::LOW);
+GetGame().GetDebugger().Print("DM::Initialize() - Initializing DM Class.", Debugger::PRIORITY::MID);
 
+	// Populate the map with the story IDs and file names.
 	*storyFileNames = storyFileReader->GetStoryFileNames();
 
 if (Debugger::DEBUG_MODE == Debugger::PRIORITY::MID)
 {
-GetGame().GetDebugger().Print("DM::Initialize() - File names with story IDs...", Debugger::PRIORITY::MID);
 for (std::map<std::string, std::string>::iterator it = storyFileNames->begin(); it != storyFileNames->end(); ++it)
+{
+GetGame().GetDebugger().Print(it->first + "\t" + it->second, Debugger::PRIORITY::MID);
+}
+}
+
+	// Populate the map with the story IDs and names.
+	*storyNames = storyFileReader->GetStoryNames();
+
+if (Debugger::DEBUG_MODE == Debugger::PRIORITY::MID)
+{
+for (std::map<std::string, std::string>::iterator it = storyNames->begin(); it != storyNames->end(); ++it)
+{
+GetGame().GetDebugger().Print(it->first + "\t" + it->second, Debugger::PRIORITY::MID);
+}
+}
+
+	// Populate the map with the story IDs and descriptions.
+	*storyDescriptions = storyFileReader->GetStoryDescriptions();
+
+if (Debugger::DEBUG_MODE == Debugger::PRIORITY::MID)
+{
+for (std::map<std::string, std::string>::iterator it = storyDescriptions->begin(); it != storyDescriptions->end(); ++it)
 {
 GetGame().GetDebugger().Print(it->first + "\t" + it->second, Debugger::PRIORITY::MID);
 }
