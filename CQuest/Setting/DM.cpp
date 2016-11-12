@@ -147,4 +147,13 @@ void DM::StoreStoryFileNames() const
 GetGame().GetDebugger().Print("DM::StoreStoryFileNames()...");
 
 	std::vector<std::string> fileNames = GetAllStoryFilesInDirectory();
+
+if (GetGame().GetDebugger().DEBUG_MODE)
+{
+GetGame().GetDebugger().Print("DM::StoreStoryFiles - Files stored:");
+	for (auto i : fileNames) // If vector is a pointer, make sure you put the star in front of the name, i.e. *vector
+	{
+GetGame().GetDebugger().Print(i);
+	}
+}
 }
