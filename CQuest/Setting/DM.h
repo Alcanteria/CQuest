@@ -23,6 +23,9 @@ public:
 					void										AddTime(int extraTime)											{ timeLeft += extraTime; }
 	const			std::string&								GetCurrentStoryID()								const			{ return *currentStoryID; }
 					Game&										GetGame()										const			{ return game; }
+					std::vector<std::string>&					GetIntros()										const			{ return *gameIntros; }
+	const			int											GetNewIntroDiceRoll()							const;
+	const			std::string									GetRandomIntro()								const;
 	const			int											GetRest()										const			{ return rest; }
 	const			std::map<std::string, std::string>&			GetStoryDescriptions()							const			{ return *storyDescriptions; }
 	const			std::map<std::string, std::string>&			GetStoryNames()									const			{ return *storyNames; }
@@ -34,21 +37,22 @@ public:
 					void										SetCurrentStoryID(std::string newID)							{ *currentStoryID = newID; }
 
 private:
+	std::string* currentStoryID;
+
 	Game& game;
 
-	// In-Game time that is used to determine which parts of the story are used. This is NOT updated in real-time.
-	int timeLeft = 24;
+	// Flavor text to display at the start of the program.
+	std::vector<std::string>* gameIntros;
 
 	// This value determines the chances for success in most parts of the game.
 	int rest = 100;
 
-	// Holds the information for the available stories to choose from.
-	std::map<std::string, std::string>* storyNames;
 	std::map<std::string, std::string>* storyDescriptions;
 	std::map<std::string, std::string>* storyFileNames;
-
-	std::string* currentStoryID;
-
 	StoryFileReader* storyFileReader;
+	std::map<std::string, std::string>* storyNames;
+
+	// In-Game time that is used to determine which parts of the story are used. This is NOT updated in real-time.
+	int timeLeft = 24;
 };
 

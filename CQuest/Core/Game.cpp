@@ -20,12 +20,11 @@ Game::Game()
 	SetPreviousMenu(Menu::MENUS::MAIN);
 
 	timer = new Timer();
-	story = new Story(*this);
 	dice = new Dice(*this);
+	dm = new DM(*this);
 	saveData = new SaveData(*this);
 	debugger = new Debugger();
 	logo = new Logo(*this);
-	dm = new DM(*this);
 
 	saveData->VerifySaveData();
 
@@ -33,9 +32,6 @@ Game::Game()
 	logo->ShowLogo();
 	timer->Wait(2);
 	
-	timer->PrintFastGap();
-	std::cout << story->GetRandomIntro() << std::endl;
-	timer->Wait(4);
 	timer->PrintFastGap();
 }
 
@@ -52,8 +48,6 @@ debugger->Print("Game() Destructor.", Debugger::PRIORITY::LOW);
 			menus.at(Menu::MENUS::GAME_OVER) = nullptr;
 	delete	timer;
 			timer = nullptr;
-	delete	story;
-			story = nullptr;
 	delete	dice;
 			dice = nullptr;
 	delete	saveData;

@@ -74,7 +74,7 @@ void SaveData::GenerateRandomIntroValues() const
 		while (!unique)
 		{
 			// Get a random number between zero and the size of the gameIntros vector.
-			uniqueRoll = GetGame().GetDice().Roll(0, GetGame().GetStory().GetIntros().size() - 1);
+			uniqueRoll = GetGame().GetDice().Roll(0, GetGame().GetDM().GetIntros().size() - 1);
 
 			// Use the std library's vector find function to see if our new roll is a duplicate. Returns TRUE if it is NOT found.
 			if (std::find(introRolls->begin(), introRolls->end(), uniqueRoll) == introRolls->end())
@@ -159,7 +159,7 @@ void SaveData::ReadIntroStoryText() const
 					std::getline(in, text);
 
 					// Push it into the vector...
-					GetGame().GetStory().GetIntros().push_back(text);
+					GetGame().GetDM().GetIntros().push_back(text);
 
 					// Go to the next line...
 					std::getline(in, text);
@@ -168,15 +168,15 @@ void SaveData::ReadIntroStoryText() const
 					while (text != "~")
 					{
 						// Add the new chunk of text and with a line terminator in front...
-						GetGame().GetStory().GetIntros().back().append("\n");
-						GetGame().GetStory().GetIntros().back().append(text);
+						GetGame().GetDM().GetIntros().back().append("\n");
+						GetGame().GetDM().GetIntros().back().append(text);
 
 						// Go to the next line.
 						std::getline(in, text);
 					}
 				}				
 GetGame().GetDebugger().Print("Read from file...", Debugger::PRIORITY::LOW);
-GetGame().GetDebugger().Print(GetGame().GetStory().GetIntros().back(), Debugger::PRIORITY::LOW);
+GetGame().GetDebugger().Print(GetGame().GetDM().GetIntros().back(), Debugger::PRIORITY::LOW);
 			}
 		}
 		in.close();
@@ -258,7 +258,7 @@ void SaveData::WriteTestFile() const
 	for (int i = 0; i < SaveData::INTRO_ROLL_HISTORY_COUNT; i++)
 	{
 		// Get a die roll from 0 to the defined (in Dice class) number of intros stored in the history.
-		int roll = GetGame().GetDice().Roll(0, GetGame().GetStory().GetIntros().size() - 1);
+		int roll = GetGame().GetDice().Roll(0, GetGame().GetDM().GetIntros().size() - 1);
 
 		// Create a placeholder string.
 		std::string finalString;

@@ -32,7 +32,6 @@ public:
 	const		std::map<Menu::MENUS, Menu*>			GetMenus()										const			{ return menus; }
 	const		Menu*									GetPreviousMenu()								const;
 	const		SaveData&								GetSaveData()									const			{ return *saveData; }
-	const		Story&									GetStory()										const			{ return *story; }
 				Timer&									GetTimer()														{ return *timer; }	
 	const		bool									IsGameOver()													{ return gameOver; }
 				void									NameCharacter(std::string name);
@@ -56,8 +55,14 @@ private:
 	// Object for random number generation.
 	Dice* dice;
 
+	// Class that handles all of the story and game progression information.
+	DM* dm;
+
 	// Game over status.
 	bool gameOver;
+
+	// Class used to load and display the logo.
+	Logo* logo;
 
 	// Store of all menus.
 	std::map<Menu::MENUS, Menu*> menus;
@@ -68,16 +73,7 @@ private:
 	// Object for reading/writing save data.
 	SaveData* saveData;
 
-	// Object that stores story text.
-	Story* story;
-
 	// Class used to track time and function as a stopwatch.
 	Timer* timer;
-
-	// Class used to load and display the logo.
-	Logo* logo;
-
-	// Class that handles all of the story and game progression information.
-	DM* dm;
 };
 
