@@ -1,9 +1,30 @@
-@
+@@@@STORY_ID
 EP1
-@
-!
+@@@@STORY_ID
+@@@@STORY_NAME
 The Chicken That Couldn't Slow Down.
-!
-#
+@@@@STORY_NAME
+@@@@STORY_DESCRIPTION
 General Tso wants his chicken back. But he'll have to catch it first.
-#
+@@@@STORY_DESCRIPTION
+########CHAPTERS
+You are General Tso. \tYour chicken has escaped. \tYou follow its footprints to your driveway, after which the trail is lost. \tYour mailman is standing where the trail ends. \tDo you...
+########CHOICES
+Ask politely if he saw your chicken.
+Threaten him to get him to tell you what he saw.
+Kill him and search his mail bag.
+########CHOICES
+########RESULTS
+The mail man indeed saw your chicken and points you to where he ran off to.
+The mail man runs away in fear, but drops his mail bag. \tUpon searching it you find a letter addressed to your chicken, inviting it to a party this afternoon. \tYou head towards the location of the party.
+The mail man put up quite a fight, but eventually fell to your might. \tInside his mail bag you find a letter addressed to your chicken, inviting it to a party this afternoon. \tYou head towards the location of the party.
+########RESULTS
+########STAT_CHANGES
+5
+0
+1
+1
+3
+10
+########STAT_CHANGES
+########CHAPTERS

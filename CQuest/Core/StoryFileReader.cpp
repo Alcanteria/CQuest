@@ -7,9 +7,13 @@
 const std::string StoryFileReader::STORY_FILE_PATH = "Data\\Stories\\";
 
 // Speical character flags used in reading story file attributes.
-const std::string StoryFileReader::FLAG_STORY_ID = "@";
-const std::string StoryFileReader::FLAG_STORY_NAME = "!";
-const std::string StoryFileReader::FLAG_STORY_DESCRIPTION = "#";
+const std::string StoryFileReader::FLAG_STORY_ID = "@@@@STORY_ID";
+const std::string StoryFileReader::FLAG_STORY_NAME = "@@@@STORY_NAME";
+const std::string StoryFileReader::FLAG_STORY_DESCRIPTION = "@@@@STORY_DESCRIPTION";
+const std::string StoryFileReader::FLAG_CHAPTERS = "########CHAPTERS";
+const std::string StoryFileReader::FLAG_CHOICES = "########CHOICES";
+const std::string StoryFileReader::FLAG_RESULTS = "########RESULTS";
+const std::string StoryFileReader::FLAG_STAT_CHANGES = "########STAT_CHANGES";
 
 StoryFileReader::StoryFileReader(Game& gameReference) : game(gameReference)
 {
@@ -21,7 +25,9 @@ StoryFileReader::~StoryFileReader()
 {
 }
 
-// Returns a map of the containing the unique ID and desired attribute supplied from the supplied file name.
+/* 
+****Returns a map of the containing the unique ID and desired attribute supplied from the supplied file name. 
+*/
 const std::map<std::string, std::string> StoryFileReader::CreateMapForStoryAttribute(std::string attribute) const
 {
 	// Create a place holder map to store everything. This will be returned and copied to the master map.
@@ -36,19 +42,25 @@ const std::map<std::string, std::string> StoryFileReader::CreateMapForStoryAttri
 	return map;
 }
 
-// Take a file name as an argument and returns the unique ID contained within the file.
+/* 
+****Take a file name as an argument and returns the unique ID contained within the file.
+*/
 const std::string StoryFileReader::ExtractStoryIDFromFile(std::string fileName) const
 {
 	return SearchFileForAttribute(fileName, StoryFileReader::FLAG_STORY_ID);
 }
 
-// Take a file name as an argument and returns the story name contained within the file.
+/* 
+****Take a file name as an argument and returns the story name contained within the file.
+*/
 const std::string StoryFileReader::ExtractStoryNameFromFile(std::string fileName) const
 {
 	return SearchFileForAttribute(fileName, StoryFileReader::FLAG_STORY_NAME);
 }
 
-// Grabs all of the files in the Story directory, weeding out other files that may be in there.
+/* 
+****Grabs all of the files in the Story directory, weeding out other files that may be in there.
+*/
 void StoryFileReader::GetAllStoryFilesInDirectory()
 {
 GetGame().GetDebugger().Print("StoryFileReader::GetAllStoryFilesInDirectory()...", Debugger::PRIORITY::MID);
@@ -102,13 +114,17 @@ GetGame().GetDebugger().Print(i, Debugger::PRIORITY::MID);
 }
 }
 
-// Finds all of the story files in the default directory and returns a map of the story IDs and their respective descriptions.
+/* 
+****Finds all of the story files in the default directory and returns a map of the story IDs and their respective descriptions.
+*/
 const std::map<std::string, std::string> StoryFileReader::GetStoryDescriptions() const
 {
 	return CreateMapForStoryAttribute(StoryFileReader::FLAG_STORY_DESCRIPTION);
 }
 
-// Finds all of the story files in the default directory and returns a map of the story IDs and their respective file names.
+/* 
+****Finds all of the story files in the default directory and returns a map of the story IDs and their respective file names.
+*/
 const std::map<std::string, std::string> StoryFileReader::GetStoryFileNames() const
 {
 	// Create a map to hold everything. This gets returned and copied to the master list stored elsewhere.
@@ -124,13 +140,17 @@ const std::map<std::string, std::string> StoryFileReader::GetStoryFileNames() co
 	return storyFileNamesWithIDs;
 }
 
-// Finds all of the story files in the default directory and returns a map of the story IDs and their respective file names.
+/* 
+****Finds all of the story files in the default directory and returns a map of the story IDs and their respective file names.
+*/
 const std::map<std::string, std::string> StoryFileReader::GetStoryNames() const
 {
 	return CreateMapForStoryAttribute(StoryFileReader::FLAG_STORY_NAME);
 }
 
-// Looks through the supplied file name to find the supplied attribute. Return the line proceeding the attribute.
+/* 
+****Looks through the supplied file name to find the supplied attribute. Return the line proceeding the attribute.
+*/
 const std::string StoryFileReader::SearchFileForAttribute(std::string fileName, std::string attribute) const
 {
 	std::ifstream in(StoryFileReader::STORY_FILE_PATH + fileName);
@@ -148,17 +168,16 @@ GetGame().GetDebugger().Print("StoryFileReader::SearchFileForAttribute() - Line 
 			// Skip blank lines...
 			if (line != "")
 			{
-				// Look for the flag for the story ID attribute,
+				// Look for the character to signal the presence of the attribute...
 				if (line == attribute)
 				{
-					// Jump down to the next line which actually contains the ID.
+					// Jump down to the next line which actually contains the attribute.
 					std::getline(in, line);
 
 					IDFound = true;
 GetGame().GetDebugger().Print("StoryFileReader::SearchFileForAttribute() - Attribute " + attribute + " Found: " + line, Debugger::PRIORITY::LOW);
 					break;
 				}
-
 			}
 		}
 		in.close();

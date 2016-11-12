@@ -8,7 +8,7 @@
 int _tmain(int argc, _TCHAR* argv[])
 {
 	// Had to make the console window width bigger so the logo would fit.
-	System::Console::WindowWidth = System::Console::LargestWindowWidth * .75;
+	System::Console::WindowWidth = int(System::Console::LargestWindowWidth * .75);
 	Game* game = new Game();
 
 	char input;

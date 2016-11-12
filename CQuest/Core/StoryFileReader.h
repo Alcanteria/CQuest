@@ -20,6 +20,10 @@ public:
 	const static std::string FLAG_STORY_ID;
 	const static std::string FLAG_STORY_NAME;
 	const static std::string FLAG_STORY_DESCRIPTION;
+	const static std::string FLAG_CHAPTERS;
+	const static std::string FLAG_CHOICES;
+	const static std::string FLAG_RESULTS;
+	const static std::string FLAG_STAT_CHANGES;
 
 
 	const			std::map<std::string, std::string>			CreateMapForStoryAttribute(std::string attribute)							const;
