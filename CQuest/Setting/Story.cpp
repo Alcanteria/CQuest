@@ -19,6 +19,8 @@ Story::~Story()
 			gameIntros = nullptr;
 	delete	nameSelectionQuips;
 			nameSelectionQuips = nullptr;
+
+GetGame().GetDebugger().Print("Story() Destructor.", Debugger::PRIORITY::LOW);
 }
 
 /*	Roll a die and compare the result to the saved history of rolls. 
@@ -40,13 +42,13 @@ const int Story::GetNewIntroDiceRoll() const
 		{
 			unique = true;
 
-GetGame().GetDebugger().Print("Story::GetNewIntroDiceRoll() - Unique roll found. Roll is...");
-GetGame().GetDebugger().Print(std::to_string(uniqueRoll));
+GetGame().GetDebugger().Print("Story::GetNewIntroDiceRoll() - Unique roll found. Roll is...", Debugger::PRIORITY::LOW);
+GetGame().GetDebugger().Print(std::to_string(uniqueRoll), Debugger::PRIORITY::LOW);
 
-			if (Debugger::DEBUG_MODE)
-			{
-				GetGame().GetSaveData().PrintIntroRollHistory();
-			}
+if (Debugger::DEBUG_MODE == Debugger::PRIORITY::LOW)
+{
+	GetGame().GetSaveData().PrintIntroRollHistory();
+}
 		}
 	}
 

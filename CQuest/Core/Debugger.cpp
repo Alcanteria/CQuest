@@ -9,13 +9,13 @@ Debugger::Debugger()
 
 Debugger::~Debugger()
 {
-	Print("Debugger() Destructor.");
+Print("Debugger() Destructor.", Debugger::PRIORITY::LOW);
 }
 
 // Prints a message to the console if debug mode is active.
-void Debugger::Print(std::string message) const
+void Debugger::Print(std::string message, Debugger::PRIORITY level) const
 {
-	if (DEBUG_MODE)
+	if (level >= Debugger::DEBUG_MODE)
 	{
 		std::cout << "::::DEBUGGER:::::\t" << message << std::endl;
 	}

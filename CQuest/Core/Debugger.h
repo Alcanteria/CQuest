@@ -9,8 +9,11 @@ public:
 	Debugger();
 	~Debugger();
 
-	const	static bool DEBUG_MODE = true;
+	// Allows different levels of message priority so some can be filtered out during testing.
+	enum PRIORITY { LOW =  0, MID = 1, TOP = 2};
 
-			void Print(std::string message) const;
+	const	static PRIORITY DEBUG_MODE = Debugger::PRIORITY::MID;
+
+			void	Print(std::string message, Debugger::PRIORITY level)	const;
 };
 

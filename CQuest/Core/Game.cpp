@@ -42,7 +42,7 @@ Game::Game()
 
 Game::~Game()
 {
-	debugger->Print("Game() Destructor.");
+debugger->Print("Game() Destructor.", Debugger::PRIORITY::LOW);
 
 	delete	menus.at(Menu::MENUS::MAIN);
 			menus.at(Menu::MENUS::MAIN) = nullptr;

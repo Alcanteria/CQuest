@@ -14,7 +14,7 @@ MainMenu::MainMenu(Game& gameReference) : Menu(gameReference)
 
 MainMenu::~MainMenu()
 {
-	GetGame().GetDebugger().Print("MainMenu() Destructor.");
+GetGame().GetDebugger().Print("MainMenu() Destructor.", Debugger::PRIORITY::LOW);
 }
 
 // Use this method to take the input key pressed by the user. It will figure out what to do with the key input.
