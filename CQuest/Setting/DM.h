@@ -27,6 +27,7 @@ public:
 	const			int											GetNewIntroDiceRoll()							const;
 	const			std::string									GetRandomIntro()								const;
 	const			int											GetRest()										const			{ return rest; }
+	const			Story&										GetStory()										const			{ return *story; }
 	const			std::map<std::string, std::string>&			GetStoryDescriptions()							const			{ return *storyDescriptions; }
 	const			std::map<std::string, std::string>&			GetStoryNames()									const			{ return *storyNames; }
 	const			std::map<std::string, std::string>&			GetStoryFileNames()								const			{ return *storyFileNames; }
@@ -47,9 +48,13 @@ private:
 	// This value determines the chances for success in most parts of the game.
 	int rest = 100;
 
+	// Stores the story chose by the player.
+	Story* story;
+
+	// Stores information on every available story.
 	std::map<std::string, std::string>* storyDescriptions;
 	std::map<std::string, std::string>* storyFileNames;
-	StoryFileReader* storyFileReader;
+	StoryFileReader*					storyFileReader;
 	std::map<std::string, std::string>* storyNames;
 
 	// In-Game time that is used to determine which parts of the story are used. This is NOT updated in real-time.

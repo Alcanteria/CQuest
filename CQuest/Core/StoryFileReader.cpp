@@ -100,17 +100,17 @@ GetGame().GetDebugger().Print("StoryFileReader::GetAllStoryFilesInDirectory()...
 	FindClose(hFind);
 
 // Print out all the file names found. Dubugging use only to make sure this works.
-if (Debugger::DEBUG_MODE == Debugger::PRIORITY::MID)
+if (Debugger::DEBUG_MODE == Debugger::PRIORITY::LOW)
 {
 std::string	output = "There are ";
 output.append(std::to_string(fileNames.size()));
 output.append(" files in the folder, and they are..");
 
-GetGame().GetDebugger().Print(output, Debugger::PRIORITY::MID);
+GetGame().GetDebugger().Print(output, Debugger::PRIORITY::LOW);
 
 for (auto i : fileNames)
 {
-GetGame().GetDebugger().Print(i, Debugger::PRIORITY::MID);
+GetGame().GetDebugger().Print(i, Debugger::PRIORITY::LOW);
 }
 }
 }
@@ -249,10 +249,10 @@ GetGame().GetDebugger().Print("StoryFileReader::LoadChapterFromFile() - Stat Cha
 
 				// Copy the placeholder to the chapter.
 				chapter.CopyStatChangesFromFile(statChanges);
-
-				// Move to the next line in the file.
-				std::getline(in, line);
 			}
+
+			// Move to the next line in the file.
+			std::getline(in, line);
 		}
 	}
 

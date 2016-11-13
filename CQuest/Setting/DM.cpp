@@ -11,6 +11,7 @@ DM::DM(Game& gameReference) : game(gameReference)
 {
 	currentStoryID = new std::string();
 	gameIntros = new std::vector<std::string>;
+	story = new Story(gameReference);
 	storyDescriptions = new std::map<std::string, std::string>();
 	storyFileNames = new std::map<std::string, std::string>();
 	storyNames = new std::map<std::string, std::string>();
@@ -24,6 +25,8 @@ DM::~DM()
 			currentStoryID = nullptr;
 	delete	gameIntros;
 			gameIntros = nullptr;
+	delete	story;
+			story = nullptr;
 	delete	storyDescriptions;
 			storyDescriptions = nullptr;
 	delete	storyFileNames;
@@ -87,7 +90,7 @@ const std::string DM::GetRandomIntro() const
 */
 void DM::Initialize() const
 {
-GetGame().GetDebugger().Print("DM::Initialize() - Initializing DM Class.", Debugger::PRIORITY::MID);
+GetGame().GetDebugger().Print("DM::Initialize() - Initializing DM Class.", Debugger::PRIORITY::LOW);
 
 	// Populate the map with the story IDs and file names.
 	*storyFileNames = storyFileReader->GetStoryFileNames();
@@ -96,7 +99,7 @@ if (Debugger::DEBUG_MODE == Debugger::PRIORITY::MID)
 {
 for (std::map<std::string, std::string>::iterator it = storyFileNames->begin(); it != storyFileNames->end(); ++it)
 {
-GetGame().GetDebugger().Print(it->first + "\t" + it->second, Debugger::PRIORITY::MID);
+GetGame().GetDebugger().Print(it->first + "\t" + it->second, Debugger::PRIORITY::LOW);
 }
 }
 
@@ -121,4 +124,7 @@ for (std::map<std::string, std::string>::iterator it = storyDescriptions->begin(
 GetGame().GetDebugger().Print(it->first + "\t" + it->second, Debugger::PRIORITY::MID);
 }
 }
+
+	// Test loading a story from file.
+	storyFileReader->LoadStoryFromFile(*story, "ChickenSaga.txt");
 }
