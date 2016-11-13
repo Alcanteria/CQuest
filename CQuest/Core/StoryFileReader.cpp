@@ -2,18 +2,19 @@
 #include "StoryFileReader.h"
 #include "Core\Game.h"
 #include <fstream>
+#include "Setting\Chapter.h"
 
 // Location of the story files.
 const std::string StoryFileReader::STORY_FILE_PATH = "Data\\Stories\\";
 
 // Speical character flags used in reading story file attributes.
-const std::string StoryFileReader::FLAG_STORY_ID = "@@@@STORY_ID";
-const std::string StoryFileReader::FLAG_STORY_NAME = "@@@@STORY_NAME";
-const std::string StoryFileReader::FLAG_STORY_DESCRIPTION = "@@@@STORY_DESCRIPTION";
-const std::string StoryFileReader::FLAG_CHAPTERS = "########CHAPTERS";
-const std::string StoryFileReader::FLAG_CHOICES = "########CHOICES";
-const std::string StoryFileReader::FLAG_RESULTS = "########RESULTS";
-const std::string StoryFileReader::FLAG_STAT_CHANGES = "########STAT_CHANGES";
+const std::string StoryFileReader::FLAG_STORY_ID				= "@@@@STORY_ID";
+const std::string StoryFileReader::FLAG_STORY_NAME				= "@@@@STORY_NAME";
+const std::string StoryFileReader::FLAG_STORY_DESCRIPTION		= "@@@@STORY_DESCRIPTION";
+const std::string StoryFileReader::FLAG_CHAPTER					= "########CHAPTER";
+const std::string StoryFileReader::FLAG_CHOICES					= "####CHOICES";
+const std::string StoryFileReader::FLAG_RESULTS					= "####RESULTS";
+const std::string StoryFileReader::FLAG_STAT_CHANGES			= "####STAT_CHANGES";
 
 StoryFileReader::StoryFileReader(Game& gameReference) : game(gameReference)
 {
@@ -146,6 +147,159 @@ const std::map<std::string, std::string> StoryFileReader::GetStoryFileNames() co
 const std::map<std::string, std::string> StoryFileReader::GetStoryNames() const
 {
 	return CreateMapForStoryAttribute(StoryFileReader::FLAG_STORY_NAME);
+}
+
+/*
+****Creates a chapter object and copies it into the passed story object using the file stream passed.
+*/
+void StoryFileReader::LoadChapterFromFile(Story& story, std::ifstream& in, std::string& line) const
+{
+GetGame().GetDebugger().Print("StoryFileReader::LoadChapterFromFile() - Reading Chapter...", Debugger::PRIORITY::MID);
+	// Place holder chapter object to store everything read from file.
+	Chapter chapter;
+
+GetGame().GetDebugger().Print("StoryFileReader::LoadChapterFromFile() - Description: " + line, Debugger::PRIORITY::MID);
+	// The line object passed in is already on the description portion of the file, so copy that to the chapter object now.
+	chapter.CopyDescriptionsFromFile(line);
+
+	// Move to the next line in the file.
+	std::getline(in, line);
+
+	// We are only focusing on this ONE chapter section. We will exit out when it's done.
+	while (line != StoryFileReader::FLAG_CHAPTER)
+	{
+		// Skip blank lines.
+		if (line != "")
+		{
+			// Load choices.
+			if (line == StoryFileReader::FLAG_CHOICES)
+			{
+GetGame().GetDebugger().Print("StoryFileReader::LoadChapterFromFile() - Choices Found", Debugger::PRIORITY::MID);
+				// Move to the next line in the file.
+				std::getline(in, line);
+
+				// Create a placeholder for the choices.
+				std::vector<std::string> choices;
+
+				// Keep looping through all of the choices.
+				while (line != StoryFileReader::FLAG_CHOICES)
+				{
+GetGame().GetDebugger().Print("StoryFileReader::LoadChapterFromFile() - Choice: " + line, Debugger::PRIORITY::MID);
+					choices.push_back(line);
+
+					// Move to the next line in the file.
+					std::getline(in, line);
+				}
+
+				// Copy placeholder to the chapter.
+				chapter.CopyChoicesFromFile(choices);
+
+				// Move to the next line in the file.
+				std::getline(in, line);
+			}
+
+			// Load Results.
+			if (line == StoryFileReader::FLAG_RESULTS)
+			{
+GetGame().GetDebugger().Print("StoryFileReader::LoadChapterFromFile() - Results Found", Debugger::PRIORITY::MID);
+				// Move to the next line in the file.
+				std::getline(in, line);
+
+				// Create a placeholder for the results.
+				std::vector<std::string> results;
+
+				// Keep looping through all of the results.
+				while (line != StoryFileReader::FLAG_RESULTS)
+				{
+GetGame().GetDebugger().Print("StoryFileReader::LoadChapterFromFile() - Result: " + line, Debugger::PRIORITY::MID);
+					results.push_back(line);
+
+					// Move to the next line in the file.
+					std::getline(in, line);
+				}
+
+				// Copy placeholder to the chapter.
+				chapter.CopyResultsFromFile(results);
+
+				// Move to the next line in the file.
+				std::getline(in, line);
+			}
+
+			// Load stat changes
+			if (line == StoryFileReader::FLAG_STAT_CHANGES)
+			{
+GetGame().GetDebugger().Print("StoryFileReader::LoadChapterFromFile() - Stat Changes Found", Debugger::PRIORITY::MID);
+				// Move to the next line in the file.
+				std::getline(in, line);
+
+				// Create a placeholder for the stat changes.
+				std::vector<short> statChanges;
+
+				// Keep looping through all of the stat changes.
+				while (line != StoryFileReader::FLAG_STAT_CHANGES)
+				{
+GetGame().GetDebugger().Print("StoryFileReader::LoadChapterFromFile() - Stat Change: " + line, Debugger::PRIORITY::MID);
+					/* We are converting the read string into an int and forcing it into a short.
+					We SHOULD be making sure it fits the short range, but it's just me so I know the score.*/
+					statChanges.push_back(std::stoi(line));
+
+					// Move to the next line in the file.
+					std::getline(in, line);
+				}
+
+				// Copy the placeholder to the chapter.
+				chapter.CopyStatChangesFromFile(statChanges);
+
+				// Move to the next line in the file.
+				std::getline(in, line);
+			}
+		}
+	}
+
+	story.AddChapter(chapter);
+GetGame().GetDebugger().Print("StoryFileReader::LoadChapterFromFile() - Chapter added to story.", Debugger::PRIORITY::MID);
+}
+
+/*
+****Reads the passed story file and stores the information into the passed story object.
+*/
+void StoryFileReader::LoadStoryFromFile(Story& story, std::string fileName) const
+{
+	std::ifstream* in = new std::ifstream(StoryFileReader::STORY_FILE_PATH + fileName);
+	std::string* line = new std::string;
+
+	// This makes sure the file is readable.
+	if (in->is_open())
+	{
+		// While there is still stuff in the file...
+		while (std::getline(*in, *line))
+		{
+			// Skip blank lines...
+			if (*line != "")
+			{
+				// Look for the character to signal the presence of a chapter
+				if (*line == StoryFileReader::FLAG_CHAPTER)
+				{
+					// Jump down to the next line which is the start of the chapter
+					std::getline(*in, *line);
+
+GetGame().GetDebugger().Print("StoryFileReader::LoadStoryFromFile() - Chapter Found", Debugger::PRIORITY::MID);
+
+					LoadChapterFromFile(story, *in, *line);
+				}
+			}
+		}
+		in->close();
+	}
+	else
+	{
+GetGame().GetDebugger().Print("StoryFileReader::LoadStoryFromFile() - Cannot Read : " + fileName, Debugger::PRIORITY::TOP);
+	}
+
+	delete	in;
+			in = nullptr;
+	delete	line;
+			line = nullptr;
 }
 
 /* 

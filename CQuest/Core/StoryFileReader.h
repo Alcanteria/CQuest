@@ -3,6 +3,7 @@
 #include <string>
 #include <map>
 #include <vector>
+#include "Setting\Story.h"
 
 class Game;
 
@@ -20,7 +21,7 @@ public:
 	const static std::string FLAG_STORY_ID;
 	const static std::string FLAG_STORY_NAME;
 	const static std::string FLAG_STORY_DESCRIPTION;
-	const static std::string FLAG_CHAPTERS;
+	const static std::string FLAG_CHAPTER;
 	const static std::string FLAG_CHOICES;
 	const static std::string FLAG_RESULTS;
 	const static std::string FLAG_STAT_CHANGES;
@@ -34,7 +35,9 @@ public:
 	const			std::map<std::string, std::string>			GetStoryDescriptions()														const;
 	const			std::map<std::string, std::string>			GetStoryFileNames()															const;
 	const			std::map<std::string, std::string>			GetStoryNames()																const;
-	const			std::string									SearchFileForAttribute(std::string fileName, std::string attribut)			const;
+					void										LoadChapterFromFile(Story& story, std::ifstream& in, std::string& line)		const;
+					void										LoadStoryFromFile(Story& story, std::string fileName)						const;
+	const			std::string									SearchFileForAttribute(std::string fileName, std::string attribute)			const;
 
 private:
 	Game& game;

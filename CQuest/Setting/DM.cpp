@@ -62,7 +62,7 @@ GetGame().GetDebugger().Print(std::to_string(uniqueRoll), Debugger::PRIORITY::LO
 
 if (Debugger::DEBUG_MODE == Debugger::PRIORITY::LOW)
 {
-	GetGame().GetSaveData().PrintIntroRollHistory();
+GetGame().GetSaveData().PrintIntroRollHistory();
 }
 		}
 	}
