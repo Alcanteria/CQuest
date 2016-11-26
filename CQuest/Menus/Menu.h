@@ -14,7 +14,7 @@ public:
 	~Menu();
 
 	// List of possible menus.
-	enum MENUS { MAIN, CHARACTER_SELECT, GAME_OVER, NONE };
+	enum MENUS { MAIN, CHARACTER_SELECT, GAME_OVER, STORY_SELECT, NONE };
 
 	// Default exit menu value.
 	const std::string EXIT = "*****EXIT*****";

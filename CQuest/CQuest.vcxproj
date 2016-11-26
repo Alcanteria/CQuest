@@ -101,6 +101,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Setting\Story.h" />
     <ClInclude Include="Core\StoryFileReader.h" />
+    <ClInclude Include="Menus\StorySelectMenu.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Core\Timer.h" />
   </ItemGroup>
@@ -126,6 +127,7 @@
     <ClCompile Include="Core\Timer.cpp" />
     <ClCompile Include="Setting\Story.cpp" />
     <ClCompile Include="Core\StoryFileReader.cpp" />
+    <ClCompile Include="Menus\StorySelectMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CQuest.rc" />

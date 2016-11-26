@@ -92,7 +92,7 @@ void DM::Initialize() const
 {
 GetGame().GetDebugger().Print("DM::Initialize() - Initializing DM Class.", Debugger::PRIORITY::LOW);
 
-	// Populate the map with the story IDs and file names.
+	// Populate the map with the IDs and file names of all available story modules.
 	*storyFileNames = storyFileReader->GetStoryFileNames();
 
 if (Debugger::DEBUG_MODE == Debugger::PRIORITY::MID)
@@ -103,7 +103,7 @@ GetGame().GetDebugger().Print(it->first + "\t" + it->second, Debugger::PRIORITY:
 }
 }
 
-	// Populate the map with the story IDs and names.
+	// Populate the map with the IDs and names of all available stories.
 	*storyNames = storyFileReader->GetStoryNames();
 
 if (Debugger::DEBUG_MODE == Debugger::PRIORITY::MID)
@@ -114,7 +114,7 @@ GetGame().GetDebugger().Print(it->first + "\t" + it->second, Debugger::PRIORITY:
 }
 }
 
-	// Populate the map with the story IDs and descriptions.
+	// Populate the map with the IDs and descriptions of all available stories.
 	*storyDescriptions = storyFileReader->GetStoryDescriptions();
 
 if (Debugger::DEBUG_MODE == Debugger::PRIORITY::MID)

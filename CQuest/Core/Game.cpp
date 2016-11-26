@@ -3,22 +3,12 @@
 #include "..\Menus\MainMenu.h"
 #include "..\Menus\GameOverMenu.h"
 #include "..\Menus\CharacterSelectMenu.h"
+#include "..\Menus\StorySelectMenu.h"
 #include <iostream>
 
 Game::Game()
 {
-	MainMenu* mainMenu = new MainMenu(*this);
-	AddMenu(Menu::MENUS::MAIN, mainMenu);
-
-	GameOverMenu* gameOverMenu = new GameOverMenu(*this);
-	AddMenu(Menu::MENUS::GAME_OVER, gameOverMenu);
-
-	CharacterSelectMenu* characterSelectMenu = new CharacterSelectMenu(*this);
-	AddMenu(Menu::MENUS::CHARACTER_SELECT, characterSelectMenu);
-
-	SetActiveMenu(Menu::MENUS::MAIN);
-	SetPreviousMenu(Menu::MENUS::MAIN);
-
+	// Instantiate parts.
 	timer = new Timer();
 	dice = new Dice(*this);
 	dm = new DM(*this);
@@ -29,6 +19,27 @@ Game::Game()
 	saveData->VerifySaveData();
 
 	dm->Initialize();
+
+
+	// Create menus.
+	//MainMenu* mainMenu = new MainMenu(*this);
+	AddMenu(Menu::MENUS::MAIN, new MainMenu(*this));
+
+	//GameOverMenu* gameOverMenu = new GameOverMenu(*this);
+	AddMenu(Menu::MENUS::GAME_OVER, new GameOverMenu(*this));
+
+	//CharacterSelectMenu* characterSelectMenu = new CharacterSelectMenu(*this);
+	AddMenu(Menu::MENUS::CHARACTER_SELECT, new CharacterSelectMenu(*this));
+
+	StorySelectMenu* storySelectMenu = new StorySelectMenu(*this);
+	//AddMenu(Menu::MENUS::STORY_SELECT, new StorySelectMenu(*this));
+	AddMenu(Menu::MENUS::STORY_SELECT, storySelectMenu);
+	/* TESTING STORY SELECT MENU ***********************************/
+	storySelectMenu->Initialize();
+
+	SetActiveMenu(Menu::MENUS::MAIN);
+	SetPreviousMenu(Menu::MENUS::MAIN);
+
 	logo->ShowLogo();
 	timer->Wait(2);
 	
@@ -60,13 +71,17 @@ debugger->Print("Game() Destructor.", Debugger::PRIORITY::LOW);
 			dm = nullptr;
 }
 
-// Add a new menu to the store of possibe game menus.
+/* 
+****Add a new menu to the store of possibe game menus.
+*/
 void Game::AddMenu(Menu::MENUS menuName, Menu* menu)
 {
 	menus.insert(std::make_pair(menuName, menu));
 }
 
-// Check to see if the active menu is a real menu, or the indicator that the game is at an end.
+/* 
+****Check to see if the active menu is a real menu, or the indicator that the game is at an end.
+*/
 bool Game::CheckActiveMenu() const
 {
 	if (activeMenu != Menu::MENUS::GAME_OVER)
@@ -75,7 +90,9 @@ bool Game::CheckActiveMenu() const
 		return false;
 }
 
-// Change the active menu to the passes menu enum.
+/* 
+****Change the active menu to the passes menu enum.
+*/
 void Game::ChangeGameMenu(Menu::MENUS menu)
 {
 	// Make sure the current menu isn't empty, which should indicate that the game has just loaded.
@@ -98,12 +115,17 @@ void Game::ChangeGameMenu(Menu::MENUS menu)
 	menus.at(menu)->ShowWelcomeMessage();
 }
 
+/*
+****
+*/
 void Game::CreateNewCharacter(CharacterClass* character)
 {
 	playerCharacter = character;
 }
 
-// Ends the current game. This ends the game loop so the main() can properly clean up before exiting the program.
+/* 
+****Ends the current game. This ends the game loop so main() can properly clean up before exiting the program.
+*/
 void Game::EndGame()
 {
 	GetTimer().PrintFastGap();
@@ -111,24 +133,33 @@ void Game::EndGame()
 	SetGameOver(true);
 }
 
-// Retrieve the currently active menu.
+/* 
+****Retrieve the currently active menu.
+*/
 const Menu* Game::GetActiveMenu() const
 {
 	return menus.at(activeMenu);
 }
 
-// Retrieve the specified menu.
+/* 
+****Retrieve the specified menu.
+*/
 const Menu* Game::GetMenu(Menu::MENUS menu) const
 {
 	return menus.at(menu);
 }
 
-// Retrieve the menu viewed previous to the current one.
+/* 
+****Retrieve the menu viewed previous to the current one.
+*/
 const Menu* Game::GetPreviousMenu() const
 {
 	return menus.at(previousMenu);
 }
 
+/*
+****
+*/
 void Game::NameCharacter(std::string name)
 {
 	characterName = name;
