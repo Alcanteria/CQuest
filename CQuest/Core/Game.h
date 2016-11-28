@@ -28,11 +28,12 @@ public:
 	const		Debugger&								GetDebugger()									const			{ return *debugger; }
 				Dice&									GetDice()										const			{ return *dice; }
 	const		DM&										GetDM()											const			{ return *dm; }
-	const		Menu*									GetMenu(Menu::MENUS menuName)					const;
+				Menu*									GetMenu(Menu::MENUS menuName)					const;
 	const		std::map<Menu::MENUS, Menu*>			GetMenus()										const			{ return menus; }
 	const		Menu*									GetPreviousMenu()								const;
 	const		SaveData&								GetSaveData()									const			{ return *saveData; }
-				Timer&									GetTimer()														{ return *timer; }	
+				Timer&									GetTimer()														{ return *timer; }
+				void									GoBackToPreviousMenu();
 	const		bool									IsGameOver()													{ return gameOver; }
 				void									NameCharacter(std::string name);
 				void									SetGameOver(bool poop)											{ gameOver = poop; }

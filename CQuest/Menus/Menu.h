@@ -27,11 +27,12 @@ public:
 	const	std::map<std::string, std::string>		GetOptionKeys()												const		{ return optionKeys; }
 	const	std::string								GetWelcomeMessage()											const		{ return welcomeMessage; }
 	const	bool									IsActive()													const		{ return isActive; }
+	virtual	void									Initialize();
 	const	bool									IsOptionKeyPresent(std::string key)							const;
-	static	void							PrintChunk();
-	static	void							PrintGap(int spaces = 3);
+	static	void									PrintChunk();
+	static	void									PrintGap(int spaces = 3);
 			void									PrintInvalidOption()										const;
-	static	void							PrintSeperator();
+	static	void									PrintSeperator();
 	virtual	void									ProcessOptionKeyPress(std::string key)						const;
 			void									ShowAllOptions()											const;
 			void									ShowWelcomeMessage()										const;

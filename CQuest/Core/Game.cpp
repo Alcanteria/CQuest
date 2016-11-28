@@ -22,20 +22,13 @@ Game::Game()
 
 
 	// Create menus.
-	//MainMenu* mainMenu = new MainMenu(*this);
 	AddMenu(Menu::MENUS::MAIN, new MainMenu(*this));
-
-	//GameOverMenu* gameOverMenu = new GameOverMenu(*this);
 	AddMenu(Menu::MENUS::GAME_OVER, new GameOverMenu(*this));
-
-	//CharacterSelectMenu* characterSelectMenu = new CharacterSelectMenu(*this);
 	AddMenu(Menu::MENUS::CHARACTER_SELECT, new CharacterSelectMenu(*this));
-
-	StorySelectMenu* storySelectMenu = new StorySelectMenu(*this);
-	//AddMenu(Menu::MENUS::STORY_SELECT, new StorySelectMenu(*this));
-	AddMenu(Menu::MENUS::STORY_SELECT, storySelectMenu);
+	AddMenu(Menu::MENUS::STORY_SELECT, new StorySelectMenu(*this));
+	
 	/* TESTING STORY SELECT MENU ***********************************/
-	storySelectMenu->Initialize();
+	GetMenu(Menu::MENUS::STORY_SELECT)->Initialize();
 
 	SetActiveMenu(Menu::MENUS::MAIN);
 	SetPreviousMenu(Menu::MENUS::MAIN);
@@ -144,7 +137,7 @@ const Menu* Game::GetActiveMenu() const
 /* 
 ****Retrieve the specified menu.
 */
-const Menu* Game::GetMenu(Menu::MENUS menu) const
+Menu* Game::GetMenu(Menu::MENUS menu) const
 {
 	return menus.at(menu);
 }
@@ -155,6 +148,14 @@ const Menu* Game::GetMenu(Menu::MENUS menu) const
 const Menu* Game::GetPreviousMenu() const
 {
 	return menus.at(previousMenu);
+}
+
+/*
+****Moves the game interface back to the previously viewed menu.
+*/
+void Game::GoBackToPreviousMenu()
+{
+	ChangeGameMenu(previousMenu);
 }
 
 /*

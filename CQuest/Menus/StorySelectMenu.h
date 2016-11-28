@@ -10,9 +10,10 @@ public:
 	StorySelectMenu(Game& gameReference);
 	~StorySelectMenu();
 
-				void		Initialize();
-	virtual		void		ProcessOptionKeyPress(std::string key)		const override;
-	virtual		void		ValidateKeyPressed(std::string key)			const override;
+				void		AddStoryOptions();
+	virtual		void		Initialize()										override;
+	virtual		void		ProcessOptionKeyPress(std::string key)		const	override;
+	virtual		void		ValidateKeyPressed(std::string key)			const	override;
 
 private:
 

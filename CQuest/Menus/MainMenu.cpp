@@ -34,7 +34,7 @@ void MainMenu::ValidateKeyPressed(std::string key) const
 void MainMenu::ProcessOptionKeyPress(std::string key) const
 {
 	if (key == "1")
-		GetGame().ChangeGameMenu(Menu::MENUS::CHARACTER_SELECT);
+		GetGame().ChangeGameMenu(Menu::MENUS::STORY_SELECT);
 
 	if (key == "2")
 		GetGame().EndGame();

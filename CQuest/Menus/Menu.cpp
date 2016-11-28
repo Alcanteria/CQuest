@@ -20,6 +20,11 @@ void Menu::AddOptionKey(std::string key, std::string description)
 	optionKeys.insert(std::make_pair(key, description));
 }
 
+void Menu::Initialize()
+{
+GetGame().GetDebugger().Print("Menu() - Initialize", Debugger::PRIORITY::LOW);
+}
+
 // Search for the passed key press value in the map store.
 const bool Menu::IsOptionKeyPresent(std::string key) const
 {
