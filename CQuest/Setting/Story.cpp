@@ -11,5 +11,5 @@ Story::Story(Game& gameReference) : game(gameReference)
 Story::~Story()
 {
 
-GetGame().GetDebugger().Print("Story() Destructor.", Debugger::PRIORITY::LOW);
+Debug::Print("Story() Destructor.", Debug::PRIORITY::LOW);
 }

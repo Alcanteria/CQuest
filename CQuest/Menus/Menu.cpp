@@ -11,7 +11,7 @@ Menu::Menu(Game& gameReference) : game(gameReference)
 
 Menu::~Menu()
 {
-GetGame().GetDebugger().Print("Menu() Destructor.", Debugger::PRIORITY::LOW);
+Debug::Print("Menu() Destructor.", Debug::PRIORITY::LOW);
 }
 
 // Add the passed string description at the passed character key location.
@@ -22,7 +22,7 @@ void Menu::AddOptionKey(std::string key, std::string description)
 
 void Menu::Initialize()
 {
-GetGame().GetDebugger().Print("Menu() - Initialize", Debugger::PRIORITY::LOW);
+Debug::Print("Menu() - Initialize", Debug::PRIORITY::LOW);
 }
 
 // Search for the passed key press value in the map store.
@@ -65,7 +65,7 @@ void Menu::PrintSeperator()
 }
 
 // Takes a key input that has been verified to be a legal option in the menu and performs the corresponding task.
-void Menu::ProcessOptionKeyPress(std::string key) const
+void Menu::ProcessOptionKeyPress(std::string key)
 {
 	switch (key[0])
 	{
@@ -105,7 +105,7 @@ void Menu::ShowWelcomeMessage() const
 }
 
 // See if the key pressed is one of the available options.
-void Menu::ValidateKeyPressed(std::string key) const
+void Menu::ValidateKeyPressed(std::string key)
 {
 	if (IsOptionKeyPresent(key))
 		std::cout << "Valid Option." << std::endl;

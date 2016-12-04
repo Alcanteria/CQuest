@@ -17,18 +17,18 @@ public:
 
 				void					AddNewIntroRollToHistory(int roll)	const;
 	const		bool					CheckIntroRoll(int roll);
-				void					CreateDefaultIntroSaveFile()		const;
-				void					GenerateRandomIntroValues()			const;
-	const		Game&					GetGame()							const		{ return game; }
+				void					CreateDefaultIntroSaveFile();
+				void					GenerateRandomIntroValues();
+				Game&					GetGame()										{ return game; }
 	const		std::vector<int>&		GetIntroRolls()						const		{ return *introRolls; }
 				void					PrintIntroRollHistory()				const;
-				void					ReadIntroRollHistory()				const;
-				void					ReadIntroStoryText()				const;
+				void					ReadIntroRollHistory();
+				void					ReadIntroStoryText();
 				void					SaveIntroData()						const;
 	const		bool					VerifyIntroSaveData()				const;
-				void					VerifySaveData()					const;
-				void					VerifyTestData()					const;
-				void					WriteTestFile()						const;
+				void					VerifySaveData();
+				void					VerifyTestData();
+				void					WriteTestFile();
 
 private:
 

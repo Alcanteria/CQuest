@@ -7,7 +7,6 @@
 #include "..\Setting\Story.h"
 #include "Dice.h"
 #include "SaveData.h"
-#include "Debugger.h"
 #include "Graphics\Logo.h"
 #include "Setting\DM.h"
 
@@ -22,16 +21,15 @@ public:
 				void									ChangeGameMenu(Menu::MENUS menu);
 				void									CreateNewCharacter(CharacterClass* character);
 				void									EndGame();
-	const		Menu*									GetActiveMenu()									const;
+				Menu*									GetActiveMenu();
 	const		CharacterClass*							GetCharacter()									const			{ return playerCharacter; }
 	const		std::string								GetCharacterName()								const			{ return characterName; }
-	const		Debugger&								GetDebugger()									const			{ return *debugger; }
 				Dice&									GetDice()										const			{ return *dice; }
-	const		DM&										GetDM()											const			{ return *dm; }
+				DM&										GetDM()															{ return *dm; }
 				Menu*									GetMenu(Menu::MENUS menuName)					const;
 	const		std::map<Menu::MENUS, Menu*>			GetMenus()										const			{ return menus; }
 	const		Menu*									GetPreviousMenu()								const;
-	const		SaveData&								GetSaveData()									const			{ return *saveData; }
+				SaveData&								GetSaveData()													{ return *saveData; }
 				Timer&									GetTimer()														{ return *timer; }
 				void									GoBackToPreviousMenu();
 	const		bool									IsGameOver()													{ return gameOver; }
@@ -49,9 +47,6 @@ public:
 private:
 	// The name of the player character.
 	std::string characterName;
-
-	// Object that handles debug status and reporting.
-	Debugger* debugger;
 
 	// Object for random number generation.
 	Dice* dice;
@@ -78,3 +73,12 @@ private:
 	Timer* timer;
 };
 
+namespace Debug
+{
+	// Allows different levels of message priority so some can be filtered out during testing.
+	enum PRIORITY { LOW = 0, MID = 1, TOP = 2 };
+
+	const	static PRIORITY DEBUG_MODE = Debug::PRIORITY::MID;
+
+			void	Print(std::string message, Debug::PRIORITY level);
+}

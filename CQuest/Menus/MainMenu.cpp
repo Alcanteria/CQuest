@@ -14,11 +14,11 @@ MainMenu::MainMenu(Game& gameReference) : Menu(gameReference)
 
 MainMenu::~MainMenu()
 {
-GetGame().GetDebugger().Print("MainMenu() Destructor.", Debugger::PRIORITY::LOW);
+Debug::Print("MainMenu() Destructor.", Debug::PRIORITY::LOW);
 }
 
 // Use this method to take the input key pressed by the user. It will figure out what to do with the key input.
-void MainMenu::ValidateKeyPressed(std::string key) const
+void MainMenu::ValidateKeyPressed(std::string key)
 {
 	if (IsOptionKeyPresent(key))
 	{
@@ -31,7 +31,7 @@ void MainMenu::ValidateKeyPressed(std::string key) const
 }
 
 // Takes a key input that has been verified to be a legal option in the menu and performs the corresponding task.
-void MainMenu::ProcessOptionKeyPress(std::string key) const
+void MainMenu::ProcessOptionKeyPress(std::string key)
 {
 	if (key == "1")
 		GetGame().ChangeGameMenu(Menu::MENUS::STORY_SELECT);

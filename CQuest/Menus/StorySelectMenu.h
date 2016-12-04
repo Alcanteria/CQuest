@@ -12,8 +12,8 @@ public:
 
 				void		AddStoryOptions();
 	virtual		void		Initialize()										override;
-	virtual		void		ProcessOptionKeyPress(std::string key)		const	override;
-	virtual		void		ValidateKeyPressed(std::string key)			const	override;
+	virtual		void		ProcessOptionKeyPress(std::string key)				override;
+	virtual		void		ValidateKeyPressed(std::string key)					override;
 
 private:
 

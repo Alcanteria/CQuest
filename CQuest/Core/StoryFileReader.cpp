@@ -64,7 +64,7 @@ const std::string StoryFileReader::ExtractStoryNameFromFile(std::string fileName
 */
 void StoryFileReader::GetAllStoryFilesInDirectory()
 {
-GetGame().GetDebugger().Print("StoryFileReader::GetAllStoryFilesInDirectory()...", Debugger::PRIORITY::MID);
+Debug::Print("StoryFileReader::GetAllStoryFilesInDirectory()...", Debug::PRIORITY::MID);
 
 	// UGLY WINDOWS SHIT.
 	WIN32_FIND_DATAA fileData;
@@ -100,17 +100,17 @@ GetGame().GetDebugger().Print("StoryFileReader::GetAllStoryFilesInDirectory()...
 	FindClose(hFind);
 
 // Print out all the file names found. Dubugging use only to make sure this works.
-if (Debugger::DEBUG_MODE == Debugger::PRIORITY::LOW)
+if (Debug::DEBUG_MODE == Debug::PRIORITY::LOW)
 {
 std::string	output = "There are ";
 output.append(std::to_string(fileNames.size()));
 output.append(" files in the folder, and they are..");
 
-GetGame().GetDebugger().Print(output, Debugger::PRIORITY::LOW);
+Debug::Print(output, Debug::PRIORITY::LOW);
 
 for (auto i : fileNames)
 {
-GetGame().GetDebugger().Print(i, Debugger::PRIORITY::LOW);
+Debug::Print(i, Debug::PRIORITY::LOW);
 }
 }
 }
@@ -154,11 +154,11 @@ const std::map<std::string, std::string> StoryFileReader::GetStoryNames() const
 */
 void StoryFileReader::LoadChapterFromFile(Story& story, std::ifstream& in, std::string& line) const
 {
-GetGame().GetDebugger().Print("StoryFileReader::LoadChapterFromFile() - Reading Chapter...", Debugger::PRIORITY::MID);
+Debug::Print("StoryFileReader::LoadChapterFromFile() - Reading Chapter...", Debug::PRIORITY::MID);
 	// Place holder chapter object to store everything read from file.
 	Chapter chapter;
 
-GetGame().GetDebugger().Print("StoryFileReader::LoadChapterFromFile() - Description: " + line, Debugger::PRIORITY::MID);
+Debug::Print("StoryFileReader::LoadChapterFromFile() - Description: " + line, Debug::PRIORITY::MID);
 	// The line object passed in is already on the description portion of the file, so copy that to the chapter object now.
 	chapter.CopyDescriptionsFromFile(line);
 
@@ -174,7 +174,7 @@ GetGame().GetDebugger().Print("StoryFileReader::LoadChapterFromFile() - Descript
 			// Load choices.
 			if (line == StoryFileReader::FLAG_CHOICES)
 			{
-GetGame().GetDebugger().Print("StoryFileReader::LoadChapterFromFile() - Choices Found", Debugger::PRIORITY::MID);
+Debug::Print("StoryFileReader::LoadChapterFromFile() - Choices Found", Debug::PRIORITY::MID);
 				// Move to the next line in the file.
 				std::getline(in, line);
 
@@ -184,7 +184,7 @@ GetGame().GetDebugger().Print("StoryFileReader::LoadChapterFromFile() - Choices 
 				// Keep looping through all of the choices.
 				while (line != StoryFileReader::FLAG_CHOICES)
 				{
-GetGame().GetDebugger().Print("StoryFileReader::LoadChapterFromFile() - Choice: " + line, Debugger::PRIORITY::MID);
+Debug::Print("StoryFileReader::LoadChapterFromFile() - Choice: " + line, Debug::PRIORITY::MID);
 					choices.push_back(line);
 
 					// Move to the next line in the file.
@@ -201,7 +201,7 @@ GetGame().GetDebugger().Print("StoryFileReader::LoadChapterFromFile() - Choice: 
 			// Load Results.
 			if (line == StoryFileReader::FLAG_RESULTS)
 			{
-GetGame().GetDebugger().Print("StoryFileReader::LoadChapterFromFile() - Results Found", Debugger::PRIORITY::MID);
+Debug::Print("StoryFileReader::LoadChapterFromFile() - Results Found", Debug::PRIORITY::MID);
 				// Move to the next line in the file.
 				std::getline(in, line);
 
@@ -211,7 +211,7 @@ GetGame().GetDebugger().Print("StoryFileReader::LoadChapterFromFile() - Results 
 				// Keep looping through all of the results.
 				while (line != StoryFileReader::FLAG_RESULTS)
 				{
-GetGame().GetDebugger().Print("StoryFileReader::LoadChapterFromFile() - Result: " + line, Debugger::PRIORITY::MID);
+Debug::Print("StoryFileReader::LoadChapterFromFile() - Result: " + line, Debug::PRIORITY::MID);
 					results.push_back(line);
 
 					// Move to the next line in the file.
@@ -228,7 +228,7 @@ GetGame().GetDebugger().Print("StoryFileReader::LoadChapterFromFile() - Result: 
 			// Load stat changes
 			if (line == StoryFileReader::FLAG_STAT_CHANGES)
 			{
-GetGame().GetDebugger().Print("StoryFileReader::LoadChapterFromFile() - Stat Changes Found", Debugger::PRIORITY::MID);
+Debug::Print("StoryFileReader::LoadChapterFromFile() - Stat Changes Found", Debug::PRIORITY::MID);
 				// Move to the next line in the file.
 				std::getline(in, line);
 
@@ -238,7 +238,7 @@ GetGame().GetDebugger().Print("StoryFileReader::LoadChapterFromFile() - Stat Cha
 				// Keep looping through all of the stat changes.
 				while (line != StoryFileReader::FLAG_STAT_CHANGES)
 				{
-GetGame().GetDebugger().Print("StoryFileReader::LoadChapterFromFile() - Stat Change: " + line, Debugger::PRIORITY::MID);
+Debug::Print("StoryFileReader::LoadChapterFromFile() - Stat Change: " + line, Debug::PRIORITY::MID);
 					/* We are converting the read string into an int and forcing it into a short.
 					We SHOULD be making sure it fits the short range, but it's just me so I know the score.*/
 					statChanges.push_back(std::stoi(line));
@@ -257,7 +257,7 @@ GetGame().GetDebugger().Print("StoryFileReader::LoadChapterFromFile() - Stat Cha
 	}
 
 	story.AddChapter(chapter);
-GetGame().GetDebugger().Print("StoryFileReader::LoadChapterFromFile() - Chapter added to story.", Debugger::PRIORITY::MID);
+Debug::Print("StoryFileReader::LoadChapterFromFile() - Chapter added to story.", Debug::PRIORITY::MID);
 }
 
 /*
@@ -283,7 +283,7 @@ void StoryFileReader::LoadStoryFromFile(Story& story, std::string fileName) cons
 					// Jump down to the next line which is the start of the chapter
 					std::getline(*in, *line);
 
-GetGame().GetDebugger().Print("StoryFileReader::LoadStoryFromFile() - Chapter Found", Debugger::PRIORITY::MID);
+Debug::Print("StoryFileReader::LoadStoryFromFile() - Chapter Found", Debug::PRIORITY::MID);
 
 					LoadChapterFromFile(story, *in, *line);
 				}
@@ -293,7 +293,7 @@ GetGame().GetDebugger().Print("StoryFileReader::LoadStoryFromFile() - Chapter Fo
 	}
 	else
 	{
-GetGame().GetDebugger().Print("StoryFileReader::LoadStoryFromFile() - Cannot Read : " + fileName, Debugger::PRIORITY::TOP);
+Debug::Print("StoryFileReader::LoadStoryFromFile() - Cannot Read : " + fileName, Debug::PRIORITY::TOP);
 	}
 
 	delete	in;
@@ -317,7 +317,7 @@ const std::string StoryFileReader::SearchFileForAttribute(std::string fileName, 
 		// While there is still stuff in the file...
 		while (std::getline(in, line))
 		{
-GetGame().GetDebugger().Print("StoryFileReader::SearchFileForAttribute() - Line = : " + line, Debugger::PRIORITY::LOW);
+Debug::Print("StoryFileReader::SearchFileForAttribute() - Line = : " + line, Debug::PRIORITY::LOW);
 
 			// Skip blank lines...
 			if (line != "")
@@ -329,7 +329,7 @@ GetGame().GetDebugger().Print("StoryFileReader::SearchFileForAttribute() - Line 
 					std::getline(in, line);
 
 					IDFound = true;
-GetGame().GetDebugger().Print("StoryFileReader::SearchFileForAttribute() - Attribute " + attribute + " Found: " + line, Debugger::PRIORITY::LOW);
+Debug::Print("StoryFileReader::SearchFileForAttribute() - Attribute " + attribute + " Found: " + line, Debug::PRIORITY::LOW);
 					break;
 				}
 			}
@@ -338,13 +338,13 @@ GetGame().GetDebugger().Print("StoryFileReader::SearchFileForAttribute() - Attri
 	}
 	else
 	{
-GetGame().GetDebugger().Print("StoryFileReader::SearchFileForAttribute() - Cannot Read : " + fileName, Debugger::PRIORITY::TOP);
+Debug::Print("StoryFileReader::SearchFileForAttribute() - Cannot Read : " + fileName, Debug::PRIORITY::TOP);
 	}
 
 	if (!IDFound)
 	{
 		line = DM::NO_STORY;
-GetGame().GetDebugger().Print("StoryFileReader::SearchFileForAttribute() - No ID Found: " + line, Debugger::PRIORITY::TOP);
+Debug::Print("StoryFileReader::SearchFileForAttribute() - No ID Found: " + line, Debug::PRIORITY::TOP);
 	}
 
 	return line;

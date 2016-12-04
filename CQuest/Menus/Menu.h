@@ -14,7 +14,7 @@ public:
 	~Menu();
 
 	// List of possible menus.
-	enum MENUS { MAIN, CHARACTER_SELECT, GAME_OVER, STORY_SELECT, NONE };
+	enum MENUS { MAIN, GAME_OVER, STORY_SELECT, NONE };
 
 	// Default exit menu value.
 	const std::string EXIT = "*****EXIT*****";
@@ -23,7 +23,7 @@ public:
 	const std::string GO_BACK = "<----GO BACK";
 
 			void									AddOptionKey(std::string key, std::string description);
-			Game&									GetGame()													const		{ return game; }
+			Game&									GetGame()																{ return game; }
 	const	std::map<std::string, std::string>		GetOptionKeys()												const		{ return optionKeys; }
 	const	std::string								GetWelcomeMessage()											const		{ return welcomeMessage; }
 	const	bool									IsActive()													const		{ return isActive; }
@@ -33,11 +33,11 @@ public:
 	static	void									PrintGap(int spaces = 3);
 			void									PrintInvalidOption()										const;
 	static	void									PrintSeperator();
-	virtual	void									ProcessOptionKeyPress(std::string key)						const;
+	virtual	void									ProcessOptionKeyPress(std::string key);
 			void									ShowAllOptions()											const;
 			void									ShowWelcomeMessage()										const;
 			void									SetActiveStatus(bool active)											{ isActive = active; }
-	virtual	void									ValidateKeyPressed(std::string key)							const;
+	virtual	void									ValidateKeyPressed(std::string key);
 
 protected:
 	void											SetWelcomeMessage(std::string message)									{ welcomeMessage = message; }

@@ -27,7 +27,7 @@ void Logo::ShowLogo() const
 	// This makes sure the file is readable. If we got this far it damn well should be.
 	if (in.is_open())
 	{
-GetGame().GetDebugger().Print("Reading logo file...", Debugger::PRIORITY::LOW);
+Debug::Print("Reading logo file...", Debug::PRIORITY::LOW);
 		while (std::getline(in, text))
 		{
 			if (text != "")
@@ -44,6 +44,6 @@ GetGame().GetDebugger().Print("Reading logo file...", Debugger::PRIORITY::LOW);
 		GetGame().GetTimer().Wait(3);
 		std::cout << "8======D" << std::endl;
 
-GetGame().GetDebugger().Print("Cannot open logo file.", Debugger::PRIORITY::LOW);
+Debug::Print("Cannot open logo file.", Debug::PRIORITY::LOW);
 	}
 }

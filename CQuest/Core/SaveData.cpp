@@ -28,9 +28,9 @@ SaveData::~SaveData()
 */
 void SaveData::AddNewIntroRollToHistory(int roll) const
 {
-if (Debugger::DEBUG_MODE == Debugger::PRIORITY::LOW)
+if (Debug::DEBUG_MODE == Debug::PRIORITY::LOW)
 {
-GetGame().GetDebugger().Print("SaveData::AddNewIntroRollToHistory() - Intro history before adding new number...", Debugger::PRIORITY::LOW);
+Debug::Print("SaveData::AddNewIntroRollToHistory() - Intro history before adding new number...", Debug::PRIORITY::LOW);
 PrintIntroRollHistory();
 }
 	
@@ -43,9 +43,9 @@ PrintIntroRollHistory();
 	// Save the file.
 	SaveIntroData();
 
-if (Debugger::DEBUG_MODE == Debugger::PRIORITY::LOW)
+if (Debug::DEBUG_MODE == Debug::PRIORITY::LOW)
 {
-GetGame().GetDebugger().Print("SaveData::AddNewIntroRollToHistory() - Intro history after adding new number...", Debugger::PRIORITY::LOW);
+Debug::Print("SaveData::AddNewIntroRollToHistory() - Intro history after adding new number...", Debug::PRIORITY::LOW);
 PrintIntroRollHistory();
 }
 }
@@ -53,9 +53,9 @@ PrintIntroRollHistory();
 /* 
 ****Create a file for the intro save data using new values. This will ignore any roll "history".
 */
-void SaveData::CreateDefaultIntroSaveFile() const
+void SaveData::CreateDefaultIntroSaveFile()
 {
-GetGame().GetDebugger().Print("SaveData::CreateDefaultIntroSaveFile() - Creating default save file.", Debugger::PRIORITY::LOW);
+Debug::Print("SaveData::CreateDefaultIntroSaveFile() - Creating default save file.", Debug::PRIORITY::LOW);
 	
 	GenerateRandomIntroValues();
 
@@ -65,7 +65,7 @@ GetGame().GetDebugger().Print("SaveData::CreateDefaultIntroSaveFile() - Creating
 /* 
 ****Generate a set of random numbers and add them to the introValues vector.
 */
-void SaveData::GenerateRandomIntroValues() const
+void SaveData::GenerateRandomIntroValues()
 {
 	// Clean out whatever was already in the vector. Most likely nothing at all.
 	introRolls->clear();
@@ -88,11 +88,10 @@ void SaveData::GenerateRandomIntroValues() const
 				unique = true;
 
 				introRolls->push_back(uniqueRoll);
+Debug::Print("Story::GetNewIntroDiceRoll() - Unique roll found. Roll is...", Debug::PRIORITY::LOW);
+Debug::Print(std::to_string(uniqueRoll), Debug::PRIORITY::LOW);
 
-GetGame().GetDebugger().Print("Story::GetNewIntroDiceRoll() - Unique roll found. Roll is...", Debugger::PRIORITY::LOW);
-GetGame().GetDebugger().Print(std::to_string(uniqueRoll), Debugger::PRIORITY::LOW);
-
-if (Debugger::DEBUG_MODE == Debugger::PRIORITY::LOW)
+if (Debug::DEBUG_MODE == Debug::PRIORITY::LOW)
 {
 GetGame().GetSaveData().PrintIntroRollHistory();
 }
@@ -106,18 +105,18 @@ GetGame().GetSaveData().PrintIntroRollHistory();
 */
 void SaveData::PrintIntroRollHistory() const
 {
-GetGame().GetDebugger().Print("Current intro roll history...", Debugger::PRIORITY::LOW);
+Debug::Print("Current intro roll history...", Debug::PRIORITY::LOW);
 
 for (auto i : *introRolls)
 {
-GetGame().GetDebugger().Print(std::to_string(i), Debugger::PRIORITY::LOW);
+Debug::Print(std::to_string(i), Debug::PRIORITY::LOW);
 }
 }
 
 /* 
 ****Read in the file for the intro save data or load default values if no file can be read.
 */
-void SaveData::ReadIntroRollHistory() const
+void SaveData::ReadIntroRollHistory()
 {
 	std::ifstream in(SaveData::INTRO_ROLL_HISTORY_FILENAME);
 	std::string text;
@@ -129,13 +128,13 @@ void SaveData::ReadIntroRollHistory() const
 		{
 			if (text != "")
 			{
-GetGame().GetDebugger().Print("File output...", Debugger::PRIORITY::LOW);
-GetGame().GetDebugger().Print(text, Debugger::PRIORITY::LOW);
+Debug::Print("File output...", Debug::PRIORITY::LOW);
+Debug::Print(text, Debug::PRIORITY::LOW);
 
 				introRolls->push_back(std::stoi(text));
 
-GetGame().GetDebugger().Print("Variable output...", Debugger::PRIORITY::LOW);
-GetGame().GetDebugger().Print(std::to_string(introRolls->back()), Debugger::PRIORITY::LOW);
+Debug::Print("Variable output...", Debug::PRIORITY::LOW);
+Debug::Print(std::to_string(introRolls->back()), Debug::PRIORITY::LOW);
 			}
 		}
 		in.close();
@@ -150,7 +149,7 @@ GetGame().GetDebugger().Print(std::to_string(introRolls->back()), Debugger::PRIO
 /* 
 ****Reads the story text from the external file and loads it into a vector.
 */
-void SaveData::ReadIntroStoryText() const
+void SaveData::ReadIntroStoryText()
 {
 	std::ifstream in(SaveData::INTRO_STORY_TEXT_FILENAME);
 	std::string text;
@@ -187,8 +186,8 @@ void SaveData::ReadIntroStoryText() const
 						std::getline(in, text);
 					}
 				}				
-GetGame().GetDebugger().Print("Read from file...", Debugger::PRIORITY::LOW);
-GetGame().GetDebugger().Print(GetGame().GetDM().GetIntros().back(), Debugger::PRIORITY::LOW);
+Debug::Print("Read from file...", Debug::PRIORITY::LOW);
+Debug::Print(GetGame().GetDM().GetIntros().back(), Debug::PRIORITY::LOW);
 			}
 		}
 		in.close();
@@ -200,7 +199,7 @@ GetGame().GetDebugger().Print(GetGame().GetDM().GetIntros().back(), Debugger::PR
 */
 void SaveData::SaveIntroData() const
 {
-GetGame().GetDebugger().Print("SaveData::SaveIntroData() - Writing Intro Save Data file.", Debugger::PRIORITY::LOW);
+Debug::Print("SaveData::SaveIntroData() - Writing Intro Save Data file.", Debug::PRIORITY::LOW);
 
 std::ofstream outputFile(SaveData::INTRO_ROLL_HISTORY_FILENAME);
 
@@ -229,8 +228,8 @@ const bool SaveData::VerifyIntroSaveData() const
 {
 	std::ifstream file(SaveData::INTRO_ROLL_HISTORY_FILENAME.c_str());
 
-GetGame().GetDebugger().Print("Looking for IntroData.txt in...", Debugger::PRIORITY::LOW);
-GetGame().GetDebugger().Print(SaveData::INTRO_ROLL_HISTORY_FILENAME, Debugger::PRIORITY::LOW);
+Debug::Print("Looking for IntroData.txt in...", Debug::PRIORITY::LOW);
+Debug::Print(SaveData::INTRO_ROLL_HISTORY_FILENAME, Debug::PRIORITY::LOW);
 
 	return file.good();
 }
@@ -238,16 +237,18 @@ GetGame().GetDebugger().Print(SaveData::INTRO_ROLL_HISTORY_FILENAME, Debugger::P
 /* 
 ****Verify that all of the save files are present, and take the necessary measures if they aren't found.
 */
-void SaveData::VerifySaveData() const
+void SaveData::VerifySaveData()
 {
 	if (VerifyIntroSaveData())
 	{
-GetGame().GetDebugger().Print("Intro save data found.", Debugger::PRIORITY::LOW);
+Debug::Print("Intro save data found.", Debug::PRIORITY::LOW);
+
 		ReadIntroRollHistory();
 	}
 	else
 	{
-GetGame().GetDebugger().Print("Intro save data not found.", Debugger::PRIORITY::TOP);
+Debug::Print("Intro save data not found.", Debug::PRIORITY::TOP);
+
 		CreateDefaultIntroSaveFile();
 	}
 }
@@ -255,13 +256,13 @@ GetGame().GetDebugger().Print("Intro save data not found.", Debugger::PRIORITY::
 /*
 ****
 */
-void SaveData::VerifyTestData() const
+void SaveData::VerifyTestData()
 {
 	std::ifstream file(SaveData::TEST_FILE_NAME.c_str());
 
 	if (file.good())
 	{
-GetGame().GetDebugger().Print("Test file found.", Debugger::PRIORITY::LOW);
+Debug::Print("Test file found.", Debug::PRIORITY::LOW);
 	}
 	else
 	{
@@ -272,7 +273,7 @@ GetGame().GetDebugger().Print("Test file found.", Debugger::PRIORITY::LOW);
 /*
 ****
 */
-void SaveData::WriteTestFile() const
+void SaveData::WriteTestFile()
 {
 	std::ofstream outputFile(SaveData::TEST_FILE_NAME);
 

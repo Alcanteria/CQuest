@@ -11,15 +11,15 @@ GameOverMenu::GameOverMenu(Game& gameReference) : Menu(gameReference)
 
 GameOverMenu::~GameOverMenu()
 {
-GetGame().GetDebugger().Print("GameOverMenu() Destructor.", Debugger::PRIORITY::LOW);
+Debug::Print("GameOverMenu() Destructor.", Debug::PRIORITY::LOW);
 }
 
-void GameOverMenu::ValidateKeyPressed(std::string key) const
+void GameOverMenu::ValidateKeyPressed(std::string key)
 {
 
 }
 
-void GameOverMenu::ProcessOptionKeyPress(std::string key) const
+void GameOverMenu::ProcessOptionKeyPress(std::string key)
 {
 
 }

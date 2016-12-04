@@ -88,10 +88,8 @@
     <ClInclude Include="Characters\Barbarian.h" />
     <ClInclude Include="Characters\CharacterClass.h" />
     <ClInclude Include="Core\Dice.h" />
-    <ClInclude Include="Core\Debugger.h" />
     <ClInclude Include="Setting\DM.h" />
     <ClInclude Include="Graphics\Logo.h" />
-    <ClInclude Include="Menus\CharacterSelectMenu.h" />
     <ClInclude Include="Core\Game.h" />
     <ClInclude Include="Menus\GameOverMenu.h" />
     <ClInclude Include="Menus\Menu.h" />
@@ -110,10 +108,8 @@
     <ClCompile Include="Characters\Barbarian.cpp" />
     <ClCompile Include="Characters\CharacterClass.cpp" />
     <ClCompile Include="Core\Dice.cpp" />
-    <ClCompile Include="Core\Debugger.cpp" />
     <ClCompile Include="Setting\DM.cpp" />
     <ClCompile Include="Graphics\Logo.cpp" />
-    <ClCompile Include="Menus\CharacterSelectMenu.cpp" />
     <ClCompile Include="CQuest.cpp" />
     <ClCompile Include="Core\Game.cpp" />
     <ClCompile Include="Menus\GameOverMenu.cpp" />

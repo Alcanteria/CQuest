@@ -11,7 +11,7 @@ public:
 	MainMenu(Game& gameReference);
 	~MainMenu();
 
-	virtual void ValidateKeyPressed(std::string key) const override;
-	virtual void ProcessOptionKeyPress(std::string key) const override;
+	virtual void ValidateKeyPressed(std::string key)				override;
+	virtual void ProcessOptionKeyPress(std::string key)				override;
 };
 

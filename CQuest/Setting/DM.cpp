@@ -2,7 +2,6 @@
 #include "DM.h"
 #include "Core\Game.h"
 #include <Windows.h>
-#include "Core\Debugger.h"
 
 // Placeholder to indicate no story has been selected yet.
 const std::string DM::NO_STORY = "NONE";
@@ -36,7 +35,7 @@ DM::~DM()
 	delete	storyFileReader;
 			storyFileReader = nullptr;
 
-GetGame().GetDebugger().Print("DM() Destructor.", Debugger::PRIORITY::LOW);
+Debug::Print("DM() Destructor.", Debug::PRIORITY::LOW);
 }
 
 /*
@@ -60,10 +59,10 @@ const int DM::GetNewIntroDiceRoll() const
 		{
 			unique = true;
 
-GetGame().GetDebugger().Print("DM::GetNewIntroDiceRoll() - Unique roll found. Roll is...", Debugger::PRIORITY::LOW);
-GetGame().GetDebugger().Print(std::to_string(uniqueRoll), Debugger::PRIORITY::LOW);
+Debug::Print("DM::GetNewIntroDiceRoll() - Unique roll found. Roll is...", Debug::PRIORITY::LOW);
+Debug::Print(std::to_string(uniqueRoll), Debug::PRIORITY::LOW);
 
-if (Debugger::DEBUG_MODE == Debugger::PRIORITY::LOW)
+if (Debug::DEBUG_MODE == Debug::PRIORITY::LOW)
 {
 GetGame().GetSaveData().PrintIntroRollHistory();
 }
@@ -90,38 +89,38 @@ const std::string DM::GetRandomIntro() const
 */
 void DM::Initialize() const
 {
-GetGame().GetDebugger().Print("DM::Initialize() - Initializing DM Class.", Debugger::PRIORITY::LOW);
+Debug::Print("DM::Initialize() - Initializing DM Class.", Debug::PRIORITY::LOW);
 
 	// Populate the map with the IDs and file names of all available story modules.
 	*storyFileNames = storyFileReader->GetStoryFileNames();
 
-if (Debugger::DEBUG_MODE == Debugger::PRIORITY::MID)
+if (Debug::DEBUG_MODE == Debug::PRIORITY::MID)
 {
 for (std::map<std::string, std::string>::iterator it = storyFileNames->begin(); it != storyFileNames->end(); ++it)
 {
-GetGame().GetDebugger().Print(it->first + "\t" + it->second, Debugger::PRIORITY::LOW);
+Debug::Print(it->first + "\t" + it->second, Debug::PRIORITY::LOW);
 }
 }
 
 	// Populate the map with the IDs and names of all available stories.
 	*storyNames = storyFileReader->GetStoryNames();
 
-if (Debugger::DEBUG_MODE == Debugger::PRIORITY::MID)
+if (Debug::DEBUG_MODE == Debug::PRIORITY::MID)
 {
 for (std::map<std::string, std::string>::iterator it = storyNames->begin(); it != storyNames->end(); ++it)
 {
-GetGame().GetDebugger().Print(it->first + "\t" + it->second, Debugger::PRIORITY::MID);
+Debug::Print(it->first + "\t" + it->second, Debug::PRIORITY::MID);
 }
 }
 
 	// Populate the map with the IDs and descriptions of all available stories.
 	*storyDescriptions = storyFileReader->GetStoryDescriptions();
 
-if (Debugger::DEBUG_MODE == Debugger::PRIORITY::MID)
+if (Debug::DEBUG_MODE == Debug::PRIORITY::MID)
 {
 for (std::map<std::string, std::string>::iterator it = storyDescriptions->begin(); it != storyDescriptions->end(); ++it)
 {
-GetGame().GetDebugger().Print(it->first + "\t" + it->second, Debugger::PRIORITY::MID);
+Debug::Print(it->first + "\t" + it->second, Debug::PRIORITY::MID);
 }
 }
 

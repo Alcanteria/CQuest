@@ -2,6 +2,7 @@
 #include "StorySelectMenu.h"
 #include "Core\Game.h"
 #include <map>
+#include <iostream>
 
 
 StorySelectMenu::StorySelectMenu(Game& gameReference) : Menu(gameReference)
@@ -18,7 +19,7 @@ StorySelectMenu::~StorySelectMenu()
 */
 void StorySelectMenu::AddStoryOptions()
 {
-GetGame().GetDebugger().Print("StorySelectMenu::AddStoryOptions()", Debugger::PRIORITY::LOW);
+Debug::Print("StorySelectMenu::AddStoryOptions()", Debug::PRIORITY::MID);
 
 	// Create a local copy of the story names map so we don't break the rules of const-ness.
 	std::map<std::string, std::string> myMap = GetGame().GetDM().GetStoryNames();
@@ -26,7 +27,7 @@ GetGame().GetDebugger().Print("StorySelectMenu::AddStoryOptions()", Debugger::PR
 	// Loop through the map, extracting the story ID and story name from each entry.
 	for (std::map<std::string, std::string>::iterator it = myMap.begin(); it != myMap.end(); ++it)
 	{
-GetGame().GetDebugger().Print("StorySelectMenu::AddStoryOptions() - Adding new story option to menu...", Debugger::PRIORITY::LOW);
+Debug::Print("StorySelectMenu::AddStoryOptions() - Adding new story option to menu...", Debug::PRIORITY::MID);
 
 		// Add the ID to the vector;
 		storyIDs.push_back(it->first);
@@ -35,7 +36,7 @@ GetGame().GetDebugger().Print("StorySelectMenu::AddStoryOptions() - Adding new s
 		This SHOULD automatically correlate with the order the options are added, i.e. 1,2,3,4 etc. */
 		AddOptionKey(std::to_string(storyIDs.size()), it->second);
 
-GetGame().GetDebugger().Print("StorySelectMenu::AddStoryOptions() - " + std::to_string(storyIDs.size()) + "\t" + it->first + "\t" + it->second, Debugger::PRIORITY::LOW);
+Debug::Print("StorySelectMenu::AddStoryOptions() - " + std::to_string(storyIDs.size()) + "\t" + it->first + "\t" + it->second, Debug::PRIORITY::MID);
 	}
 
 	// Add the "Back" and "Exit" buttons to the end of the option key list.
@@ -48,7 +49,7 @@ GetGame().GetDebugger().Print("StorySelectMenu::AddStoryOptions() - " + std::to_
 */
 void StorySelectMenu::Initialize()
 { 
-GetGame().GetDebugger().Print("StorySelectMenu::Initialize()", Debugger::PRIORITY::LOW);
+Debug::Print("StorySelectMenu::Initialize()", Debug::PRIORITY::LOW);
 
 	AddStoryOptions();
 
@@ -58,14 +59,18 @@ GetGame().GetDebugger().Print("StorySelectMenu::Initialize()", Debugger::PRIORIT
 /*
 ****Performs the appropriate action based on the key entered by the player.
 */
-void StorySelectMenu::ProcessOptionKeyPress(std::string key) const
+void StorySelectMenu::ProcessOptionKeyPress(std::string key)
 {
 	// Convert the input to an int.
 	unsigned int keyAsInt = std::stoi(key);
 
 	// Was having issues doing this as a switch so I had to do the key checking with an ugly else if block.
 	if (keyAsInt <= storyIDs.size() && keyAsInt >= 0)
-GetGame().GetDebugger().Print("Story Selected.", Debugger::PRIORITY::MID);
+	{
+Debug::Print("Story Selected.", Debug::PRIORITY::LOW);
+
+		GetGame().GetDM().SetCurrentStoryID(storyIDs.at(keyAsInt - 1));
+	}
 	else if (keyAsInt == storyIDs.size() + 1)
 		GetGame().GoBackToPreviousMenu();
 	else if (keyAsInt == storyIDs.size() + 2)
@@ -75,7 +80,7 @@ GetGame().GetDebugger().Print("Story Selected.", Debugger::PRIORITY::MID);
 /*
 ****Makes sure that the key the player entered is one of the available options.
 */
-void StorySelectMenu::ValidateKeyPressed(std::string key) const
+void StorySelectMenu::ValidateKeyPressed(std::string key)
 {
 	if (IsOptionKeyPresent(key))
 	{

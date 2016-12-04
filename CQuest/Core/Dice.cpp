@@ -11,7 +11,7 @@ Dice::Dice(Game& gameReference) : game(gameReference)
 
 Dice::~Dice()
 {
-GetGame().GetDebugger().Print("Dice() Destructor.", Debugger::PRIORITY::LOW);
+Debug::Print("Dice() Destructor.", Debug::PRIORITY::LOW);
 }
 
 // Returns a random number from the lowest number supplied to the highest.

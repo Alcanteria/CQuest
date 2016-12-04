@@ -2,7 +2,6 @@
 #include "Game.h"
 #include "..\Menus\MainMenu.h"
 #include "..\Menus\GameOverMenu.h"
-#include "..\Menus\CharacterSelectMenu.h"
 #include "..\Menus\StorySelectMenu.h"
 #include <iostream>
 
@@ -13,7 +12,6 @@ Game::Game()
 	dice = new Dice(*this);
 	dm = new DM(*this);
 	saveData = new SaveData(*this);
-	debugger = new Debugger();
 	logo = new Logo(*this);
 
 	saveData->VerifySaveData();
@@ -24,7 +22,6 @@ Game::Game()
 	// Create menus.
 	AddMenu(Menu::MENUS::MAIN, new MainMenu(*this));
 	AddMenu(Menu::MENUS::GAME_OVER, new GameOverMenu(*this));
-	AddMenu(Menu::MENUS::CHARACTER_SELECT, new CharacterSelectMenu(*this));
 	AddMenu(Menu::MENUS::STORY_SELECT, new StorySelectMenu(*this));
 	
 	/* TESTING STORY SELECT MENU ***********************************/
@@ -42,12 +39,10 @@ Game::Game()
 
 Game::~Game()
 {
-debugger->Print("Game() Destructor.", Debugger::PRIORITY::LOW);
+Debug::Print("Game() Destructor.", Debug::PRIORITY::LOW);
 
 	delete	menus.at(Menu::MENUS::MAIN);
 			menus.at(Menu::MENUS::MAIN) = nullptr;
-	delete	menus.at(Menu::MENUS::CHARACTER_SELECT);
-			menus.at(Menu::MENUS::CHARACTER_SELECT) = nullptr;
 	delete	menus.at(Menu::MENUS::GAME_OVER);
 			menus.at(Menu::MENUS::GAME_OVER) = nullptr;
 	delete	timer;
@@ -56,8 +51,6 @@ debugger->Print("Game() Destructor.", Debugger::PRIORITY::LOW);
 			dice = nullptr;
 	delete	saveData;
 			saveData = nullptr;
-	delete	debugger;
-			debugger = nullptr;
 	delete	logo;
 			logo = nullptr;
 	delete	dm;
@@ -129,7 +122,7 @@ void Game::EndGame()
 /* 
 ****Retrieve the currently active menu.
 */
-const Menu* Game::GetActiveMenu() const
+Menu* Game::GetActiveMenu()
 {
 	return menus.at(activeMenu);
 }
@@ -164,4 +157,16 @@ void Game::GoBackToPreviousMenu()
 void Game::NameCharacter(std::string name)
 {
 	characterName = name;
+}
+
+namespace Debug
+{
+	// Prints a message to the console if debug mode is active.
+	void Print(std::string message, Debug::PRIORITY level)
+	{
+		if (level >= Debug::DEBUG_MODE)
+		{
+			std::cout << "::::NEW DEBUGGER:::::\t" << message << std::endl;
+		}
+	}
 }
