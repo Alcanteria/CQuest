@@ -282,7 +282,7 @@ void StoryFileReader::LoadStoryFromFile(Story& story, std::string fileName) cons
 				{
 					// Jump down to the next line which is the start of the chapter
 					std::getline(*in, *line);
-
+					
 Debug::Print("StoryFileReader::LoadStoryFromFile() - Chapter Found", Debug::PRIORITY::MID);
 
 					LoadChapterFromFile(story, *in, *line);

@@ -1,14 +1,15 @@
 #pragma once
 
+#include "stdafx.h"
 #include "..\Menus\Menu.h"
 #include <map>
 #include "..\Characters\CharacterClass.h"
 #include "Timer.h"
 #include "..\Setting\Story.h"
-#include "Dice.h"
 #include "SaveData.h"
 #include "Graphics\Logo.h"
 #include "Setting\DM.h"
+#include <random>
 
 class Game
 {
@@ -24,7 +25,6 @@ public:
 				Menu*									GetActiveMenu();
 	const		CharacterClass*							GetCharacter()									const			{ return playerCharacter; }
 	const		std::string								GetCharacterName()								const			{ return characterName; }
-				Dice&									GetDice()										const			{ return *dice; }
 				DM&										GetDM()															{ return *dm; }
 				Menu*									GetMenu(Menu::MENUS menuName)					const;
 	const		std::map<Menu::MENUS, Menu*>			GetMenus()										const			{ return menus; }
@@ -48,9 +48,6 @@ private:
 	// The name of the player character.
 	std::string characterName;
 
-	// Object for random number generation.
-	Dice* dice;
-
 	// Class that handles all of the story and game progression information.
 	DM* dm;
 
@@ -73,12 +70,22 @@ private:
 	Timer* timer;
 };
 
+/*	This is used to print debug messages to screen. */
 namespace Debug
 {
+
 	// Allows different levels of message priority so some can be filtered out during testing.
 	enum PRIORITY { LOW = 0, MID = 1, TOP = 2 };
 
 	const	static PRIORITY DEBUG_MODE = Debug::PRIORITY::MID;
 
 			void	Print(std::string message, Debug::PRIORITY level);
+}
+
+/*	This is used to generate random numbers in a simple interface. */
+namespace Dice
+{
+	static std::mt19937 randomNumberGenerator;
+
+	const	int		Roll(int lowest, int highest);
 }

@@ -87,7 +87,6 @@
     <ClInclude Include="Setting\Chapter.h" />
     <ClInclude Include="Characters\Barbarian.h" />
     <ClInclude Include="Characters\CharacterClass.h" />
-    <ClInclude Include="Core\Dice.h" />
     <ClInclude Include="Setting\DM.h" />
     <ClInclude Include="Graphics\Logo.h" />
     <ClInclude Include="Core\Game.h" />
@@ -107,7 +106,6 @@
     <ClCompile Include="Setting\Chapter.cpp" />
     <ClCompile Include="Characters\Barbarian.cpp" />
     <ClCompile Include="Characters\CharacterClass.cpp" />
-    <ClCompile Include="Core\Dice.cpp" />
     <ClCompile Include="Setting\DM.cpp" />
     <ClCompile Include="Graphics\Logo.cpp" />
     <ClCompile Include="CQuest.cpp" />

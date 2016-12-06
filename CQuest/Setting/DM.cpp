@@ -51,7 +51,7 @@ const int DM::GetNewIntroDiceRoll() const
 	while (!unique)
 	{
 		// Get a random number between zero and the size of the gameIntros vector.
-		uniqueRoll = GetGame().GetDice().Roll(0, gameIntros->size() - 1);
+		uniqueRoll = Dice::Roll(0, gameIntros->size() - 1);
 
 		// Use the std library's vector find function to see if our new roll is in the roll history.
 		if (std::find(GetGame().GetSaveData().GetIntroRolls().begin(),

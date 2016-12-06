@@ -80,7 +80,7 @@ void SaveData::GenerateRandomIntroValues()
 		while (!unique)
 		{
 			// Get a random number between zero and the size of the gameIntros vector.
-			uniqueRoll = GetGame().GetDice().Roll(0, GetGame().GetDM().GetIntros().size() - 1);
+			uniqueRoll = Dice::Roll(0, GetGame().GetDM().GetIntros().size() - 1);
 
 			// Use the std library's vector find function to see if our new roll is a duplicate. Returns TRUE if it is NOT found.
 			if (std::find(introRolls->begin(), introRolls->end(), uniqueRoll) == introRolls->end())
@@ -284,7 +284,7 @@ void SaveData::WriteTestFile()
 	for (int i = 0; i < SaveData::INTRO_ROLL_HISTORY_COUNT; i++)
 	{
 		// Get a die roll from 0 to the defined (in Dice class) number of intros stored in the history.
-		int roll = GetGame().GetDice().Roll(0, GetGame().GetDM().GetIntros().size() - 1);
+		int roll = Dice::Roll(0, GetGame().GetDM().GetIntros().size() - 1);
 
 		// Create a placeholder string.
 		std::string finalString;
