@@ -28,9 +28,9 @@ SaveData::~SaveData()
 */
 void SaveData::AddNewIntroRollToHistory(int roll) const
 {
-if (Debug::DEBUG_MODE == Debug::PRIORITY::LOW)
+if (Tools::Debug::DEBUG_MODE == Tools::Debug::PRIORITY::LOW)
 {
-Debug::Print("SaveData::AddNewIntroRollToHistory() - Intro history before adding new number...", Debug::PRIORITY::LOW);
+Tools::Debug::Print("SaveData::AddNewIntroRollToHistory() - Intro history before adding new number...", Tools::Debug::PRIORITY::LOW);
 PrintIntroRollHistory();
 }
 	
@@ -43,9 +43,9 @@ PrintIntroRollHistory();
 	// Save the file.
 	SaveIntroData();
 
-if (Debug::DEBUG_MODE == Debug::PRIORITY::LOW)
+if (Tools::Debug::DEBUG_MODE == Tools::Debug::PRIORITY::LOW)
 {
-Debug::Print("SaveData::AddNewIntroRollToHistory() - Intro history after adding new number...", Debug::PRIORITY::LOW);
+Tools::Debug::Print("SaveData::AddNewIntroRollToHistory() - Intro history after adding new number...", Tools::Debug::PRIORITY::LOW);
 PrintIntroRollHistory();
 }
 }
@@ -55,7 +55,7 @@ PrintIntroRollHistory();
 */
 void SaveData::CreateDefaultIntroSaveFile()
 {
-Debug::Print("SaveData::CreateDefaultIntroSaveFile() - Creating default save file.", Debug::PRIORITY::LOW);
+Tools::Debug::Print("SaveData::CreateDefaultIntroSaveFile() - Creating default save file.", Tools::Debug::PRIORITY::LOW);
 	
 	GenerateRandomIntroValues();
 
@@ -80,7 +80,7 @@ void SaveData::GenerateRandomIntroValues()
 		while (!unique)
 		{
 			// Get a random number between zero and the size of the gameIntros vector.
-			uniqueRoll = Dice::Roll(0, GetGame().GetDM().GetIntros().size() - 1);
+			uniqueRoll = Tools::Dice::Roll(0, GetGame().GetDM().GetIntros().size() - 1);
 
 			// Use the std library's vector find function to see if our new roll is a duplicate. Returns TRUE if it is NOT found.
 			if (std::find(introRolls->begin(), introRolls->end(), uniqueRoll) == introRolls->end())
@@ -88,10 +88,10 @@ void SaveData::GenerateRandomIntroValues()
 				unique = true;
 
 				introRolls->push_back(uniqueRoll);
-Debug::Print("Story::GetNewIntroDiceRoll() - Unique roll found. Roll is...", Debug::PRIORITY::LOW);
-Debug::Print(std::to_string(uniqueRoll), Debug::PRIORITY::LOW);
+Tools::Debug::Print("Story::GetNewIntroDiceRoll() - Unique roll found. Roll is...", Tools::Debug::PRIORITY::LOW);
+Tools::Debug::Print(std::to_string(uniqueRoll), Tools::Debug::PRIORITY::LOW);
 
-if (Debug::DEBUG_MODE == Debug::PRIORITY::LOW)
+if (Tools::Debug::DEBUG_MODE == Tools::Debug::PRIORITY::LOW)
 {
 GetGame().GetSaveData().PrintIntroRollHistory();
 }
@@ -105,11 +105,11 @@ GetGame().GetSaveData().PrintIntroRollHistory();
 */
 void SaveData::PrintIntroRollHistory() const
 {
-Debug::Print("Current intro roll history...", Debug::PRIORITY::LOW);
+Tools::Debug::Print("Current intro roll history...", Tools::Debug::PRIORITY::LOW);
 
 for (auto i : *introRolls)
 {
-Debug::Print(std::to_string(i), Debug::PRIORITY::LOW);
+Tools::Debug::Print(std::to_string(i), Tools::Debug::PRIORITY::LOW);
 }
 }
 
@@ -128,13 +128,13 @@ void SaveData::ReadIntroRollHistory()
 		{
 			if (text != "")
 			{
-Debug::Print("File output...", Debug::PRIORITY::LOW);
-Debug::Print(text, Debug::PRIORITY::LOW);
+Tools::Debug::Print("File output...", Tools::Debug::PRIORITY::LOW);
+Tools::Debug::Print(text, Tools::Debug::PRIORITY::LOW);
 
 				introRolls->push_back(std::stoi(text));
 
-Debug::Print("Variable output...", Debug::PRIORITY::LOW);
-Debug::Print(std::to_string(introRolls->back()), Debug::PRIORITY::LOW);
+Tools::Debug::Print("Variable output...", Tools::Debug::PRIORITY::LOW);
+Tools::Debug::Print(std::to_string(introRolls->back()), Tools::Debug::PRIORITY::LOW);
 			}
 		}
 		in.close();
@@ -186,8 +186,8 @@ void SaveData::ReadIntroStoryText()
 						std::getline(in, text);
 					}
 				}				
-Debug::Print("Read from file...", Debug::PRIORITY::LOW);
-Debug::Print(GetGame().GetDM().GetIntros().back(), Debug::PRIORITY::LOW);
+Tools::Debug::Print("Read from file...", Tools::Debug::PRIORITY::LOW);
+Tools::Debug::Print(GetGame().GetDM().GetIntros().back(), Tools::Debug::PRIORITY::LOW);
 			}
 		}
 		in.close();
@@ -199,7 +199,7 @@ Debug::Print(GetGame().GetDM().GetIntros().back(), Debug::PRIORITY::LOW);
 */
 void SaveData::SaveIntroData() const
 {
-Debug::Print("SaveData::SaveIntroData() - Writing Intro Save Data file.", Debug::PRIORITY::LOW);
+Tools::Debug::Print("SaveData::SaveIntroData() - Writing Intro Save Data file.", Tools::Debug::PRIORITY::LOW);
 
 std::ofstream outputFile(SaveData::INTRO_ROLL_HISTORY_FILENAME);
 
@@ -228,8 +228,8 @@ const bool SaveData::VerifyIntroSaveData() const
 {
 	std::ifstream file(SaveData::INTRO_ROLL_HISTORY_FILENAME.c_str());
 
-Debug::Print("Looking for IntroData.txt in...", Debug::PRIORITY::LOW);
-Debug::Print(SaveData::INTRO_ROLL_HISTORY_FILENAME, Debug::PRIORITY::LOW);
+Tools::Debug::Print("Looking for IntroData.txt in...", Tools::Debug::PRIORITY::LOW);
+Tools::Debug::Print(SaveData::INTRO_ROLL_HISTORY_FILENAME, Tools::Debug::PRIORITY::LOW);
 
 	return file.good();
 }
@@ -241,13 +241,13 @@ void SaveData::VerifySaveData()
 {
 	if (VerifyIntroSaveData())
 	{
-Debug::Print("Intro save data found.", Debug::PRIORITY::LOW);
+Tools::Debug::Print("Intro save data found.", Tools::Debug::PRIORITY::LOW);
 
 		ReadIntroRollHistory();
 	}
 	else
 	{
-Debug::Print("Intro save data not found.", Debug::PRIORITY::TOP);
+Tools::Debug::Print("Intro save data not found.", Tools::Debug::PRIORITY::TOP);
 
 		CreateDefaultIntroSaveFile();
 	}
@@ -262,7 +262,7 @@ void SaveData::VerifyTestData()
 
 	if (file.good())
 	{
-Debug::Print("Test file found.", Debug::PRIORITY::LOW);
+Tools::Debug::Print("Test file found.", Tools::Debug::PRIORITY::LOW);
 	}
 	else
 	{
@@ -284,7 +284,7 @@ void SaveData::WriteTestFile()
 	for (int i = 0; i < SaveData::INTRO_ROLL_HISTORY_COUNT; i++)
 	{
 		// Get a die roll from 0 to the defined (in Dice class) number of intros stored in the history.
-		int roll = Dice::Roll(0, GetGame().GetDM().GetIntros().size() - 1);
+		int roll = Tools::Dice::Roll(0, GetGame().GetDM().GetIntros().size() - 1);
 
 		// Create a placeholder string.
 		std::string finalString;

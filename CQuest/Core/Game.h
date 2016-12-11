@@ -70,22 +70,26 @@ private:
 	Timer* timer;
 };
 
-/*	This is used to print debug messages to screen. */
-namespace Debug
+/* This space is used for utility functions that didn't really need their own class and were used globally. */
+namespace Tools
 {
+	/*	This is used to print debug messages to screen. */
+	namespace Debug
+	{
 
-	// Allows different levels of message priority so some can be filtered out during testing.
-	enum PRIORITY { LOW = 0, MID = 1, TOP = 2 };
+		// Allows different levels of message priority so some can be filtered out during testing.
+		enum PRIORITY { LOW = 0, MID = 1, TOP = 2 };
 
-	const	static PRIORITY DEBUG_MODE = Debug::PRIORITY::MID;
+		const	static PRIORITY DEBUG_MODE = Tools::Debug::PRIORITY::MID;
 
-			void	Print(std::string message, Debug::PRIORITY level);
-}
+		void	Print(std::string message, Tools::Debug::PRIORITY level);
+	}
 
-/*	This is used to generate random numbers in a simple interface. */
-namespace Dice
-{
-	static std::mt19937 randomNumberGenerator;
+	/*	This is used to generate random numbers in a simple interface. */
+	namespace Dice
+	{
+		static std::mt19937 randomNumberGenerator;
 
-	const	int		Roll(int lowest, int highest);
+		const	int		Roll(int lowest, int highest);
+	}
 }

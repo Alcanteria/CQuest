@@ -35,7 +35,7 @@ DM::~DM()
 	delete	storyFileReader;
 			storyFileReader = nullptr;
 
-Debug::Print("DM() Destructor.", Debug::PRIORITY::LOW);
+Tools::Debug::Print("DM() Destructor.", Tools::Debug::PRIORITY::LOW);
 }
 
 /*
@@ -51,7 +51,7 @@ const int DM::GetNewIntroDiceRoll() const
 	while (!unique)
 	{
 		// Get a random number between zero and the size of the gameIntros vector.
-		uniqueRoll = Dice::Roll(0, gameIntros->size() - 1);
+		uniqueRoll = Tools::Dice::Roll(0, gameIntros->size() - 1);
 
 		// Use the std library's vector find function to see if our new roll is in the roll history.
 		if (std::find(GetGame().GetSaveData().GetIntroRolls().begin(),
@@ -59,10 +59,10 @@ const int DM::GetNewIntroDiceRoll() const
 		{
 			unique = true;
 
-Debug::Print("DM::GetNewIntroDiceRoll() - Unique roll found. Roll is...", Debug::PRIORITY::LOW);
-Debug::Print(std::to_string(uniqueRoll), Debug::PRIORITY::LOW);
+Tools::Debug::Print("DM::GetNewIntroDiceRoll() - Unique roll found. Roll is...", Tools::Debug::PRIORITY::LOW);
+Tools::Debug::Print(std::to_string(uniqueRoll), Tools::Debug::PRIORITY::LOW);
 
-if (Debug::DEBUG_MODE == Debug::PRIORITY::LOW)
+if (Tools::Debug::DEBUG_MODE == Tools::Debug::PRIORITY::LOW)
 {
 GetGame().GetSaveData().PrintIntroRollHistory();
 }
@@ -89,41 +89,61 @@ const std::string DM::GetRandomIntro() const
 */
 void DM::Initialize() const
 {
-Debug::Print("DM::Initialize() - Initializing DM Class.", Debug::PRIORITY::LOW);
+Tools::Debug::Print("DM::Initialize() - Initializing DM Class.", Tools::Debug::PRIORITY::LOW);
 
 	// Populate the map with the IDs and file names of all available story modules.
 	*storyFileNames = storyFileReader->GetStoryFileNames();
 
-if (Debug::DEBUG_MODE == Debug::PRIORITY::MID)
+if (Tools::Debug::DEBUG_MODE == Tools::Debug::PRIORITY::LOW)
 {
 for (std::map<std::string, std::string>::iterator it = storyFileNames->begin(); it != storyFileNames->end(); ++it)
 {
-Debug::Print(it->first + "\t" + it->second, Debug::PRIORITY::LOW);
+Tools::Debug::Print(it->first + "\t" + it->second, Tools::Debug::PRIORITY::LOW);
 }
 }
 
 	// Populate the map with the IDs and names of all available stories.
 	*storyNames = storyFileReader->GetStoryNames();
 
-if (Debug::DEBUG_MODE == Debug::PRIORITY::MID)
+if (Tools::Debug::DEBUG_MODE == Tools::Debug::PRIORITY::LOW)
 {
 for (std::map<std::string, std::string>::iterator it = storyNames->begin(); it != storyNames->end(); ++it)
 {
-Debug::Print(it->first + "\t" + it->second, Debug::PRIORITY::MID);
+Tools::Debug::Print(it->first + "\t" + it->second, Tools::Debug::PRIORITY::LOW);
 }
 }
 
 	// Populate the map with the IDs and descriptions of all available stories.
 	*storyDescriptions = storyFileReader->GetStoryDescriptions();
 
-if (Debug::DEBUG_MODE == Debug::PRIORITY::MID)
+if (Tools::Debug::DEBUG_MODE == Tools::Debug::PRIORITY::LOW)
 {
 for (std::map<std::string, std::string>::iterator it = storyDescriptions->begin(); it != storyDescriptions->end(); ++it)
 {
-Debug::Print(it->first + "\t" + it->second, Debug::PRIORITY::MID);
+Tools::Debug::Print(it->first + "\t" + it->second, Tools::Debug::PRIORITY::LOW);
 }
 }
 
 	// Test loading a story from file.
 	storyFileReader->LoadStoryFromFile(*story, "ChickenSaga.txt");
+}
+
+/*
+****Performs the required actions to:
+****	*	Set the current story
+****	*	Load the selected story
+****	*	Create a chapter menu for the game to work with
+****	*	Set the current game menu to the newly created chapter menu
+*/
+void DM::LoadNewStory(std::string storyID)
+{
+Tools::Debug::Print("DM::LoadNewStory()", Tools::Debug::PRIORITY::LOW);
+
+	SetCurrentStoryID(storyID);
+	storyFileReader->LoadStoryFromFile(*story, storyFileNames->at(storyID));
+	GetGame().AddMenu(Menu::MENUS::CHAPTER, new ChapterMenu(GetGame(), story->GetCurrentChapter()));
+	GetGame().GetMenu(Menu::MENUS::CHAPTER)->Initialize();
+	GetGame().ChangeGameMenu(Menu::MENUS::CHAPTER);
+
+Tools::Debug::Print("DM::LoadNewStory() - Loaded: " + storyNames->at(storyID), Tools::Debug::PRIORITY::LOW);
 }

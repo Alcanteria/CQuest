@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include "Setting\Chapter.h"
+#include "Menus\ChapterMenu.h"
 
 class Game;
 
@@ -12,7 +13,7 @@ public:
 	Story(Game& gameReference);
 	~Story();
 
-			void						AddChapter(Chapter newChapter)							{ chapters.push_back(newChapter); }
+			void						AddChapter(Chapter newChapter);
 	const	short						GetChapterIndex()								const	{ return chapterIndex; }
 	const	Chapter&					GetCurrentChapter()								const	{ return chapters.at(chapterIndex); }
 			Game&						GetGame()										const	{ return game; }
@@ -21,7 +22,7 @@ public:
 			void						PreviousChapter()										{ chapterIndex--; }
 
 private:
-	std::vector<Chapter> chapters;
-	short chapterIndex = 0;
-	Game& game;
+	std::vector<Chapter>		chapters;
+	short						chapterIndex = 0;
+	Game&						game;
 };

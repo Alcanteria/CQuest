@@ -11,7 +11,7 @@ GameOverMenu::GameOverMenu(Game& gameReference) : Menu(gameReference)
 
 GameOverMenu::~GameOverMenu()
 {
-Debug::Print("GameOverMenu() Destructor.", Debug::PRIORITY::LOW);
+Tools::Debug::Print("GameOverMenu() Destructor.", Tools::Debug::PRIORITY::LOW);
 }
 
 void GameOverMenu::ValidateKeyPressed(std::string key)

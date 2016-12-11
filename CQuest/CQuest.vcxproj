@@ -84,6 +84,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Menus\ChapterMenu.h" />
     <ClInclude Include="Setting\Chapter.h" />
     <ClInclude Include="Characters\Barbarian.h" />
     <ClInclude Include="Characters\CharacterClass.h" />
@@ -103,6 +104,7 @@
     <ClInclude Include="Core\Timer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Menus\ChapterMenu.cpp" />
     <ClCompile Include="Setting\Chapter.cpp" />
     <ClCompile Include="Characters\Barbarian.cpp" />
     <ClCompile Include="Characters\CharacterClass.cpp" />

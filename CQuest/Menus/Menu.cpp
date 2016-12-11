@@ -11,7 +11,7 @@ Menu::Menu(Game& gameReference) : game(gameReference)
 
 Menu::~Menu()
 {
-Debug::Print("Menu() Destructor.", Debug::PRIORITY::LOW);
+Tools::Debug::Print("Menu() Destructor.", Tools::Debug::PRIORITY::LOW);
 }
 
 // Add the passed string description at the passed character key location.
@@ -22,7 +22,7 @@ void Menu::AddOptionKey(std::string key, std::string description)
 
 void Menu::Initialize()
 {
-Debug::Print("Menu() - Initialize", Debug::PRIORITY::LOW);
+Tools::Debug::Print("Menu() - Initialize", Tools::Debug::PRIORITY::LOW);
 }
 
 // Search for the passed key press value in the map store.
@@ -79,6 +79,14 @@ void Menu::ProcessOptionKeyPress(std::string key)
 		std::cout << "Menu() DEFAULT - Invalid Key Entered." << std::endl;
 		break;
 	}
+}
+
+/*
+****Empties out all of the existing option key values.
+*/
+void Menu::RemoveOptionKeys()
+{
+	optionKeys.clear();
 }
 
 // Cycles through the option key map and prints every item to the console.

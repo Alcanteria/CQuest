@@ -64,7 +64,7 @@ const std::string StoryFileReader::ExtractStoryNameFromFile(std::string fileName
 */
 void StoryFileReader::GetAllStoryFilesInDirectory()
 {
-Debug::Print("StoryFileReader::GetAllStoryFilesInDirectory()...", Debug::PRIORITY::MID);
+Tools::Debug::Print("StoryFileReader::GetAllStoryFilesInDirectory()...", Tools::Debug::PRIORITY::LOW);
 
 	// UGLY WINDOWS SHIT.
 	WIN32_FIND_DATAA fileData;
@@ -100,17 +100,17 @@ Debug::Print("StoryFileReader::GetAllStoryFilesInDirectory()...", Debug::PRIORIT
 	FindClose(hFind);
 
 // Print out all the file names found. Dubugging use only to make sure this works.
-if (Debug::DEBUG_MODE == Debug::PRIORITY::LOW)
+if (Tools::Debug::DEBUG_MODE == Tools::Debug::PRIORITY::LOW)
 {
 std::string	output = "There are ";
 output.append(std::to_string(fileNames.size()));
 output.append(" files in the folder, and they are..");
 
-Debug::Print(output, Debug::PRIORITY::LOW);
+Tools::Debug::Print(output, Tools::Debug::PRIORITY::LOW);
 
 for (auto i : fileNames)
 {
-Debug::Print(i, Debug::PRIORITY::LOW);
+Tools::Debug::Print(i, Tools::Debug::PRIORITY::LOW);
 }
 }
 }
@@ -154,11 +154,11 @@ const std::map<std::string, std::string> StoryFileReader::GetStoryNames() const
 */
 void StoryFileReader::LoadChapterFromFile(Story& story, std::ifstream& in, std::string& line) const
 {
-Debug::Print("StoryFileReader::LoadChapterFromFile() - Reading Chapter...", Debug::PRIORITY::MID);
+Tools::Debug::Print("StoryFileReader::LoadChapterFromFile() - Reading Chapter...", Tools::Debug::PRIORITY::LOW);
 	// Place holder chapter object to store everything read from file.
 	Chapter chapter;
 
-Debug::Print("StoryFileReader::LoadChapterFromFile() - Description: " + line, Debug::PRIORITY::MID);
+Tools::Debug::Print("StoryFileReader::LoadChapterFromFile() - Description: " + line, Tools::Debug::PRIORITY::LOW);
 	// The line object passed in is already on the description portion of the file, so copy that to the chapter object now.
 	chapter.CopyDescriptionsFromFile(line);
 
@@ -174,7 +174,7 @@ Debug::Print("StoryFileReader::LoadChapterFromFile() - Description: " + line, De
 			// Load choices.
 			if (line == StoryFileReader::FLAG_CHOICES)
 			{
-Debug::Print("StoryFileReader::LoadChapterFromFile() - Choices Found", Debug::PRIORITY::MID);
+Tools::Debug::Print("StoryFileReader::LoadChapterFromFile() - Choices Found", Tools::Debug::PRIORITY::LOW);
 				// Move to the next line in the file.
 				std::getline(in, line);
 
@@ -184,7 +184,7 @@ Debug::Print("StoryFileReader::LoadChapterFromFile() - Choices Found", Debug::PR
 				// Keep looping through all of the choices.
 				while (line != StoryFileReader::FLAG_CHOICES)
 				{
-Debug::Print("StoryFileReader::LoadChapterFromFile() - Choice: " + line, Debug::PRIORITY::MID);
+Tools::Debug::Print("StoryFileReader::LoadChapterFromFile() - Choice: " + line, Tools::Debug::PRIORITY::LOW);
 					choices.push_back(line);
 
 					// Move to the next line in the file.
@@ -201,7 +201,7 @@ Debug::Print("StoryFileReader::LoadChapterFromFile() - Choice: " + line, Debug::
 			// Load Results.
 			if (line == StoryFileReader::FLAG_RESULTS)
 			{
-Debug::Print("StoryFileReader::LoadChapterFromFile() - Results Found", Debug::PRIORITY::MID);
+Tools::Debug::Print("StoryFileReader::LoadChapterFromFile() - Results Found", Tools::Debug::PRIORITY::LOW);
 				// Move to the next line in the file.
 				std::getline(in, line);
 
@@ -211,7 +211,7 @@ Debug::Print("StoryFileReader::LoadChapterFromFile() - Results Found", Debug::PR
 				// Keep looping through all of the results.
 				while (line != StoryFileReader::FLAG_RESULTS)
 				{
-Debug::Print("StoryFileReader::LoadChapterFromFile() - Result: " + line, Debug::PRIORITY::MID);
+Tools::Debug::Print("StoryFileReader::LoadChapterFromFile() - Result: " + line, Tools::Debug::PRIORITY::LOW);
 					results.push_back(line);
 
 					// Move to the next line in the file.
@@ -228,7 +228,7 @@ Debug::Print("StoryFileReader::LoadChapterFromFile() - Result: " + line, Debug::
 			// Load stat changes
 			if (line == StoryFileReader::FLAG_STAT_CHANGES)
 			{
-Debug::Print("StoryFileReader::LoadChapterFromFile() - Stat Changes Found", Debug::PRIORITY::MID);
+Tools::Debug::Print("StoryFileReader::LoadChapterFromFile() - Stat Changes Found", Tools::Debug::PRIORITY::LOW);
 				// Move to the next line in the file.
 				std::getline(in, line);
 
@@ -238,7 +238,7 @@ Debug::Print("StoryFileReader::LoadChapterFromFile() - Stat Changes Found", Debu
 				// Keep looping through all of the stat changes.
 				while (line != StoryFileReader::FLAG_STAT_CHANGES)
 				{
-Debug::Print("StoryFileReader::LoadChapterFromFile() - Stat Change: " + line, Debug::PRIORITY::MID);
+Tools::Debug::Print("StoryFileReader::LoadChapterFromFile() - Stat Change: " + line, Tools::Debug::PRIORITY::LOW);
 					/* We are converting the read string into an int and forcing it into a short.
 					We SHOULD be making sure it fits the short range, but it's just me so I know the score.*/
 					statChanges.push_back(std::stoi(line));
@@ -257,7 +257,7 @@ Debug::Print("StoryFileReader::LoadChapterFromFile() - Stat Change: " + line, De
 	}
 
 	story.AddChapter(chapter);
-Debug::Print("StoryFileReader::LoadChapterFromFile() - Chapter added to story.", Debug::PRIORITY::MID);
+Tools::Debug::Print("StoryFileReader::LoadChapterFromFile() - Chapter added to story.", Tools::Debug::PRIORITY::LOW);
 }
 
 /*
@@ -283,7 +283,7 @@ void StoryFileReader::LoadStoryFromFile(Story& story, std::string fileName) cons
 					// Jump down to the next line which is the start of the chapter
 					std::getline(*in, *line);
 					
-Debug::Print("StoryFileReader::LoadStoryFromFile() - Chapter Found", Debug::PRIORITY::MID);
+Tools::Debug::Print("StoryFileReader::LoadStoryFromFile() - Chapter Found", Tools::Debug::PRIORITY::LOW);
 
 					LoadChapterFromFile(story, *in, *line);
 				}
@@ -293,7 +293,7 @@ Debug::Print("StoryFileReader::LoadStoryFromFile() - Chapter Found", Debug::PRIO
 	}
 	else
 	{
-Debug::Print("StoryFileReader::LoadStoryFromFile() - Cannot Read : " + fileName, Debug::PRIORITY::TOP);
+Tools::Debug::Print("StoryFileReader::LoadStoryFromFile() - Cannot Read : " + fileName, Tools::Debug::PRIORITY::TOP);
 	}
 
 	delete	in;
@@ -317,7 +317,7 @@ const std::string StoryFileReader::SearchFileForAttribute(std::string fileName, 
 		// While there is still stuff in the file...
 		while (std::getline(in, line))
 		{
-Debug::Print("StoryFileReader::SearchFileForAttribute() - Line = : " + line, Debug::PRIORITY::LOW);
+Tools::Debug::Print("StoryFileReader::SearchFileForAttribute() - Line = : " + line, Tools::Debug::PRIORITY::LOW);
 
 			// Skip blank lines...
 			if (line != "")
@@ -329,7 +329,7 @@ Debug::Print("StoryFileReader::SearchFileForAttribute() - Line = : " + line, Deb
 					std::getline(in, line);
 
 					IDFound = true;
-Debug::Print("StoryFileReader::SearchFileForAttribute() - Attribute " + attribute + " Found: " + line, Debug::PRIORITY::LOW);
+Tools::Debug::Print("StoryFileReader::SearchFileForAttribute() - Attribute " + attribute + " Found: " + line, Tools::Debug::PRIORITY::LOW);
 					break;
 				}
 			}
@@ -338,13 +338,13 @@ Debug::Print("StoryFileReader::SearchFileForAttribute() - Attribute " + attribut
 	}
 	else
 	{
-Debug::Print("StoryFileReader::SearchFileForAttribute() - Cannot Read : " + fileName, Debug::PRIORITY::TOP);
+Tools::Debug::Print("StoryFileReader::SearchFileForAttribute() - Cannot Read : " + fileName, Tools::Debug::PRIORITY::TOP);
 	}
 
 	if (!IDFound)
 	{
 		line = DM::NO_STORY;
-Debug::Print("StoryFileReader::SearchFileForAttribute() - No ID Found: " + line, Debug::PRIORITY::TOP);
+Tools::Debug::Print("StoryFileReader::SearchFileForAttribute() - No ID Found: " + line, Tools::Debug::PRIORITY::TOP);
 	}
 
 	return line;

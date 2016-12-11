@@ -19,7 +19,7 @@ StorySelectMenu::~StorySelectMenu()
 */
 void StorySelectMenu::AddStoryOptions()
 {
-Debug::Print("StorySelectMenu::AddStoryOptions()", Debug::PRIORITY::MID);
+Tools::Debug::Print("StorySelectMenu::AddStoryOptions()", Tools::Debug::PRIORITY::LOW);
 
 	// Create a local copy of the story names map so we don't break the rules of const-ness.
 	std::map<std::string, std::string> myMap = GetGame().GetDM().GetStoryNames();
@@ -27,7 +27,7 @@ Debug::Print("StorySelectMenu::AddStoryOptions()", Debug::PRIORITY::MID);
 	// Loop through the map, extracting the story ID and story name from each entry.
 	for (std::map<std::string, std::string>::iterator it = myMap.begin(); it != myMap.end(); ++it)
 	{
-Debug::Print("StorySelectMenu::AddStoryOptions() - Adding new story option to menu...", Debug::PRIORITY::MID);
+Tools::Debug::Print("StorySelectMenu::AddStoryOptions() - Adding new story option to menu...", Tools::Debug::PRIORITY::LOW);
 
 		// Add the ID to the vector;
 		storyIDs.push_back(it->first);
@@ -36,7 +36,7 @@ Debug::Print("StorySelectMenu::AddStoryOptions() - Adding new story option to me
 		This SHOULD automatically correlate with the order the options are added, i.e. 1,2,3,4 etc. */
 		AddOptionKey(std::to_string(storyIDs.size()), it->second);
 
-Debug::Print("StorySelectMenu::AddStoryOptions() - " + std::to_string(storyIDs.size()) + "\t" + it->first + "\t" + it->second, Debug::PRIORITY::MID);
+Tools::Debug::Print("StorySelectMenu::AddStoryOptions() - " + std::to_string(storyIDs.size()) + "\t" + it->first + "\t" + it->second, Tools::Debug::PRIORITY::LOW);
 	}
 
 	// Add the "Back" and "Exit" buttons to the end of the option key list.
@@ -49,7 +49,7 @@ Debug::Print("StorySelectMenu::AddStoryOptions() - " + std::to_string(storyIDs.s
 */
 void StorySelectMenu::Initialize()
 { 
-Debug::Print("StorySelectMenu::Initialize()", Debug::PRIORITY::LOW);
+Tools::Debug::Print("StorySelectMenu::Initialize()", Tools::Debug::PRIORITY::LOW);
 
 	AddStoryOptions();
 
@@ -67,9 +67,9 @@ void StorySelectMenu::ProcessOptionKeyPress(std::string key)
 	// Was having issues doing this as a switch so I had to do the key checking with an ugly else if block.
 	if (keyAsInt <= storyIDs.size() && keyAsInt >= 0)
 	{
-Debug::Print("Story Selected.", Debug::PRIORITY::LOW);
+Tools::Debug::Print("Story Selected.", Tools::Debug::PRIORITY::LOW);
 
-		GetGame().GetDM().SetCurrentStoryID(storyIDs.at(keyAsInt - 1));
+		GetGame().GetDM().LoadNewStory(storyIDs.at(keyAsInt - 1));
 	}
 	else if (keyAsInt == storyIDs.size() + 1)
 		GetGame().GoBackToPreviousMenu();

@@ -13,10 +13,11 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	char input;
 
-	game->GetActiveMenu()->ShowWelcomeMessage();
+	//game->GetActiveMenu()->ShowWelcomeMessage();
 
 	while (!game->IsGameOver())
 	{
+		game->GetActiveMenu()->ShowWelcomeMessage();
 		game->GetActiveMenu()->ShowAllOptions();
 
 		std::cin >> input;

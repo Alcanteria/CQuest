@@ -15,7 +15,7 @@ Game::Game()
 	logo = new Logo(*this);
 
 	// Seed the random number generator here. This makes it unique for every time the program is launched.
-	Dice::randomNumberGenerator.seed(std::random_device()());
+	Tools::Dice::randomNumberGenerator.seed(std::random_device()());
 
 	saveData->VerifySaveData();
 
@@ -42,12 +42,21 @@ Game::Game()
 
 Game::~Game()
 {
-Debug::Print("Game() Destructor.", Debug::PRIORITY::LOW);
+Tools::Debug::Print("Game() Destructor.", Tools::Debug::PRIORITY::LOW);
 
 	delete	menus.at(Menu::MENUS::MAIN);
 			menus.at(Menu::MENUS::MAIN) = nullptr;
 	delete	menus.at(Menu::MENUS::GAME_OVER);
 			menus.at(Menu::MENUS::GAME_OVER) = nullptr;
+
+/*	Since the chapter menu isn't created in the Game constructor, and therefore may not have been created at all, 
+	make sure it exists before you try to delete it. */
+if (menus.count(Menu::MENUS::CHAPTER))
+{
+	delete	menus.at(Menu::MENUS::CHAPTER);
+			menus.at(Menu::MENUS::CHAPTER) = nullptr;
+}
+
 	delete	timer;
 			timer = nullptr;
 	delete	saveData;
@@ -98,8 +107,6 @@ void Game::ChangeGameMenu(Menu::MENUS menu)
 
 	// Printed out a series of lines to make output text easier to read.
 	timer->PrintFastGap();
-
-	menus.at(menu)->ShowWelcomeMessage();
 }
 
 /*
@@ -160,29 +167,32 @@ void Game::NameCharacter(std::string name)
 	characterName = name;
 }
 
-namespace Debug
+namespace Tools
 {
-	/* 
-	****Prints a message to the console if debug mode is active.
-	*/
-	void Print(std::string message, Debug::PRIORITY level)
+	namespace Debug
 	{
-		if (level >= Debug::DEBUG_MODE)
+		/*
+		****Prints a message to the console if debug mode is active.
+		*/
+		void Print(std::string message, Tools::Debug::PRIORITY level)
 		{
-			std::cout << "::::NEW DEBUGGER:::::\t" << message << std::endl;
+			if (level >= Tools::Debug::DEBUG_MODE)
+			{
+				std::cout << "::::DEBUG:::::\t" << message << std::endl;
+			}
 		}
 	}
-}
 
-namespace Dice
-{
-	/*
-	****Returns a random number from the lowest number supplied to the highest.
-	*/
-	const int Roll(int lowest, int highest)
+	namespace Dice
 	{
-		std::uniform_int_distribution<std::mt19937::result_type> dist6(lowest, highest);
-		
-		return dist6(randomNumberGenerator);
+		/*
+		****Returns a random number from the lowest number supplied to the highest.
+		*/
+		const int Roll(int lowest, int highest)
+		{
+			std::uniform_int_distribution<std::mt19937::result_type> dist6(lowest, highest);
+
+			return dist6(randomNumberGenerator);
+		}
 	}
 }

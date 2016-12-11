@@ -33,6 +33,7 @@ public:
 	const			std::map<std::string, std::string>&			GetStoryFileNames()								const			{ return *storyFileNames; }
 	const			int											GetTimeLeft()									const			{ return timeLeft; }
 					void										Initialize()									const;
+					void										LoadNewStory(std::string storyID);
 					void										RemoveRest(int restLost)										{ rest -= restLost; }
 					void										RemoveTime(int timeLost)										{ timeLeft -= timeLost; }
 					void										SetCurrentStoryID(std::string newID)							{ *currentStoryID = newID; }
