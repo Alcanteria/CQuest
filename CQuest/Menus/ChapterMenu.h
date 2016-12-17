@@ -15,6 +15,7 @@ public:
 				void		AddStoryOptions();
 				void		ChangeChapter(Chapter newChapter);
 	virtual		void		Initialize()										override;
+				void		ProcessChoice(unsigned int key);
 	virtual		void		ProcessOptionKeyPress(std::string key)				override;
 	virtual		void		ValidateKeyPressed(std::string key)					override;
 

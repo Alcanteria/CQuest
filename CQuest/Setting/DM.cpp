@@ -84,6 +84,19 @@ const std::string DM::GetRandomIntro() const
 	return gameIntros->at(poop);
 }
 
+/*
+****Moves the story to the next chapter.
+*/
+void DM::GoToNextChapter()
+{
+	story->NextChapter();
+
+	if (story->GetChapterIndex() > story->GetNumberOfChapters())
+	{
+		GetGame().EndGame();
+	}
+}
+
 /* 
 ****Performs the functions that need to be done at the launch of the program.
 */
@@ -126,6 +139,51 @@ Tools::Debug::Print(it->first + "\t" + it->second, Tools::Debug::PRIORITY::LOW);
 
 	// Test loading a story from file.
 	storyFileReader->LoadStoryFromFile(*story, "ChickenSaga.txt");
+}
+
+/*
+****Checks to see if the conditions for the game to end are met.
+*/
+const bool DM::IsGameOver() const
+{
+	if (IsRestOut() || IsTimeOut())
+		return true;
+	else
+		return false;
+}
+
+/*
+****Checks to see if the player's rest stat has run out.
+*/
+const bool DM::IsRestOut() const
+{
+	if (rest > 0)
+	{
+Tools::Debug::Print("DM::IsRestOut() - Rest left = " + std::to_string(rest), Tools::Debug::PRIORITY::MID);
+		return false;
+	}
+	else
+	{
+Tools::Debug::Print("DM::IsRestOut() - Ran out of rest. Rest left = " + std::to_string(rest), Tools::Debug::PRIORITY::MID);
+		return true;
+	}
+}
+
+/*
+****Checks to see if the player's time stat has run out.
+*/
+const bool DM::IsTimeOut() const
+{
+	if (timeLeft > 0)
+	{
+Tools::Debug::Print("DM::IsTimeOut() - Time left = " + std::to_string(timeLeft), Tools::Debug::PRIORITY::MID);
+		return false;
+	}
+	else
+	{
+Tools::Debug::Print("DM::IsTimeOut() - Ran out of time. Time left = " + std::to_string(timeLeft), Tools::Debug::PRIORITY::MID);
+		return true;
+	}
 }
 
 /*

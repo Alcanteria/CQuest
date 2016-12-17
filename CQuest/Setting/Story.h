@@ -17,6 +17,7 @@ public:
 	const	short						GetChapterIndex()								const	{ return chapterIndex; }
 	const	Chapter&					GetCurrentChapter()								const	{ return chapters.at(chapterIndex); }
 			Game&						GetGame()										const	{ return game; }
+	const	int							GetNumberOfChapters()							const	{ return chapters.size(); }
 			void						GoToChapter(short chapter)								{ chapterIndex = chapter; }
 			void						NextChapter()											{ chapterIndex++; }
 			void						PreviousChapter()										{ chapterIndex--; }

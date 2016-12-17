@@ -7,6 +7,7 @@ The Chicken That Couldn't Slow Down.
 @@@@STORY_DESCRIPTION
 General Tso wants his chicken back. But he'll have to catch it first.
 @@@@STORY_DESCRIPTION
+
 ########CHAPTER
 You are General Tso. Your chicken has escaped. You follow its footprints to your driveway, after which the trail is lost. Your mailman is standing where the trail ends. Do you...
 ####CHOICES
@@ -20,11 +21,77 @@ The mail man runs away in fear, but drops his mail bag. Upon searching it you fi
 The mail man put up quite a fight, but eventually fell to your might. Inside his mail bag you find a letter addressed to your chicken, inviting it to a party this afternoon. You head towards the location of the party.
 ####RESULTS
 ####STAT_CHANGES
-5
+6
+25
 0
-1
-1
-3
-10
+25
+12
+50
+####STAT_CHANGES
+########CHAPTER
+
+########CHAPTER
+You have tracked the chicken to a gas station. It appears you are too late, but you know it was here. Do you...
+####CHOICES
+Ask the clerk if he knows where the chicken went.
+Watch the security camera footage of the chicken's transaction.
+Run out and try to follow the chicken's tracks while they are still fresh.
+####CHOICES
+####RESULTS
+Derp
+Derp
+Derp
+####RESULTS
+####STAT_CHANGES
+6
+25
+12
+0
+0
+25
+####STAT_CHANGES
+########CHAPTER
+
+########CHAPTER
+You follow the trail to a busy highway. You see the chicken on the other side. Do you...
+####CHOICES
+Wait for traffic to slow down to cross.
+Run through traffic dodging cars.
+Go to a pedestrian bridge down the road to cross safely.
+####CHOICES
+####RESULTS
+Derp
+Derp
+Derp
+####RESULTS
+####STAT_CHANGES
+12
+0
+0
+50
+6
+25
+####STAT_CHANGES
+########CHAPTER
+
+########CHAPTER
+You arrive at a banquet just in time to see the chicken enter. There is heavy security. Do you...
+####CHOICES
+Cut your way through security. (You are General Fucking Tso!)
+Ask security to let you in.
+Sneak in through the back door.
+####CHOICES
+####RESULTS
+Derp
+Derp
+Derp
+####RESULTS
+####STAT_CHANGES
+0
+25
+6
+25
+12
+25
 ####STAT_CHANGES
 ########CHAPTER

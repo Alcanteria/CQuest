@@ -32,7 +32,11 @@ public:
 	const			std::map<std::string, std::string>&			GetStoryNames()									const			{ return *storyNames; }
 	const			std::map<std::string, std::string>&			GetStoryFileNames()								const			{ return *storyFileNames; }
 	const			int											GetTimeLeft()									const			{ return timeLeft; }
+					void										GoToNextChapter();
 					void										Initialize()									const;
+	const			bool										IsGameOver()									const;
+	const			bool										IsRestOut()										const;
+	const			bool										IsTimeOut()										const;
 					void										LoadNewStory(std::string storyID);
 					void										RemoveRest(int restLost)										{ rest -= restLost; }
 					void										RemoveTime(int timeLost)										{ timeLeft -= timeLost; }
